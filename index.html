@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioStatica - Master Biostatistics from Foundations to Modern Methods</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>BioStatica - Complete Guide to Biostatistics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400;1,700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -14,256 +14,324 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8fafc;
+            font-family: 'Charter', Georgia, serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: #fefefe;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Container for book-like layout */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
         /* Header */
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 2rem 0;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 4rem 0 3rem;
+            border-bottom: 3px solid #3498db;
+            margin-bottom: 3rem;
         }
 
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        h1 {
-            font-size: 3rem;
+        .title {
+            font-size: 3.5rem;
             font-weight: 700;
+            color: #2c3e50;
             margin-bottom: 1rem;
+            letter-spacing: -1px;
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
+            font-size: 1.3rem;
+            color: #7f8c8d;
+            font-style: italic;
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto 2rem;
         }
 
-        /* Navigation */
-        nav {
-            background: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .nav-content a {
-            color: #4a5568;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-content a:hover {
-            background: #e2e8f0;
-            color: #667eea;
-        }
-
-        /* Main Content */
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        .intro-section {
-            background: white;
-            padding: 3rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-
-        .intro-section h2 {
-            color: #2d3748;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .intro-section p {
+        .author {
             font-size: 1.1rem;
-            color: #4a5568;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Tutorial Sections */
-        .tutorial-section {
-            background: white;
-            margin-bottom: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            overflow: hidden;
-        }
-
-        .section-header {
-            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
-            color: white;
-            padding: 2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .section-header:hover {
-            background: linear-gradient(135deg, #3182ce 0%, #2c5aa0 100%);
-        }
-
-        .section-header h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .section-content {
-            padding: 2rem;
-            display: none;
-        }
-
-        .section-content.active {
-            display: block;
-        }
-
-        .topic-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .topic-card {
-            background: #f7fafc;
-            padding: 1.5rem;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-            transition: all 0.3s ease;
-        }
-
-        .topic-card:hover {
-            background: #edf2f7;
-            transform: translateY(-2px);
-        }
-
-        .topic-card h4 {
-            color: #2d3748;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .topic-card p {
-            color: #4a5568;
-            font-size: 0.9rem;
-        }
-
-        /* Interactive Tools Section */
-        .tools-section {
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-            color: white;
-            padding: 3rem;
-            border-radius: 12px;
-            margin: 3rem 0;
-            text-align: center;
-        }
-
-        .tools-section h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            color: #34495e;
             margin-top: 2rem;
         }
 
-        .tool-card {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
+        /* Table of Contents */
+        .toc {
+            background: #f8f9fa;
             border-radius: 8px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            border-left: 4px solid #3498db;
+        }
+
+        .toc h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 1rem;
+        }
+
+        .toc-list a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .toc-list a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        .chapter-number {
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        /* Chapter Styles */
+        .chapter {
+            margin: 4rem 0;
+            padding: 2rem 0;
+            border-top: 2px solid #ecf0f1;
+        }
+
+        .chapter:first-of-type {
+            border-top: none;
+        }
+
+        .chapter-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 2rem;
             text-align: center;
+            position: relative;
         }
 
-        .tool-card i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        .chapter-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: #3498db;
+            margin: 1rem auto;
         }
 
-        /* Footer */
-        footer {
-            background: #2d3748;
-            color: white;
-            padding: 3rem 0;
+        .chapter-intro {
+            font-size: 1.2rem;
+            color: #34495e;
+            font-style: italic;
             text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
+            margin-bottom: 3rem;
             padding: 0 2rem;
         }
 
-        .maintainer-info {
-            background: #4a5568;
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
+        /* Section Styles */
+        .section {
+            margin-bottom: 3rem;
         }
 
-        .maintainer-info h3 {
+        .section-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .difficulty-level {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
             margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .maintainer-info a {
-            color: #81e6d9;
-            text-decoration: none;
+        .beginner {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .intermediate {
+            background: #f39c12;
+            color: white;
+        }
+
+        .advanced {
+            background: #e74c3c;
+            color: white;
+        }
+
+        /* Content Blocks */
+        .concept-box {
+            background: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .concept-box h4 {
+            color: #2980b9;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .example-box {
+            background: #f0f9f0;
+            border-left: 4px solid #27ae60;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .example-box h4 {
+            color: #27ae60;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .formula-box {
+            background: #fdf6e3;
+            border: 1px solid #f1c40f;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 1.1rem;
+        }
+
+        .warning-box {
+            background: #fef9e7;
+            border-left: 4px solid #f39c12;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-box h4 {
+            color: #e67e22;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Lists */
+        ul, ol {
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Code */
+        code {
+            font-family: 'Source Code Pro', monospace;
+            background: #f8f9fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        /* Progress Tracker */
+        .progress-tracker {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+            width: 250px;
+            z-index: 100;
+        }
+
+        .progress-tracker h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .progress-item {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            padding: 0.3rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .progress-item:hover {
+            background: #f8f9fa;
+        }
+
+        .progress-item.active {
+            background: #3498db;
+            color: white;
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .progress-tracker {
+                display: none;
+            }
+        }
+
         @media (max-width: 768px) {
-            h1 {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .title {
+                font-size: 2.5rem;
+            }
+
+            .chapter-title {
                 font-size: 2rem;
             }
-            
-            .nav-content {
-                flex-direction: column;
-                gap: 0.5rem;
+
+            .toc {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .progress-tracker {
+                display: none;
             }
             
-            main {
-                padding: 2rem 1rem;
-            }
-            
-            .intro-section,
-            .section-header,
-            .section-content,
-            .tools-section {
-                padding: 2rem 1rem;
+            .chapter {
+                page-break-before: always;
             }
         }
 
@@ -272,272 +340,1302 @@
             scroll-behavior: smooth;
         }
 
-        /* Progress indicator */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            z-index: 101;
-            transition: width 0.3s ease;
+        /* Reading indicators */
+        .reading-time {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        /* Interactive elements */
+        .interactive-demo {
+            background: #f8f9fa;
+            border: 2px dashed #bdc3c7;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
-    <div class="progress-bar" id="progressBar"></div>
-    
-    <header>
-        <div class="header-content">
-            <h1><i class="fas fa-chart-line"></i> BioStatica</h1>
-            <p class="subtitle">A comprehensive, beginner-friendly platform offering tutorials, interactive modules, and real-world examples to master biostatistics—from foundational principles to modern methodologies used in cutting-edge research.</p>
+    <div class="container">
+        <header>
+            <h1 class="title">BioStatica</h1>
+            <p class="subtitle">A Complete Guide to Biostatistics: From Foundations to Advanced Methods</p>
+            <div class="author">
+                <strong>By Pawan Rama Mali</strong><br>
+                <em>A comprehensive textbook for beginners to experts</em>
+            </div>
+        </header>
+
+        <div class="toc">
+            <h2>Table of Contents</h2>
+            <ul class="toc-list">
+                <li><a href="#introduction"><span class="chapter-number">Introduction:</span> Welcome to Biostatistics</a></li>
+                <li><a href="#chapter1"><span class="chapter-number">Chapter 1:</span> Foundational Concepts</a></li>
+                <li><a href="#chapter2"><span class="chapter-number">Chapter 2:</span> Comparative Inference</a></li>
+                <li><a href="#chapter3"><span class="chapter-number">Chapter 3:</span> Multi-Group Analysis</a></li>
+                <li><a href="#chapter4"><span class="chapter-number">Chapter 4:</span> Interrelationships & Modeling</a></li>
+                <li><a href="#chapter5"><span class="chapter-number">Chapter 5:</span> Design & Power Considerations</a></li>
+                <li><a href="#chapter6"><span class="chapter-number">Chapter 6:</span> Specialized & Modern Methods</a></li>
+            </ul>
         </div>
-    </header>
 
-    <nav>
-        <div class="nav-content">
-            <a href="#introduction">Introduction</a>
-            <a href="#foundational">Foundational Concepts</a>
-            <a href="#comparative">Comparative Inference</a>
-            <a href="#multi-group">Multi-Group Analysis</a>
-            <a href="#modeling">Interrelationships & Modeling</a>
-            <a href="#design">Design & Power</a>
-            <a href="#specialized">Specialized Methods</a>
-            <a href="#tools">Interactive Tools</a>
+        <div id="introduction" class="chapter">
+            <h2 class="chapter-title">Introduction: Welcome to Biostatistics</h2>
+            <div class="reading-time">📖 Reading time: 5 minutes</div>
+            <p class="chapter-intro">Biostatistics is the application of statistics to biological and health-related data. This field bridges the gap between mathematical theory and real-world medical research, helping us make sense of complex biological phenomena and draw meaningful conclusions from data.</p>
+
+            <p>Whether you're a medical student beginning your research journey, a healthcare professional seeking to understand clinical studies, or a researcher diving into data analysis, this comprehensive guide will take you from basic concepts to advanced methodologies used in cutting-edge research.</p>
+
+            <div class="concept-box">
+                <h4>Why Biostatistics Matters</h4>
+                <p>Every major medical breakthrough—from vaccine development to treatment protocols—relies on biostatistical methods. Understanding these concepts enables you to:</p>
+                <ul>
+                    <li>Critically evaluate medical literature</li>
+                    <li>Design robust research studies</li>
+                    <li>Analyze complex biological data</li>
+                    <li>Make evidence-based decisions in healthcare</li>
+                </ul>
+            </div>
+
+            <p>This textbook is structured to provide a logical progression from fundamental concepts to specialized applications. Each chapter builds upon previous knowledge while remaining accessible to readers at different levels of statistical background.</p>
         </div>
-    </nav>
 
-    <main>
-        <section id="introduction" class="intro-section">
-            <h2><i class="fas fa-lightbulb"></i> Introduction</h2>
-            <p>BioStatica delivers a structured learning pathway—from statistical fundamentals to advanced methods in biostatistics—blending clarity with rigor for learners at all levels. Whether you're a beginner starting your journey in statistics or an advanced practitioner looking to enhance your skills, our comprehensive curriculum will guide you through every step.</p>
-        </section>
+        <div id="chapter1" class="chapter">
+            <h2 class="chapter-title">Chapter 1: Foundational Concepts</h2>
+            <div class="reading-time">📖 Reading time: 45 minutes</div>
+            <p class="chapter-intro">Master the essential building blocks of statistical thinking that form the foundation for all biostatistical analysis.</p>
 
-        <section id="foundational" class="tutorial-section">
-            <div class="section-header" onclick="toggleSection('foundational')">
-                <h3><i class="fas fa-foundation"></i> 1. Foundational Concepts</h3>
-            </div>
-            <div class="section-content" id="foundational-content">
-                <div class="topic-grid">
-                    <div class="topic-card">
-                        <h4><i class="fas fa-chart-bar"></i> Descriptive Statistics & Visualization</h4>
-                        <p>Explore summaries like mean, variance, and the use of histograms and boxplots to understand your data distribution and characteristics.</p>
-                    </div>
-                    <div class="topic-card">
-                        <h4><i class="fas fa-dice"></i> Probability & Distributions</h4>
-                        <p>Cover discrete and continuous distributions, normal and t-distributions, and the fundamental principles of probability theory.</p>
-                    </div>
-                    <div class="topic-card">
-                        <h4><i class="fas fa-random"></i> Sampling & Sampling Distributions</h4>
-                        <p>Understand central limit theorem and the behavior of means, essential for making inferences about populations.</p>
-                    </div>
-                    <div class="topic-card">
-                        <h4><i class="fas fa-bullseye"></i> Point & Interval Estimation</h4>
-                        <p>Learn about confidence intervals and estimation accuracy to quantify uncertainty in your statistical estimates.</p>
-                    </div>
-                    <div class="topic-card">
-                        <h4><i class="fas fa-question-circle"></i> Hypothesis Testing Framework</h4>
-                        <p>Learn null vs alternative hypotheses, Type I and II errors, p-values, and the logical foundation of statistical testing.</p>
-                    </div>
-                    <div class="topic-card">
-                        <h4><i class="fas fa-balance-scale"></i> One-Sample & Two-Sample t-Tests</h4>
-                        <p>Introduce t-test basics under equal-variance assumptions as core foundational tools for comparing means.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <div class="section">
+                <h3 class="section-title">1.1 Descriptive Statistics & Visualization</h3>
+                <div class="difficulty-level beginner">Beginner</div>
+                
+                <p>Before diving into complex analyses, we must first understand how to describe and visualize our data. Descriptive statistics provide the first glimpse into what our data tells us.</p>
 
-        <section id="comparative" class="tutorial-section">
-            <div class="section-header" onclick="toggleSection('comparative')">
-                <h3><i class="fas fa-exchange-alt"></i> 2. Comparative Inference</h3>
-            </div>
-            <div class="section-content" id="comparative-content">
-                <div class="topic-grid">
-                    <div class="topic-card">
-                        <h4><i class="fas fa-not-equal"></i> Welch's t-Test & Paired t-Test</h4>
-                        <p>Robust comparisons for unequal variances or paired samples, essential when assumptions of equal variance are violated.</p>
-                    </div>
-                    <div class="topic-card">
-                        <h4><i class="fas fa-sort-numeric-down"></i> Non-Parametric Alternatives</h4>
-                        <p>Covers Mann–Whitney, Kruskal–Wallis, and Wilcoxon tests for situations where normal distribution assumptions don't hold.</p>
-                    </div>
+                <div class="concept-box">
+                    <h4>Understanding Your Data</h4>
+                    <p>Every dataset tells a story. Descriptive statistics help us understand:</p>
+                    <ul>
+                        <li><strong>Central Tendency:</strong> Where does the typical value lie?</li>
+                        <li><strong>Variability:</strong> How spread out are our observations?</li>
+                        <li><strong>Shape:</strong> Is the data symmetric or skewed?</li>
+                        <li><strong>Outliers:</strong> Are there unusual observations?</li>
+                    </ul>
                 </div>
-            </div>
-        </section>
 
-        <section id="multi-group" class="tutorial-section">
-            <div class="section-header" onclick="toggleSection('multi-group')">
-                <h3><i class="fas fa-users"></i> 3. Multi-Group Analysis</h3>
-            </div>
-            <div class="section-content" id="multi-group-content">
-                <div class="topic-grid">
-                    <div class="topic-card">
-                        <h4><i class="fas fa-layer-group"></i> ANOVA & Post-hoc Comparisons</h4>
-                        <p>Methods like ANOVA, Tukey's HSD, and multiple comparisons controls for analyzing differences among three or more groups.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+                <h4>Measures of Central Tendency</h4>
+                
+                <p><strong>Mean (Average):</strong> The arithmetic mean is the sum of all values divided by the number of observations. While intuitive, it's sensitive to extreme values.</p>
 
-        <section id="modeling" class="tutorial-section">
-            <div class="section-header" onclick="toggleSection('modeling')">
-                <h3><i class="fas fa-project-diagram"></i> 4. Interrelationships & Modeling</h3>
-            </div>
-            <div class="section-content" id="modeling-content">
-                <div class="topic-grid">
-                    <div class="topic-card">
-                        <h4><i class="fas fa-link"></i> Correlation & Simple Linear Regression</h4>
-                        <p>Measure relationships between variables and understand the proportion of variance explained in simple regression models.</p>
-                    </div>
-                    <div class="topic-card">
-                        <h4><i class="fas fa-sitemap"></i> Multiple Regression & Logistic Regression</h4>
-                        <p>Modeling multiple predictors and binary outcomes, essential for real-world data analysis with complex relationships.</p>
-                    </div>
+                <div class="formula-box">
+                    Mean = Σx / n
                 </div>
-            </div>
-        </section>
 
-        <section id="design" class="tutorial-section">
-            <div class="section-header" onclick="toggleSection('design')">
-                <h3><i class="fas fa-ruler-combined"></i> 5. Design & Power Considerations</h3>
-            </div>
-            <div class="section-content" id="design-content">
-                <div class="topic-grid">
-                    <div class="topic-card">
-                        <h4><i class="fas fa-calculator"></i> Sample Size & Statistical Power</h4>
-                        <p>Planning for sufficient power and error control to ensure your studies can detect meaningful effects when they exist.</p>
-                    </div>
-                    <div class="topic-card">
-                        <h4><i class="fas fa-filter"></i> Multiple Testing Corrections</h4>
-                        <p>Adjustments like Bonferroni and FDR (False Discovery Rate) for controlling error rates when testing multiple hypotheses.</p>
-                    </div>
+                <div class="example-box">
+                    <h4>Example: Blood Pressure Study</h4>
+                    <p>Consider systolic blood pressure measurements from 7 patients: 120, 125, 118, 140, 122, 135, 180</p>
+                    <p>Mean = (120 + 125 + 118 + 140 + 122 + 135 + 180) / 7 = 134.3 mmHg</p>
+                    <p>Notice how the outlier (180) pulls the mean upward.</p>
                 </div>
-            </div>
-        </section>
 
-        <section id="specialized" class="tutorial-section">
-            <div class="section-header" onclick="toggleSection('specialized')">
-                <h3><i class="fas fa-microscope"></i> 6. Specialized & Modern Methods</h3>
-            </div>
-            <div class="section-content" id="specialized-content">
-                <div class="topic-grid">
-                    <div class="topic-card">
-                        <h4><i class="fas fa-heartbeat"></i> Survival Analysis</h4>
-                        <p>Kaplan–Meier curves and Cox proportional hazards models for time-to-event data analysis in medical research.</p>
-                    </div>
-                    <div class="topic-card">
-                        <h4><i class="fas fa-arrow-right"></i> Causal Inference</h4>
-                        <p>Techniques for estimating treatment effects from observational data, crucial for understanding cause-and-effect relationships.</p>
-                    </div>
-                    <div class="topic-card">
-                        <h4><i class="fas fa-puzzle-piece"></i> Missing Data & Imputation</h4>
-                        <p>Strategies for managing incomplete data, including multiple imputation and sensitivity analysis techniques.</p>
-                    </div>
-                    <div class="topic-card">
-                        <h4><i class="fas fa-compress-arrows-alt"></i> Meta-Analysis</h4>
-                        <p>Combining study results using fixed and random effects models to synthesize evidence across multiple studies.</p>
-                    </div>
-                    <div class="topic-card">
-                        <h4><i class="fas fa-brain"></i> Bayesian Methods</h4>
-                        <p>Incorporating prior knowledge into inference, offering a flexible framework for statistical modeling and uncertainty quantification.</p>
-                    </div>
-                    <div class="topic-card">
-                        <h4><i class="fas fa-robot"></i> Machine Learning & High-Throughput Data</h4>
-                        <p>Analysis of genomics and big data methods, bridging traditional statistics with modern computational approaches.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+                <p><strong>Median:</strong> The middle value when data is arranged in order. More robust to outliers than the mean.</p>
 
-        <section id="tools" class="tools-section">
-            <h2><i class="fas fa-tools"></i> Interactive Tools</h2>
-            <p>Enhance your learning with hands-on, interactive resources designed to reinforce key concepts and provide practical experience.</p>
-            <div class="tools-grid">
-                <div class="tool-card">
-                    <i class="fab fa-r-project"></i>
-                    <h3>R Notebooks</h3>
-                    <p>Interactive R notebooks with real datasets and guided exercises</p>
-                </div>
-                <div class="tool-card">
-                    <i class="fab fa-python"></i>
-                    <h3>Python Modules</h3>
-                    <p>Python-based statistical analysis with popular libraries like pandas and scipy</p>
-                </div>
-                <div class="tool-card">
-                    <i class="fas fa-question"></i>
-                    <h3>Quizzes</h3>
-                    <p>Self-assessment quizzes to test your understanding of key concepts</p>
-                </div>
-                <div class="tool-card">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Dynamic Visualizations</h3>
-                    <p>Interactive charts and graphs to explore statistical concepts visually</p>
-                </div>
-            </div>
-        </section>
-    </main>
+                <p><strong>Mode:</strong> The most frequently occurring value. Useful for categorical data or to identify peaks in distributions.</p>
 
-    <footer>
-        <div class="footer-content">
-            <div class="maintainer-info">
-                <h3><i class="fas fa-user-cog"></i> Maintainer</h3>
-                <p><strong>Pawan Rama Mali</strong></p>
-                <p>Email: <a href="mailto:prm@outlook.in">prm@outlook.in</a></p>
-                <p>GitHub: <a href="https://github.com/PawanRamaMali" target="_blank">PawanRamaMali</a></p>
+                <h4>Measures of Variability</h4>
+
+                <p><strong>Range:</strong> Simply the difference between maximum and minimum values. Easy to calculate but affected by outliers.</p>
+
+                <p><strong>Standard Deviation:</strong> Measures how much individual observations deviate from the mean. This is perhaps the most important measure of variability in statistics.</p>
+
+                <div class="formula-box">
+                    Standard Deviation = √(Σ(x - mean)² / (n-1))
+                </div>
+
+                <div class="warning-box">
+                    <h4>Common Mistake</h4>
+                    <p>Always use n-1 (not n) in the denominator when calculating sample standard deviation. This provides an unbiased estimate of population variability.</p>
+                </div>
+
+                <p><strong>Variance:</strong> The square of standard deviation. While less intuitive (different units), it's mathematically convenient for many statistical procedures.</p>
+
+                <h4>Data Visualization</h4>
+
+                <p>Visual representation of data often reveals patterns invisible in raw numbers:</p>
+
+                <p><strong>Histograms:</strong> Show the distribution shape and identify skewness, multiple peaks, or outliers.</p>
+
+                <p><strong>Box Plots:</strong> Provide a five-number summary (minimum, Q1, median, Q3, maximum) and clearly highlight outliers.</p>
+
+                <div class="example-box">
+                    <h4>Interpreting Box Plots in Medical Research</h4>
+                    <p>A box plot of recovery times after surgery might show:</p>
+                    <ul>
+                        <li>Median recovery: 7 days</li>
+                        <li>Most patients recover between 5-10 days (IQR)</li>
+                        <li>Some outliers taking 20+ days</li>
+                        <li>Distribution skewed toward longer recovery times</li>
+                    </ul>
+                </div>
+
+                <p><strong>Scatter Plots:</strong> Essential for examining relationships between two continuous variables.</p>
+
+                <div class="interactive-demo">
+                    <p>🔬 Interactive Demo Coming Soon: Explore how different data distributions affect summary statistics</p>
+                </div>
             </div>
-            <div>
-                <p><i class="fas fa-balance-scale"></i> Licensed under MIT License</p>
-                <p>&copy; 2025 BioStatica. All rights reserved.</p>
+
+            <div class="section">
+                <h3 class="section-title">1.2 Probability & Distributions</h3>
+                <div class="difficulty-level beginner">Beginner</div>
+
+                <p>Probability theory provides the mathematical foundation for statistical inference. Understanding distributions helps us model real-world phenomena and calculate the likelihood of different outcomes.</p>
+
+                <div class="concept-box">
+                    <h4>What is Probability?</h4>
+                    <p>Probability quantifies uncertainty. In medical research, we use probability to:</p>
+                    <ul>
+                        <li>Assess the likelihood of treatment success</li>
+                        <li>Calculate confidence in our estimates</li>
+                        <li>Determine sample sizes needed for studies</li>
+                        <li>Evaluate the strength of evidence against hypotheses</li>
+                    </ul>
+                </div>
+
+                <h4>Basic Probability Rules</h4>
+
+                <p>1. <strong>Addition Rule:</strong> P(A or B) = P(A) + P(B) - P(A and B)</p>
+                <p>2. <strong>Multiplication Rule:</strong> P(A and B) = P(A) × P(B|A)</p>
+                <p>3. <strong>Complement Rule:</strong> P(not A) = 1 - P(A)</p>
+
+                <div class="example-box">
+                    <h4>Medical Example: Disease Testing</h4>
+                    <p>Consider a diagnostic test for a rare disease:</p>
+                    <ul>
+                        <li>Disease prevalence: 1% (P(Disease) = 0.01)</li>
+                        <li>Test sensitivity: 95% (P(Positive|Disease) = 0.95)</li>
+                        <li>Test specificity: 90% (P(Negative|No Disease) = 0.90)</li>
+                    </ul>
+                    <p>What's the probability someone actually has the disease if they test positive?</p>
+                    <p>This requires Bayes' theorem and often surprises medical professionals!</p>
+                </div>
+
+                <h4>The Normal Distribution</h4>
+
+                <p>The normal (Gaussian) distribution is the cornerstone of statistical analysis. Many biological measurements naturally follow this bell-shaped curve.</p>
+
+                <div class="concept-box">
+                    <h4>Properties of Normal Distribution</h4>
+                    <ul>
+                        <li>Symmetric and bell-shaped</li>
+                        <li>Mean = Median = Mode</li>
+                        <li>68% of data within 1 standard deviation</li>
+                        <li>95% of data within 2 standard deviations</li>
+                        <li>99.7% of data within 3 standard deviations</li>
+                    </ul>
+                </div>
+
+                <p>Examples of normally distributed biological variables:</p>
+                <ul>
+                    <li>Height and weight in populations</li>
+                    <li>Blood pressure readings</li>
+                    <li>IQ scores</li>
+                    <li>Many laboratory test results</li>
+                </ul>
+
+                <h4>The t-Distribution</h4>
+
+                <p>When working with small samples (n < 30), the t-distribution becomes crucial. It's similar to the normal distribution but with heavier tails, accounting for additional uncertainty from small sample sizes.</p>
+
+                <div class="warning-box">
+                    <h4>When to Use t vs Normal</h4>
+                    <p>Use t-distribution when:</p>
+                    <ul>
+                        <li>Sample size is small (n < 30)</li>
+                        <li>Population standard deviation is unknown</li>
+                        <li>Data is approximately normally distributed</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">1.3 Sampling & Sampling Distributions</h3>
+                <div class="difficulty-level intermediate">Intermediate</div>
+
+                <p>Understanding how samples relate to populations is fundamental to statistical inference. The Central Limit Theorem bridges individual observations to population-level conclusions.</p>
+
+                <div class="concept-box">
+                    <h4>Population vs Sample</h4>
+                    <p><strong>Population:</strong> All possible subjects of interest (e.g., all patients with diabetes)</p>
+                    <p><strong>Sample:</strong> A subset of the population we actually observe (e.g., 100 diabetic patients in our study)</p>
+                    <p>We use sample statistics to estimate population parameters.</p>
+                </div>
+
+                <h4>Sampling Methods</h4>
+
+                <p><strong>Simple Random Sampling:</strong> Every member has equal chance of selection.</p>
+
+                <p><strong>Stratified Sampling:</strong> Population divided into groups (strata), then random sampling within each group.</p>
+
+                <div class="example-box">
+                    <h4>Stratified Sampling in Clinical Trials</h4>
+                    <p>When studying a new cardiac medication, researchers might stratify by:</p>
+                    <ul>
+                        <li>Age groups (18-40, 41-65, 65+)</li>
+                        <li>Gender</li>
+                        <li>Severity of condition</li>
+                    </ul>
+                    <p>This ensures adequate representation across important subgroups.</p>
+                </div>
+
+                <h4>The Central Limit Theorem</h4>
+
+                <p>This fundamental theorem states that sample means will be approximately normally distributed, regardless of the population distribution, as sample size increases (typically n ≥ 30).</p>
+
+                <div class="concept-box">
+                    <h4>Implications of Central Limit Theorem</h4>
+                    <ul>
+                        <li>We can use normal distribution for inference about means</li>
+                        <li>Larger samples give more precise estimates</li>
+                        <li>We can calculate confidence intervals and p-values</li>
+                        <li>Many statistical tests are based on this principle</li>
+                    </ul>
+                </div>
+
+                <div class="formula-box">
+                    Standard Error of Mean = σ / √n
+                </div>
+
+                <p>The standard error quantifies how much sample means vary from the true population mean.</p>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">1.4 Point & Interval Estimation</h3>
+                <div class="difficulty-level intermediate">Intermediate</div>
+
+                <p>Estimation allows us to use sample data to make educated guesses about population parameters, with quantified uncertainty.</p>
+
+                <h4>Point Estimation</h4>
+
+                <p>A point estimate is a single value that serves as our "best guess" for a population parameter.</p>
+
+                <div class="example-box">
+                    <h4>Point Estimates in Medicine</h4>
+                    <ul>
+                        <li>Sample mean blood pressure → Population mean blood pressure</li>
+                        <li>Sample proportion cured → Population cure rate</li>
+                        <li>Sample correlation → Population correlation</li>
+                    </ul>
+                </div>
+
+                <h4>Interval Estimation (Confidence Intervals)</h4>
+
+                <p>While point estimates provide a single value, confidence intervals provide a range of plausible values for the population parameter.</p>
+
+                <div class="concept-box">
+                    <h4>Interpreting Confidence Intervals</h4>
+                    <p>A 95% confidence interval means:</p>
+                    <p>"If we repeated this study 100 times, approximately 95 of the resulting confidence intervals would contain the true population parameter."</p>
+                </div>
+
+                <div class="formula-box">
+                    95% CI for mean = x̄ ± t(0.025, df) × (s/√n)
+                </div>
+
+                <div class="example-box">
+                    <h4>Clinical Example</h4>
+                    <p>A new pain medication reduces pain scores by an average of 3.2 points (95% CI: 2.1 to 4.3).</p>
+                    <p><strong>Interpretation:</strong> We're 95% confident the true average reduction is between 2.1 and 4.3 points.</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Common Misinterpretation</h4>
+                    <p>❌ "There's a 95% chance the true mean is in this interval"</p>
+                    <p>✅ "95% of such intervals would contain the true mean"</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">1.5 Hypothesis Testing Framework</h3>
+                <div class="difficulty-level intermediate">Intermediate</div>
+
+                <p>Hypothesis testing provides a structured approach to making decisions under uncertainty, fundamental to scientific research.</p>
+
+                <div class="concept-box">
+                    <h4>The Logic of Hypothesis Testing</h4>
+                    <p>We start with a skeptical position (null hypothesis) and ask: "Is our observed data surprising enough to abandon this position?"</p>
+                </div>
+
+                <h4>Setting Up Hypotheses</h4>
+
+                <p><strong>Null Hypothesis (H₀):</strong> The "no effect" or "status quo" hypothesis. What we assume is true until proven otherwise.</p>
+
+                <p><strong>Alternative Hypothesis (H₁ or Hₐ):</strong> The research hypothesis we're trying to establish.</p>
+
+                <div class="example-box">
+                    <h4>Hypothesis Example: New Treatment</h4>
+                    <p>Research question: "Does new drug X reduce blood pressure more than placebo?"</p>
+                    <ul>
+                        <li><strong>H₀:</strong> Drug X has no effect (μ_drug = μ_placebo)</li>
+                        <li><strong>H₁:</strong> Drug X reduces blood pressure (μ_drug < μ_placebo)</li>
+                    </ul>
+                </div>
+
+                <h4>Types of Errors</h4>
+
+                <p><strong>Type I Error (α):</strong> Rejecting a true null hypothesis (false positive)</p>
+                <p><strong>Type II Error (β):</strong> Failing to reject a false null hypothesis (false negative)</p>
+
+                <div class="concept-box">
+                    <h4>Medical Context of Errors</h4>
+                    <p><strong>Type I Error:</strong> Concluding a treatment works when it doesn't (could lead to using ineffective treatment)</p>
+                    <p><strong>Type II Error:</strong> Concluding a treatment doesn't work when it does (could lead to abandoning effective treatment)</p>
+                </div>
+
+                <h4>P-values</h4>
+
+                <p>The p-value answers: "If the null hypothesis were true, what's the probability of observing data as extreme or more extreme than what we actually observed?"</p>
+
+                <div class="warning-box">
+                    <h4>P-value Misconceptions</h4>
+                    <p>❌ "P-value is the probability the null hypothesis is true"</p>
+                    <p>❌ "P-value is the probability of making a mistake"</p>
+                    <p>✅ "P-value is the probability of observing such data if null hypothesis is true"</p>
+                </div>
+
+                <p><strong>Statistical Significance:</strong> Typically, p < 0.05 is considered statistically significant, meaning we reject the null hypothesis.</p>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">1.6 One-Sample & Two-Sample t-Tests</h3>
+                <div class="difficulty-level intermediate">Intermediate</div>
+
+                <p>T-tests are among the most commonly used statistical tests in biomedical research, allowing us to compare means between groups or against known values.</p>
+
+                <h4>One-Sample t-Test</h4>
+
+                <p>Compares a sample mean to a known population value or theoretical expectation.</p>
+
+                <div class="example-box">
+                    <h4>One-Sample Example</h4>
+                    <p>Normal body temperature is supposedly 98.6°F. We measure 25 healthy adults and want to test if the population mean differs from 98.6°F.</p>
+                    <ul>
+                        <li><strong>H₀:</strong> μ = 98.6°F</li>
+                        <li><strong>H₁:</strong> μ ≠ 98.6°F</li>
+                    </ul>
+                </div>
+
+                <div class="formula-box">
+                    t = (x̄ - μ₀) / (s/√n)
+                    <br>df = n - 1
+                </div>
+
+                <h4>Two-Sample t-Test (Equal Variances)</h4>
+
+                <p>Compares means between two independent groups, assuming equal population variances.</p>
+
+                <div class="concept-box">
+                    <h4>Assumptions for Two-Sample t-Test</h4>
+                    <ul>
+                        <li>Both samples from normal distributions</li>
+                        <li>Independent observations</li>
+                        <li>Equal population variances (homoscedasticity)</li>
+                    </ul>
+                </div>
+
+                <p>The <strong>pooled standard deviation</strong> combines information from both samples:</p>
+
+                <div class="formula-box">
+                    s_pooled = √[((n₁-1)s₁² + (n₂-1)s₂²) / (n₁+n₂-2)]
+                    <br><br>
+                    t = (x̄₁ - x̄₂) / (s_pooled × √(1/n₁ + 1/n₂))
+                </div>
+
+                <div class="example-box">
+                    <h4>Clinical Trial Example</h4>
+                    <p>Comparing pain scores between treatment and control groups:</p>
+                    <ul>
+                        <li><strong>Treatment group:</strong> n=20, mean=4.2, sd=1.8</li>
+                        <li><strong>Control group:</strong> n=18, mean=6.1, sd=2.1</li>
+                        <li><strong>Question:</strong> Does treatment reduce pain scores?</li>
+                    </ul>
+                </div>
+
+                <h4>When to Use Pooled vs Unpooled (Welch's) t-Test</h4>
+
+                <div class="warning-box">
+                    <h4>Testing Equal Variances</h4>
+                    <p>Use F-test or Levene's test to check equal variance assumption. If p > 0.05, variances are likely equal and pooled t-test is appropriate.</p>
+                </div>
+
+                <p>The pooled t-test is more powerful when variances are truly equal, but Welch's t-test is more robust when they're not.</p>
             </div>
         </div>
-    </footer>
+
+        <div id="chapter2" class="chapter">
+            <h2 class="chapter-title">Chapter 2: Comparative Inference</h2>
+            <div class="reading-time">📖 Reading time: 35 minutes</div>
+            <p class="chapter-intro">Advanced techniques for comparing groups when traditional assumptions don't hold, ensuring robust statistical inference across diverse research scenarios.</p>
+
+            <div class="section">
+                <h3 class="section-title">2.1 Welch's t-Test & Paired t-Test</h3>
+                <div class="difficulty-level intermediate">Intermediate</div>
+
+                <p>When the equal variance assumption is violated or when data comes in natural pairs, we need specialized approaches to maintain valid statistical inference.</p>
+
+                <h4>Welch's t-Test (Unequal Variances)</h4>
+
+                <p>When group variances differ substantially, the pooled t-test can give misleading results. Welch's t-test adjusts for unequal variances.</p>
+
+                <div class="formula-box">
+                    t = (x̄₁ - x̄₂) / √(s₁²/n₁ + s₂²/n₂)
+                    <br><br>
+                    df = (s₁²/n₁ + s₂²/n₂)² / [(s₁²/n₁)²/(n₁-1) + (s₂²/n₂)²/(n₂-1)]
+                </div>
+
+                <div class="example-box">
+                    <h4>When Variances Differ</h4>
+                    <p>Comparing recovery times between two surgical procedures:</p>
+                    <ul>
+                        <li><strong>Procedure A:</strong> mean=7 days, sd=2 days (low variability)</li>
+                        <li><strong>Procedure B:</strong> mean=8 days, sd=5 days (high variability)</li>
+                    </ul>
+                    <p>The large difference in standard deviations suggests using Welch's t-test.</p>
+                </div>
+
+                <h4>Paired t-Test</h4>
+
+                <p>When observations come in natural pairs (before/after, matched subjects), we analyze the differences rather than comparing groups directly.</p>
+
+                <div class="concept-box">
+                    <h4>When to Use Paired t-Test</h4>
+                    <ul>
+                        <li>Before/after measurements on same subjects</li>
+                        <li>Matched pairs (twins, siblings)</li>
+                        <li>Repeated measurements under different conditions</li>
+                        <li>Left vs right measurements (eyes, hands)</li>
+                    </ul>
+                </div>
+
+                <p>The paired t-test is more powerful than unpaired tests because it controls for individual differences.</p>
+
+                <div class="formula-box">
+                    d̄ = mean of differences
+                    <br>
+                    t = d̄ / (s_d/√n)
+                    <br>
+                    df = n - 1
+                </div>
+
+                <div class="example-box">
+                    <h4>Before/After Study</h4>
+                    <p>Blood pressure before and after medication in 15 patients:</p>
+                    <pre>
+Patient  Before  After  Difference
+1        140     132    -8
+2        155     145    -10
+3        138     140    +2
+...      ...     ...    ...
+                        Mean diff = -6.2
+                        SD diff = 4.1
+                        t = -6.2/(4.1/√15) = -5.85
+                    </pre>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">2.2 Non-Parametric Alternatives</h3>
+                <div class="difficulty-level advanced">Advanced</div>
+
+                <p>When data doesn't meet normality assumptions, non-parametric tests provide robust alternatives that rely on ranks rather than actual values.</p>
+
+                <h4>When to Use Non-Parametric Tests</h4>
+
+                <div class="concept-box">
+                    <h4>Situations Requiring Non-Parametric Approaches</h4>
+                    <ul>
+                        <li>Severely skewed data</li>
+                        <li>Ordinal data (ratings, scales)</li>
+                        <li>Small samples with questionable normality</li>
+                        <li>Presence of outliers that can't be removed</li>
+                    </ul>
+                </div>
+
+                <h4>Mann-Whitney U Test</h4>
+
+                <p>Non-parametric alternative to independent samples t-test. Compares medians rather than means.</p>
+
+                <div class="example-box">
+                    <h4>Skewed Data Example</h4>
+                    <p>Comparing hospital stay lengths (highly skewed data):</p>
+                    <ul>
+                        <li><strong>Treatment A:</strong> 2, 3, 3, 4, 5, 7, 25 days</li>
+                        <li><strong>Treatment B:</strong> 4, 5, 6, 7, 8, 12, 18 days</li>
+                    </ul>
+                    <p>The outlier (25 days) makes means misleading; Mann-Whitney focuses on typical values.</p>
+                </div>
+
+                <h4>Wilcoxon Signed-Rank Test</h4>
+
+                <p>Non-parametric alternative to paired t-test. Tests whether paired differences have median zero.</p>
+
+                <div class="concept-box">
+                    <h4>Advantages of Non-Parametric Tests</h4>
+                    <ul>
+                        <li>Robust to outliers</li>
+                        <li>No normality assumption</li>
+                        <li>Work with ordinal data</li>
+                        <li>Often nearly as powerful as parametric counterparts</li>
+                    </ul>
+                </div>
+
+                <h4>Kruskal-Wallis Test</h4>
+
+                <p>Extension of Mann-Whitney to multiple groups (non-parametric ANOVA).</p>
+
+                <div class="warning-box">
+                    <h4>Trade-offs</h4>
+                    <p>Non-parametric tests are more robust but:</p>
+                    <ul>
+                        <li>Slightly less powerful when normality holds</li>
+                        <li>Test different hypotheses (medians vs means)</li>
+                        <li>May require larger sample sizes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="chapter3" class="chapter">
+            <h2 class="chapter-title">Chapter 3: Multi-Group Analysis</h2>
+            <div class="reading-time">📖 Reading time: 40 minutes</div>
+            <p class="chapter-intro">When research involves comparing three or more groups, specialized techniques prevent inflated error rates while maintaining statistical power.</p>
+
+            <div class="section">
+                <h3 class="section-title">3.1 Analysis of Variance (ANOVA)</h3>
+                <div class="difficulty-level advanced">Advanced</div>
+
+                <p>ANOVA simultaneously compares means across multiple groups, controlling overall Type I error rate.</p>
+
+                <div class="concept-box">
+                    <h4>Why Not Multiple t-Tests?</h4>
+                    <p>Comparing 4 groups with t-tests requires 6 comparisons. With α = 0.05 each:</p>
+                    <p>Overall error rate = 1 - (0.95)⁶ = 0.26 (26%!)</p>
+                    <p>ANOVA maintains α = 0.05 across all comparisons.</p>
+                </div>
+
+                <h4>One-Way ANOVA</h4>
+
+                <p>Tests whether group means differ, partitioning total variability into between-group and within-group components.</p>
+
+                <div class="formula-box">
+                    F = MS_between / MS_within
+                    <br><br>
+                    MS_between = SS_between / (k-1)
+                    <br>
+                    MS_within = SS_within / (n-k)
+                </div>
+
+                <div class="example-box">
+                    <h4>Drug Comparison Study</h4>
+                    <p>Comparing pain reduction across 4 treatments:</p>
+                    <ul>
+                        <li><strong>Placebo:</strong> 1.2, 1.8, 2.1, 1.9, 1.5</li>
+                        <li><strong>Drug A:</strong> 3.2, 3.8, 4.1, 3.7, 3.4</li>
+                        <li><strong>Drug B:</strong> 4.8, 5.2, 4.9, 5.1, 4.7</li>
+                        <li><strong>Drug C:</strong> 2.9, 3.1, 2.8, 3.3, 2.7</li>
+                    </ul>
+                    <p>ANOVA tests: H₀: μ₁ = μ₂ = μ₃ = μ₄</p>
+                </div>
+
+                <h4>ANOVA Assumptions</h4>
+
+                <div class="warning-box">
+                    <h4>Critical Assumptions</h4>
+                    <ul>
+                        <li><strong>Normality:</strong> Residuals normally distributed</li>
+                        <li><strong>Homoscedasticity:</strong> Equal variances across groups</li>
+                        <li><strong>Independence:</strong> Observations independent</li>
+                    </ul>
+                    <p>Violations can seriously affect results!</p>
+                </div>
+
+                <h4>Post-Hoc Comparisons</h4>
+
+                <p>When ANOVA is significant, post-hoc tests identify which specific groups differ.</p>
+
+                <p><strong>Tukey's HSD (Honestly Significant Difference):</strong> Controls family-wise error rate across all pairwise comparisons.</p>
+
+                <div class="formula-box">
+                    HSD = q × √(MS_within/n)
+                </div>
+
+                <p><strong>Bonferroni Correction:</strong> Adjusts individual α levels: α_adj = α/number of comparisons</p>
+
+                <div class="example-box">
+                    <h4>Post-Hoc Results Interpretation</h4>
+                    <p>Following significant ANOVA (F = 12.4, p < 0.001):</p>
+                    <ul>
+                        <li>Drug B > Drug A (p = 0.02)</li>
+                        <li>Drug B > Drug C (p = 0.01)</li>
+                        <li>Drug B > Placebo (p < 0.001)</li>
+                        <li>Drug A > Placebo (p = 0.03)</li>
+                        <li>Drug C > Placebo (p = 0.04)</li>
+                        <li>Drug A vs Drug C: NS (p = 0.68)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="chapter4" class="chapter">
+            <h2 class="chapter-title">Chapter 4: Interrelationships & Modeling</h2>
+            <div class="reading-time">📖 Reading time: 50 minutes</div>
+            <p class="chapter-intro">Move beyond simple group comparisons to understand relationships between variables and build predictive models.</p>
+
+            <div class="section">
+                <h3 class="section-title">4.1 Correlation & Simple Linear Regression</h3>
+                <div class="difficulty-level intermediate">Intermediate</div>
+
+                <p>Correlation quantifies linear relationships, while regression allows prediction and causal inference.</p>
+
+                <h4>Pearson Correlation</h4>
+
+                <div class="formula-box">
+                    r = Σ[(x-x̄)(y-ȳ)] / √[Σ(x-x̄)² × Σ(y-ȳ)²]
+                </div>
+
+                <div class="concept-box">
+                    <h4>Interpreting Correlation</h4>
+                    <ul>
+                        <li><strong>r = 1:</strong> Perfect positive relationship</li>
+                        <li><strong>r = 0:</strong> No linear relationship</li>
+                        <li><strong>r = -1:</strong> Perfect negative relationship</li>
+                        <li><strong>|r| > 0.7:</strong> Strong relationship</li>
+                        <li><strong>|r| 0.3-0.7:</strong> Moderate relationship</li>
+                        <li><strong>|r| < 0.3:</strong> Weak relationship</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <h4>Medical Examples</h4>
+                    <ul>
+                        <li><strong>Height vs Weight:</strong> r = 0.75 (strong positive)</li>
+                        <li><strong>Age vs Lung Function:</strong> r = -0.65 (strong negative)</li>
+                        <li><strong>Blood Pressure vs Stress:</strong> r = 0.35 (moderate positive)</li>
+                    </ul>
+                </div>
+
+                <h4>Simple Linear Regression</h4>
+
+                <p>Regression goes beyond correlation by modeling one variable as a function of another: Y = β₀ + β₁X + ε</p>
+
+                <div class="formula-box">
+                    β₁ = r × (s_y/s_x)
+                    <br>
+                    β₀ = ȳ - β₁x̄
+                </div>
+
+                <div class="concept-box">
+                    <h4>Regression vs Correlation</h4>
+                    <p><strong>Correlation:</strong> "How strongly are X and Y related?"</p>
+                    <p><strong>Regression:</strong> "How does Y change when X changes by one unit?"</p>
+                </div>
+
+                <h4>R-squared (Coefficient of Determination)</h4>
+
+                <p>R² represents the proportion of variance in Y explained by X.</p>
+
+                <div class="example-box">
+                    <h4>Regression Example</h4>
+                    <p>Predicting systolic BP from age:</p>
+                    <p><strong>Equation:</strong> BP = 90 + 1.2 × Age</p>
+                    <p><strong>Interpretation:</strong> BP increases 1.2 mmHg per year of age</p>
+                    <p><strong>R² = 0.42:</strong> Age explains 42% of BP variation</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">4.2 Multiple Regression & Logistic Regression</h3>
+                <div class="difficulty-level advanced">Advanced</div>
+
+                <p>Real-world relationships involve multiple variables. Advanced regression techniques handle complex, multivariate relationships.</p>
+
+                <h4>Multiple Linear Regression</h4>
+
+                <div class="formula-box">
+                    Y = β₀ + β₁X₁ + β₂X₂ + ... + βₖXₖ + ε
+                </div>
+
+                <div class="concept-box">
+                    <h4>Advantages of Multiple Regression</h4>
+                    <ul>
+                        <li>Control for confounding variables</li>
+                        <li>Identify independent predictors</li>
+                        <li>Improve prediction accuracy</li>
+                        <li>Model complex relationships</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <h4>Multivariable BP Model</h4>
+                    <p>BP = 65 + 0.8×Age + 15×Gender + 0.3×Weight + 12×Smoking</p>
+                    <p>Each coefficient represents the effect when other variables are held constant:</p>
+                    <ul>
+                        <li>Age: +0.8 mmHg per year</li>
+                        <li>Male gender: +15 mmHg vs female</li>
+                        <li>Weight: +0.3 mmHg per pound</li>
+                        <li>Smoking: +12 mmHg vs non-smoker</li>
+                    </ul>
+                </div>
+
+                <h4>Logistic Regression</h4>
+
+                <p>When the outcome is binary (disease/no disease, success/failure), logistic regression models probability.</p>
+
+                <div class="formula-box">
+                    log(p/(1-p)) = β₀ + β₁X₁ + β₂X₂ + ...
+                    <br><br>
+                    p = e^(β₀+β₁X₁+...) / (1 + e^(β₀+β₁X₁+...))
+                </div>
+
+                <div class="concept-box">
+                    <h4>Odds Ratios</h4>
+                    <p>In logistic regression, e^βᵢ represents the odds ratio for variable i:</p>
+                    <p>OR > 1: Increased odds of outcome</p>
+                    <p>OR < 1: Decreased odds of outcome</p>
+                    <p>OR = 1: No association</p>
+                </div>
+
+                <div class="example-box">
+                    <h4>Disease Risk Model</h4>
+                    <p>Predicting heart disease risk:</p>
+                    <ul>
+                        <li><strong>Age coefficient = 0.05:</strong> OR = 1.05 per year</li>
+                        <li><strong>Smoking coefficient = 1.2:</strong> OR = 3.32 for smokers</li>
+                        <li><strong>Exercise coefficient = -0.8:</strong> OR = 0.45 for regular exercise</li>
+                    </ul>
+                    <p>A 50-year-old smoker who exercises regularly has 68% probability of heart disease</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="chapter5" class="chapter">
+            <h2 class="chapter-title">Chapter 5: Design & Power Considerations</h2>
+            <div class="reading-time">📖 Reading time: 35 minutes</div>
+            <p class="chapter-intro">Plan studies effectively by determining appropriate sample sizes and control error rates when testing multiple hypotheses.</p>
+
+            <div class="section">
+                <h3 class="section-title">5.1 Sample Size & Statistical Power</h3>
+                <div class="difficulty-level advanced">Advanced</div>
+
+                <p>Proper study planning ensures adequate power to detect meaningful effects while controlling costs and ethical considerations.</p>
+
+                <div class="concept-box">
+                    <h4>Power Analysis Components</h4>
+                    <ul>
+                        <li><strong>Effect Size:</strong> Magnitude of difference to detect</li>
+                        <li><strong>Alpha (α):</strong> Type I error rate (usually 0.05)</li>
+                        <li><strong>Power (1-β):</strong> Probability of detecting true effect</li>
+                        <li><strong>Sample Size (n):</strong> Number of subjects needed</li>
+                    </ul>
+                </div>
+
+                <h4>Cohen's Effect Sizes</h4>
+
+                <p>Standardized measures of effect magnitude:</p>
+
+                <div class="formula-box">
+                    Cohen's d = (μ₁ - μ₂) / σ
+                    <br><br>
+                    Small effect: d = 0.2
+                    <br>
+                    Medium effect: d = 0.5
+                    <br>
+                    Large effect: d = 0.8
+                </div>
+
+                <div class="example-box">
+                    <h4>Sample Size Calculation</h4>
+                    <p>Planning a clinical trial for new hypertension drug:</p>
+                    <ul>
+                        <li><strong>Expected effect:</strong> 10 mmHg reduction</li>
+                        <li><strong>Standard deviation:</strong> 20 mmHg</li>
+                        <li><strong>Effect size:</strong> d = 10/20 = 0.5 (medium)</li>
+                        <li><strong>Power desired:</strong> 80%</li>
+                        <li><strong>Alpha:</strong> 0.05</li>
+                        <li><strong>Sample size needed:</strong> 64 per group</li>
+                    </ul>
+                </div>
+
+                <h4>Factors Affecting Power</h4>
+
+                <div class="concept-box">
+                    <h4>Increasing Power</h4>
+                    <ul>
+                        <li><strong>Larger sample size:</strong> More data = more precision</li>
+                        <li><strong>Larger effect size:</strong> Bigger differences easier to detect</li>
+                        <li><strong>Lower variability:</strong> Better measurement, homogeneous population</li>
+                        <li><strong>Higher alpha:</strong> More lenient significance threshold</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Underpowered Studies</h4>
+                    <p>Studies with insufficient power:</p>
+                    <ul>
+                        <li>Waste resources and participant time</li>
+                        <li>May miss clinically important effects</li>
+                        <li>Contribute to publication bias</li>
+                        <li>Raise ethical concerns</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">5.2 Multiple Testing Corrections</h3>
+                <div class="difficulty-level advanced">Advanced</div>
+
+                <p>When testing multiple hypotheses simultaneously, special adjustments prevent inflated Type I error rates.</p>
+
+                <div class="concept-box">
+                    <h4>The Multiple Testing Problem</h4>
+                    <p>Testing 20 hypotheses at α = 0.05:</p>
+                    <p>Expected false positives = 20 × 0.05 = 1</p>
+                    <p>Family-wise error rate ≈ 64%</p>
+                </div>
+
+                <h4>Bonferroni Correction</h4>
+
+                <p>Most conservative approach: divide alpha by number of tests.</p>
+
+                <div class="formula-box">
+                    α_adjusted = α / m
+                    <br>
+                    (where m = number of tests)
+                </div>
+
+                <div class="example-box">
+                    <h4>Bonferroni Example</h4>
+                    <p>Testing 10 biomarkers for disease association:</p>
+                    <ul>
+                        <li><strong>Unadjusted α:</strong> 0.05</li>
+                        <li><strong>Bonferroni α:</strong> 0.05/10 = 0.005</li>
+                        <li><strong>Only p < 0.005 considered significant</strong></li>
+                    </ul>
+                </div>
+
+                <h4>False Discovery Rate (FDR)</h4>
+
+                <p>Less conservative than Bonferroni; controls proportion of false discoveries among rejected hypotheses.</p>
+
+                <div class="concept-box">
+                    <h4>When to Use FDR vs Bonferroni</h4>
+                    <p><strong>Bonferroni:</strong> When false positives are very costly (clinical decisions)</p>
+                    <p><strong>FDR:</strong> Exploratory research, genomics, when some false positives acceptable</p>
+                </div>
+
+                <h4>Practical Strategies</h4>
+
+                <div class="warning-box">
+                    <h4>Best Practices</h4>
+                    <ul>
+                        <li>Plan comparisons in advance</li>
+                        <li>Limit number of tests when possible</li>
+                        <li>Use hierarchical testing strategies</li>
+                        <li>Consider clinical significance, not just statistical</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="chapter6" class="chapter">
+            <h2 class="chapter-title">Chapter 6: Specialized & Modern Methods</h2>
+            <div class="reading-time">📖 Reading time: 60 minutes</div>
+            <p class="chapter-intro">Advanced techniques for complex data scenarios, from time-to-event analysis to modern computational approaches in the era of big data.</p>
+
+            <div class="section">
+                <h3 class="section-title">6.1 Survival Analysis</h3>
+                <div class="difficulty-level advanced">Advanced</div>
+
+                <p>Survival analysis handles time-to-event data, accounting for censoring and varying follow-up times.</p>
+
+                <div class="concept-box">
+                    <h4>Key Concepts in Survival Analysis</h4>
+                    <ul>
+                        <li><strong>Event:</strong> Death, relapse, recovery, etc.</li>
+                        <li><strong>Censoring:</strong> Incomplete observation (lost to follow-up)</li>
+                        <li><strong>Survival Function S(t):</strong> Probability of surviving past time t</li>
+                        <li><strong>Hazard Function h(t):</strong> Instantaneous risk at time t</li>
+                    </ul>
+                </div>
+
+                <h4>Kaplan-Meier Estimator</h4>
+
+                <p>Non-parametric method for estimating survival curves from censored data.</p>
+
+                <div class="formula-box">
+                    S(t) = ∏[1 - (dᵢ/nᵢ)]
+                    <br>
+                    for all i where tᵢ ≤ t
+                </div>
+
+                <div class="example-box">
+                    <h4>Cancer Survival Study</h4>
+                    <p>Following 100 cancer patients for 5 years:</p>
+                    <ul>
+                        <li><strong>1-year survival:</strong> 85%</li>
+                        <li><strong>3-year survival:</strong> 65%</li>
+                        <li><strong>5-year survival:</strong> 55%</li>
+                        <li><strong>Median survival:</strong> 4.2 years</li>
+                    </ul>
+                    <p>20 patients censored (lost to follow-up)</p>
+                </div>
+
+                <h4>Cox Proportional Hazards Model</h4>
+
+                <p>Semi-parametric regression model relating covariates to hazard rate.</p>
+
+                <div class="formula-box">
+                    h(t|X) = h₀(t) × exp(β₁X₁ + β₂X₂ + ...)
+                </div>
+
+                <div class="concept-box">
+                    <h4>Hazard Ratios</h4>
+                    <p>HR = exp(βᵢ) represents relative risk:</p>
+                    <ul>
+                        <li><strong>HR > 1:</strong> Increased risk</li>
+                        <li><strong>HR < 1:</strong> Decreased risk</li>
+                        <li><strong>HR = 1:</strong> No effect</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <h4>Cox Model Results</h4>
+                    <p>Factors affecting survival:</p>
+                    <ul>
+                        <li><strong>Age (per year):</strong> HR = 1.03 (3% increased risk)</li>
+                        <li><strong>Treatment A vs B:</strong> HR = 0.65 (35% reduced risk)</li>
+                        <li><strong>Stage III vs I:</strong> HR = 2.8 (180% increased risk)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">6.2 Causal Inference</h3>
+                <div class="difficulty-level advanced">Advanced</div>
+
+                <p>Moving beyond association to establish causality, particularly important in observational studies.</p>
+
+                <div class="concept-box">
+                    <h4>Correlation vs Causation</h4>
+                    <p>Just because A and B are correlated doesn't mean A causes B:</p>
+                    <ul>
+                        <li>B might cause A (reverse causation)</li>
+                        <li>C might cause both A and B (confounding)</li>
+                        <li>The relationship might be coincidental</li>
+                    </ul>
+                </div>
+
+                <h4>Confounding Variables</h4>
+
+                <p>Variables that affect both exposure and outcome, creating spurious associations.</p>
+
+                <div class="example-box">
+                    <h4>Classic Confounding Example</h4>
+                    <p>Ice cream sales and drowning deaths are correlated, but:</p>
+                    <ul>
+                        <li><strong>Confounding variable:</strong> Temperature/Season</li>
+                        <li><strong>Hot weather →</strong> More ice cream sales</li>
+                        <li><strong>Hot weather →</strong> More swimming → More drownings</li>
+                        <li><strong>Causal relationship:</strong> None between ice cream and drowning</li>
+                    </ul>
+                </div>
+
+                <h4>Methods for Causal Inference</h4>
+
+                <p><strong>Randomized Controlled Trials:</strong> Gold standard for establishing causality.</p>
+
+                <p><strong>Propensity Score Matching:</strong> Match subjects with similar probability of exposure.</p>
+
+                <p><strong>Instrumental Variables:</strong> Use variables affecting exposure but not outcome directly.</p>
+
+                <div class="warning-box">
+                    <h4>Bradford Hill Criteria</h4>
+                    <p>Guidelines for establishing causation from observational data:</p>
+                    <ul>
+                        <li>Strength of association</li>
+                        <li>Consistency across studies</li>
+                        <li>Temporal relationship</li>
+                        <li>Biological gradient (dose-response)</li>
+                        <li>Plausible mechanism</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">6.3 Missing Data & Imputation</h3>
+                <div class="difficulty-level advanced">Advanced</div>
+
+                <p>Missing data is ubiquitous in medical research. Proper handling prevents biased results and maintains statistical power.</p>
+
+                <div class="concept-box">
+                    <h4>Types of Missing Data</h4>
+                    <ul>
+                        <li><strong>MCAR:</strong> Missing Completely at Random</li>
+                        <li><strong>MAR:</strong> Missing at Random (given observed data)</li>
+                        <li><strong>MNAR:</strong> Missing Not at Random</li>
+                    </ul>
+                </div>
+
+                <h4>Implications of Missing Data</h4>
+
+                <div class="warning-box">
+                    <h4>Problems with Complete Case Analysis</h4>
+                    <ul>
+                        <li>Reduced sample size and power</li>
+                        <li>Biased estimates if not MCAR</li>
+                        <li>Loss of information</li>
+                        <li>Inefficient use of data</li>
+                    </ul>
+                </div>
+
+                <h4>Imputation Methods</h4>
+
+                <p><strong>Single Imputation:</strong> Replace missing values with estimates (mean, median, regression-based).</p>
+
+                <p><strong>Multiple Imputation:</strong> Create several complete datasets, analyze separately, pool results.</p>
+
+                <div class="example-box">
+                    <h4>Multiple Imputation Process</h4>
+                    <ol>
+                        <li><strong>Imputation:</strong> Create 5-10 complete datasets</li>
+                        <li><strong>Analysis:</strong> Analyze each dataset separately</li>
+                        <li><strong>Pooling:</strong> Combine results using Rubin's rules</li>
+                    </ol>
+                    <p>This accounts for uncertainty about missing values.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">6.4 Meta-Analysis</h3>
+                <div class="difficulty-level advanced">Advanced</div>
+
+                <p>Meta-analysis combines results from multiple studies to increase power and generalizability.</p>
+
+                <div class="concept-box">
+                    <h4>When to Conduct Meta-Analysis</h4>
+                    <ul>
+                        <li>Multiple studies on same question</li>
+                        <li>Individual studies underpowered</li>
+                        <li>Conflicting results across studies</li>
+                        <li>Need for policy/clinical decisions</li>
+                    </ul>
+                </div>
+
+                <h4>Fixed vs Random Effects</h4>
+
+                <p><strong>Fixed Effects:</strong> Assumes all studies estimate same underlying effect.</p>
+
+                <p><strong>Random Effects:</strong> Allows for study-to-study variation in true effects.</p>
+
+                <div class="formula-box">
+                    Fixed Effects: θ̂ = Σwᵢθᵢ / Σwᵢ
+                    <br>
+                    where wᵢ = 1/SE²ᵢ
+                </div>
+
+                <div class="example-box">
+                    <h4>Meta-Analysis Results</h4>
+                    <p>Combining 8 studies on new blood pressure medication:</p>
+                    <ul>
+                        <li><strong>Individual studies:</strong> Effects from -2 to -12 mmHg</li>
+                        <li><strong>Meta-analysis:</strong> -8.2 mmHg (95% CI: -10.1 to -6.3)</li>
+                        <li><strong>Heterogeneity:</strong> I² = 45% (moderate)</li>
+                        <li><strong>Overall effect:</strong> Highly significant (p < 0.001)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">6.5 Bayesian Methods</h3>
+                <div class="difficulty-level advanced">Advanced</div>
+
+                <p>Bayesian statistics incorporates prior knowledge and provides intuitive probability statements about parameters.</p>
+
+                <div class="concept-box">
+                    <h4>Bayesian vs Frequentist</h4>
+                    <p><strong>Frequentist:</strong> "What's the probability of observing this data if H₀ is true?"</p>
+                    <p><strong>Bayesian:</strong> "What's the probability that H₀ is true given this data?"</p>
+                </div>
+
+                <h4>Bayes' Theorem</h4>
+
+                <div class="formula-box">
+                    P(θ|data) = P(data|θ) × P(θ) / P(data)
+                    <br><br>
+                    Posterior ∝ Likelihood × Prior
+                </div>
+
+                <div class="example-box">
+                    <h4>Bayesian Clinical Trial</h4>
+                    <p>New treatment for rare disease:</p>
+                    <ul>
+                        <li><strong>Prior belief:</strong> 30% chance of success</li>
+                        <li><strong>Data:</strong> 8 successes in 10 patients</li>
+                        <li><strong>Posterior:</strong> 85% chance treatment works</li>
+                        <li><strong>Decision:</strong> Strong evidence to proceed</li>
+                    </ul>
+                </div>
+
+                <h4>Advantages of Bayesian Approach</h4>
+
+                <div class="concept-box">
+                    <h4>Bayesian Benefits</h4>
+                    <ul>
+                        <li>Incorporates prior knowledge</li>
+                        <li>Provides direct probability statements</li>
+                        <li>Natural framework for sequential analysis</li>
+                        <li>Handles complex models flexibly</li>
+                        <li>No p-value interpretation issues</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">6.6 Machine Learning & High-Throughput Data</h3>
+                <div class="difficulty-level advanced">Advanced</div>
+
+                <p>Modern computational approaches for analyzing large, complex datasets common in genomics and precision medicine.</p>
+
+                <div class="concept-box">
+                    <h4>When Traditional Statistics Falls Short</h4>
+                    <ul>
+                        <li>More variables than observations (p >> n)</li>
+                        <li>Complex, non-linear relationships</li>
+                        <li>High-dimensional data (genomics, imaging)</li>
+                        <li>Need for prediction over explanation</li>
+                    </ul>
+                </div>
+
+                <h4>Machine Learning Approaches</h4>
+
+                <p><strong>Supervised Learning:</strong> Learn patterns from labeled data to predict outcomes.</p>
+
+                <p><strong>Unsupervised Learning:</strong> Find hidden patterns in data without known outcomes.</p>
+
+                <div class="example-box">
+                    <h4>Genomic Applications</h4>
+                    <ul>
+                        <li><strong>Gene expression analysis:</strong> 20,000+ genes per sample</li>
+                        <li><strong>Genome-wide association studies:</strong> Millions of genetic variants</li>
+                        <li><strong>Drug discovery:</strong> Predict molecular behavior</li>
+                        <li><strong>Personalized medicine:</strong> Treatment selection based on patient profiles</li>
+                    </ul>
+                </div>
+
+                <h4>Key Techniques</h4>
+
+                <p><strong>Regularization:</strong> Prevents overfitting in high-dimensional data (LASSO, Ridge regression).</p>
+
+                <p><strong>Cross-validation:</strong> Assesses model performance on unseen data.</p>
+
+                <p><strong>Feature Selection:</strong> Identifies most relevant variables from thousands of candidates.</p>
+
+                <div class="warning-box">
+                    <h4>Challenges in High-Dimensional Data</h4>
+                    <ul>
+                        <li><strong>Overfitting:</strong> Models memorize noise rather than signal</li>
+                        <li><strong>Multiple testing:</strong> Thousands of simultaneous comparisons</li>
+                        <li><strong>Interpretability:</strong> Complex models may lack biological meaning</li>
+                        <li><strong>Validation:</strong> Results must replicate in independent datasets</li>
+                    </ul>
+                </div>
+
+                <div class="concept-box">
+                    <h4>The Future of Biostatistics</h4>
+                    <p>Integration of traditional statistical rigor with modern computational power:</p>
+                    <ul>
+                        <li>AI-assisted hypothesis generation</li>
+                        <li>Real-time adaptive clinical trials</li>
+                        <li>Precision medicine algorithms</li>
+                        <li>Integration of multi-omics data</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer style="text-align: center; padding: 3rem 0; border-top: 2px solid #ecf0f1; margin-top: 4rem;">
+            <div class="concept-box">
+                <h4>About the Author</h4>
+                <p><strong>Pawan Rama Mali</strong> is a biostatistician and educator passionate about making complex statistical concepts accessible to researchers and clinicians.</p>
+                <p>Contact: <a href="mailto:prm@outlook.in">prm@outlook.in</a> | GitHub: <a href="https://github.com/PawanRamaMali">PawanRamaMali</a></p>
+            </div>
+            <p style="margin-top: 2rem; color: #7f8c8d;"><em>Licensed under MIT License | © 2025 BioStatica</em></p>
+        </footer>
+    </div>
+
+    <div class="progress-tracker">
+        <h3>Progress Tracker</h3>
+        <div class="progress-item" onclick="scrollTo('introduction')">Introduction</div>
+        <div class="progress-item" onclick="scrollTo('chapter1')">Ch 1: Foundations</div>
+        <div class="progress-item" onclick="scrollTo('chapter2')">Ch 2: Comparisons</div>
+        <div class="progress-item" onclick="scrollTo('chapter3')">Ch 3: Multi-Group</div>
+        <div class="progress-item" onclick="scrollTo('chapter4')">Ch 4: Modeling</div>
+        <div class="progress-item" onclick="scrollTo('chapter5')">Ch 5: Design</div>
+        <div class="progress-item" onclick="scrollTo('chapter6')">Ch 6: Advanced</div>
+    </div>
 
     <script>
-        // Toggle section visibility
-        function toggleSection(sectionId) {
-            const content = document.getElementById(sectionId + '-content');
-            const allSections = document.querySelectorAll('.section-content');
+        // Smooth scrolling function
+        function scrollTo(elementId) {
+            document.getElementById(elementId).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Update active section in progress tracker
+        function updateProgressTracker() {
+            const sections = ['introduction', 'chapter1', 'chapter2', 'chapter3', 'chapter4', 'chapter5', 'chapter6'];
+            const progressItems = document.querySelectorAll('.progress-item');
             
-            // Close all other sections
-            allSections.forEach(section => {
-                if (section !== content) {
-                    section.classList.remove('active');
+            let currentSection = '';
+            const scrollPos = window.scrollY + 100;
+            
+            sections.forEach(sectionId => {
+                const element = document.getElementById(sectionId);
+                if (element && element.offsetTop <= scrollPos) {
+                    currentSection = sectionId;
                 }
             });
             
-            // Toggle current section
-            content.classList.toggle('active');
+            progressItems.forEach((item, index) => {
+                if (sections[index] === currentSection) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
         }
 
-        // Progress bar
-        function updateProgressBar() {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById('progressBar').style.width = scrolled + '%';
-        }
-
-        window.addEventListener('scroll', updateProgressBar);
-
-        // Smooth scrolling for navigation links
+        // Smooth scrolling for all links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                const targetId = this.getAttribute('href').substring(1);
+                scrollTo(targetId);
             });
         });
 
-        // Auto-expand first section on load
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('foundational-content').classList.add('active');
-        });
+        // Update progress tracker on scroll
+        window.addEventListener('scroll', updateProgressTracker);
+
+        // Initialize progress tracker
+        updateProgressTracker();
     </script>
 </body>
 </html>
