@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioStatica - Master Biostatistics from Foundations to Modern Methods</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8fafc;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .nav-content a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-content a:hover {
+            background: #e2e8f0;
+            color: #667eea;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .intro-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .intro-section h2 {
+            color: #2d3748;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .intro-section p {
+            font-size: 1.1rem;
+            color: #4a5568;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Tutorial Sections */
+        .tutorial-section {
+            background: white;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .section-header:hover {
+            background: linear-gradient(135deg, #3182ce 0%, #2c5aa0 100%);
+        }
+
+        .section-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-content {
+            padding: 2rem;
+            display: none;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .topic-card {
+            background: #f7fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .topic-card:hover {
+            background: #edf2f7;
+            transform: translateY(-2px);
+        }
+
+        .topic-card h4 {
+            color: #2d3748;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .topic-card p {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        /* Interactive Tools Section */
+        .tools-section {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .tools-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tool-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .tool-card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .maintainer-info {
+            background: #4a5568;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .maintainer-info h3 {
+            margin-bottom: 1rem;
+        }
+
+        .maintainer-info a {
+            color: #81e6d9;
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-content {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            main {
+                padding: 2rem 1rem;
+            }
+            
+            .intro-section,
+            .section-header,
+            .section-content,
+            .tools-section {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 101;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <header>
+        <div class="header-content">
+            <h1><i class="fas fa-chart-line"></i> BioStatica</h1>
+            <p class="subtitle">A comprehensive, beginner-friendly platform offering tutorials, interactive modules, and real-world examples to master biostatistics—from foundational principles to modern methodologies used in cutting-edge research.</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-content">
+            <a href="#introduction">Introduction</a>
+            <a href="#foundational">Foundational Concepts</a>
+            <a href="#comparative">Comparative Inference</a>
+            <a href="#multi-group">Multi-Group Analysis</a>
+            <a href="#modeling">Interrelationships & Modeling</a>
+            <a href="#design">Design & Power</a>
+            <a href="#specialized">Specialized Methods</a>
+            <a href="#tools">Interactive Tools</a>
+        </div>
+    </nav>
+
+    <main>
+        <section id="introduction" class="intro-section">
+            <h2><i class="fas fa-lightbulb"></i> Introduction</h2>
+            <p>BioStatica delivers a structured learning pathway—from statistical fundamentals to advanced methods in biostatistics—blending clarity with rigor for learners at all levels. Whether you're a beginner starting your journey in statistics or an advanced practitioner looking to enhance your skills, our comprehensive curriculum will guide you through every step.</p>
+        </section>
+
+        <section id="foundational" class="tutorial-section">
+            <div class="section-header" onclick="toggleSection('foundational')">
+                <h3><i class="fas fa-foundation"></i> 1. Foundational Concepts</h3>
+            </div>
+            <div class="section-content" id="foundational-content">
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4><i class="fas fa-chart-bar"></i> Descriptive Statistics & Visualization</h4>
+                        <p>Explore summaries like mean, variance, and the use of histograms and boxplots to understand your data distribution and characteristics.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4><i class="fas fa-dice"></i> Probability & Distributions</h4>
+                        <p>Cover discrete and continuous distributions, normal and t-distributions, and the fundamental principles of probability theory.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4><i class="fas fa-random"></i> Sampling & Sampling Distributions</h4>
+                        <p>Understand central limit theorem and the behavior of means, essential for making inferences about populations.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4><i class="fas fa-bullseye"></i> Point & Interval Estimation</h4>
+                        <p>Learn about confidence intervals and estimation accuracy to quantify uncertainty in your statistical estimates.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4><i class="fas fa-question-circle"></i> Hypothesis Testing Framework</h4>
+                        <p>Learn null vs alternative hypotheses, Type I and II errors, p-values, and the logical foundation of statistical testing.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4><i class="fas fa-balance-scale"></i> One-Sample & Two-Sample t-Tests</h4>
+                        <p>Introduce t-test basics under equal-variance assumptions as core foundational tools for comparing means.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparative" class="tutorial-section">
+            <div class="section-header" onclick="toggleSection('comparative')">
+                <h3><i class="fas fa-exchange-alt"></i> 2. Comparative Inference</h3>
+            </div>
+            <div class="section-content" id="comparative-content">
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4><i class="fas fa-not-equal"></i> Welch's t-Test & Paired t-Test</h4>
+                        <p>Robust comparisons for unequal variances or paired samples, essential when assumptions of equal variance are violated.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4><i class="fas fa-sort-numeric-down"></i> Non-Parametric Alternatives</h4>
+                        <p>Covers Mann–Whitney, Kruskal–Wallis, and Wilcoxon tests for situations where normal distribution assumptions don't hold.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="multi-group" class="tutorial-section">
+            <div class="section-header" onclick="toggleSection('multi-group')">
+                <h3><i class="fas fa-users"></i> 3. Multi-Group Analysis</h3>
+            </div>
+            <div class="section-content" id="multi-group-content">
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4><i class="fas fa-layer-group"></i> ANOVA & Post-hoc Comparisons</h4>
+                        <p>Methods like ANOVA, Tukey's HSD, and multiple comparisons controls for analyzing differences among three or more groups.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="modeling" class="tutorial-section">
+            <div class="section-header" onclick="toggleSection('modeling')">
+                <h3><i class="fas fa-project-diagram"></i> 4. Interrelationships & Modeling</h3>
+            </div>
+            <div class="section-content" id="modeling-content">
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4><i class="fas fa-link"></i> Correlation & Simple Linear Regression</h4>
+                        <p>Measure relationships between variables and understand the proportion of variance explained in simple regression models.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4><i class="fas fa-sitemap"></i> Multiple Regression & Logistic Regression</h4>
+                        <p>Modeling multiple predictors and binary outcomes, essential for real-world data analysis with complex relationships.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="design" class="tutorial-section">
+            <div class="section-header" onclick="toggleSection('design')">
+                <h3><i class="fas fa-ruler-combined"></i> 5. Design & Power Considerations</h3>
+            </div>
+            <div class="section-content" id="design-content">
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4><i class="fas fa-calculator"></i> Sample Size & Statistical Power</h4>
+                        <p>Planning for sufficient power and error control to ensure your studies can detect meaningful effects when they exist.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4><i class="fas fa-filter"></i> Multiple Testing Corrections</h4>
+                        <p>Adjustments like Bonferroni and FDR (False Discovery Rate) for controlling error rates when testing multiple hypotheses.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="specialized" class="tutorial-section">
+            <div class="section-header" onclick="toggleSection('specialized')">
+                <h3><i class="fas fa-microscope"></i> 6. Specialized & Modern Methods</h3>
+            </div>
+            <div class="section-content" id="specialized-content">
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <h4><i class="fas fa-heartbeat"></i> Survival Analysis</h4>
+                        <p>Kaplan–Meier curves and Cox proportional hazards models for time-to-event data analysis in medical research.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4><i class="fas fa-arrow-right"></i> Causal Inference</h4>
+                        <p>Techniques for estimating treatment effects from observational data, crucial for understanding cause-and-effect relationships.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4><i class="fas fa-puzzle-piece"></i> Missing Data & Imputation</h4>
+                        <p>Strategies for managing incomplete data, including multiple imputation and sensitivity analysis techniques.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4><i class="fas fa-compress-arrows-alt"></i> Meta-Analysis</h4>
+                        <p>Combining study results using fixed and random effects models to synthesize evidence across multiple studies.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4><i class="fas fa-brain"></i> Bayesian Methods</h4>
+                        <p>Incorporating prior knowledge into inference, offering a flexible framework for statistical modeling and uncertainty quantification.</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4><i class="fas fa-robot"></i> Machine Learning & High-Throughput Data</h4>
+                        <p>Analysis of genomics and big data methods, bridging traditional statistics with modern computational approaches.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tools" class="tools-section">
+            <h2><i class="fas fa-tools"></i> Interactive Tools</h2>
+            <p>Enhance your learning with hands-on, interactive resources designed to reinforce key concepts and provide practical experience.</p>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <i class="fab fa-r-project"></i>
+                    <h3>R Notebooks</h3>
+                    <p>Interactive R notebooks with real datasets and guided exercises</p>
+                </div>
+                <div class="tool-card">
+                    <i class="fab fa-python"></i>
+                    <h3>Python Modules</h3>
+                    <p>Python-based statistical analysis with popular libraries like pandas and scipy</p>
+                </div>
+                <div class="tool-card">
+                    <i class="fas fa-question"></i>
+                    <h3>Quizzes</h3>
+                    <p>Self-assessment quizzes to test your understanding of key concepts</p>
+                </div>
+                <div class="tool-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Dynamic Visualizations</h3>
+                    <p>Interactive charts and graphs to explore statistical concepts visually</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="maintainer-info">
+                <h3><i class="fas fa-user-cog"></i> Maintainer</h3>
+                <p><strong>Pawan Rama Mali</strong></p>
+                <p>Email: <a href="mailto:prm@outlook.in">prm@outlook.in</a></p>
+                <p>GitHub: <a href="https://github.com/PawanRamaMali" target="_blank">PawanRamaMali</a></p>
+            </div>
+            <div>
+                <p><i class="fas fa-balance-scale"></i> Licensed under MIT License</p>
+                <p>&copy; 2025 BioStatica. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle section visibility
+        function toggleSection(sectionId) {
+            const content = document.getElementById(sectionId + '-content');
+            const allSections = document.querySelectorAll('.section-content');
+            
+            // Close all other sections
+            allSections.forEach(section => {
+                if (section !== content) {
+                    section.classList.remove('active');
+                }
+            });
+            
+            // Toggle current section
+            content.classList.toggle('active');
+        }
+
+        // Progress bar
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        }
+
+        window.addEventListener('scroll', updateProgressBar);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Auto-expand first section on load
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('foundational-content').classList.add('active');
+        });
+    </script>
+</body>
+</html>
