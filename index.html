@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BioStatica - Complete Guide to Biostatistics</title>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- PDF Generation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script>
+        // Fallback for jsPDF if primary CDN fails
+        if (typeof window.jspdf === 'undefined') {
+            console.log('Primary jsPDF CDN failed, trying fallback...');
+            var script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+            script.onload = function() {
+                console.log('Fallback jsPDF loaded successfully');
+            };
+            script.onerror = function() {
+                console.error('Fallback jsPDF also failed to load');
+            };
+            document.head.appendChild(script);
+        } else {
+            console.log('jsPDF loaded from primary CDN');
+        }
+    </script>
     <style>
         /* Reset and Base Styles */
         * {
@@ -508,6 +529,45 @@
             .progress-tracker {
                 display: none;
             }
+            
+            /* Show a mobile PDF button when progress tracker is hidden */
+            .mobile-pdf-btn {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 100;
+                background: linear-gradient(135deg, #3182ce, #2c5aa0);
+                color: white;
+                border: none;
+                padding: 0.8rem 1.2rem;
+                border-radius: 8px;
+                font-size: 0.9rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-family: 'Source Sans 3', sans-serif;
+                box-shadow: 0 4px 16px rgba(49, 130, 206, 0.3);
+                white-space: nowrap;
+                display: block;
+            }
+            
+            .mobile-pdf-btn:hover {
+                background: linear-gradient(135deg, #2c5aa0, #2a4d96);
+                transform: translateY(-1px);
+                box-shadow: 0 6px 20px rgba(49, 130, 206, 0.4);
+            }
+            
+            .mobile-pdf-btn:disabled {
+                background: #a0aec0;
+                cursor: not-allowed;
+                transform: none;
+                box-shadow: none;
+            }
+        }
+
+        /* Hide mobile button on larger screens */
+        .mobile-pdf-btn {
+            display: none;
         }
 
         @media (max-width: 768px) {
@@ -583,6 +643,83 @@
             z-index: 101;
             transition: transform 0.3s ease;
         }
+
+        /* PDF Download Container */
+        .pdf-download-container {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* PDF Download Button */
+        .pdf-download-btn {
+            background: linear-gradient(135deg, #3182ce, #2c5aa0);
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Source Sans 3', sans-serif;
+            box-shadow: 0 2px 12px rgba(49, 130, 206, 0.3);
+            white-space: nowrap;
+        }
+
+        .pdf-download-btn:hover {
+            background: linear-gradient(135deg, #2c5aa0, #2a4d96);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(49, 130, 206, 0.4);
+        }
+
+        .pdf-download-btn:active {
+            transform: translateY(0);
+        }
+
+        .pdf-download-btn:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* PDF generation status */
+        .pdf-status {
+            margin-top: 0.5rem;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.8rem;
+            text-align: center;
+            display: none;
+            max-width: 260px;
+            word-wrap: break-word;
+        }
+
+        .pdf-status.generating {
+            background: #fef5e7;
+            color: #744210;
+            border: 1px solid #f6ad55;
+            display: block;
+        }
+
+        .pdf-status.success {
+            background: #f0fff4;
+            color: #2f855a;
+            border: 1px solid #68d391;
+            display: block;
+        }
+
+        .pdf-status.error {
+            background: #fed7d7;
+            color: #c53030;
+            border: 1px solid #fc8181;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -596,6 +733,7 @@
                 <strong>By Pawan Rama Mali</strong><br>
                 <em>A comprehensive textbook for beginners to experts</em>
             </div>
+            
         </header>
 
         <div class="toc">
@@ -605,6 +743,13 @@
                 <li><a href="#chapter1"><span class="chapter-number">Chapter 1:</span> Foundational Concepts</a></li>
                 <li><a href="#chapter2"><span class="chapter-number">Chapter 2:</span> Comparative Inference</a></li>
                 <li><a href="#chapter3"><span class="chapter-number">Chapter 3:</span> Multi-Group Analysis</a></li>
+                    <ul style="margin-left: 2rem; list-style: none; margin-top: 0.5rem;">
+                        <li><a href="#section3-1" style="font-size: 0.95rem; color: #4a5568;">3.1 Introduction to ANOVA</a></li>
+                        <li><a href="#section3-2" style="font-size: 0.95rem; color: #4a5568;">3.2 One-Way ANOVA: Step-by-Step</a></li>
+                        <li><a href="#section3-3" style="font-size: 0.95rem; color: #4a5568;">3.3 Post-Hoc Tests</a></li>
+                        <li><a href="#section3-4" style="font-size: 0.95rem; color: #4a5568;">3.4 Two-Way ANOVA</a></li>
+                        <li><a href="#section3-5" style="font-size: 0.95rem; color: #4a5568;">3.5 Assumptions & Alternatives</a></li>
+                    </ul>
                 <li><a href="#chapter4"><span class="chapter-number">Chapter 4:</span> Interrelationships & Modeling</a></li>
                 <li><a href="#chapter5"><span class="chapter-number">Chapter 5:</span> Design & Power Considerations</a></li>
                 <li><a href="#chapter6"><span class="chapter-number">Chapter 6:</span> Specialized & Modern Methods</a></li>
@@ -1223,8 +1368,475 @@
         <!-- Continuing with other chapters... -->
         <div id="chapter3" class="chapter">
             <h2 class="chapter-title">Chapter 3: Multi-Group Analysis</h2>
-            <div class="reading-time">📖 Reading time: 40 minutes</div>
+            <div class="reading-time">📖 Reading time: 60 minutes</div>
             <p class="chapter-intro">When research involves comparing three or more groups, specialized techniques prevent inflated error rates while maintaining statistical power.</p>
+
+            <div id="section3-1" class="section">
+                <h3 class="section-title">3.1 Introduction to ANOVA (Analysis of Variance)</h3>
+                <div class="difficulty-level intermediate">Intermediate</div>
+                
+                <p>When comparing means across three or more groups, using multiple t-tests creates a serious statistical problem: <strong>multiple comparisons</strong>. ANOVA provides an elegant solution by testing all groups simultaneously while controlling error rates.</p>
+
+                <div class="warning-box">
+                    <h4>Why Not Multiple t-Tests?</h4>
+                    <p>With 3 groups, you'd need 3 t-tests. With α = 0.05 for each test:</p>
+                    <ul>
+                        <li><strong>Individual error rate:</strong> 5% per test</li>
+                        <li><strong>Family-wise error rate:</strong> 1 - (0.95)³ = 14.3%</li>
+                        <li><strong>Problem:</strong> Much higher chance of false positives!</li>
+                    </ul>
+                    <p>With 5 groups, you'd need 10 tests, inflating error rate to ~40%!</p>
+                </div>
+
+                <div class="concept-box">
+                    <h4>The Logic of ANOVA</h4>
+                    <p>ANOVA compares two sources of variation:</p>
+                    <ul>
+                        <li><strong>Between-groups variation:</strong> Differences due to treatment effects</li>
+                        <li><strong>Within-groups variation:</strong> Random variation (noise)</li>
+                    </ul>
+                    <p><strong>Key Insight:</strong> If treatment has no effect, both sources should be similar. If there's a real effect, between-groups variation will be much larger.</p>
+                </div>
+
+                <h4>ANOVA Hypotheses</h4>
+                
+                <p><strong>Null Hypothesis (H₀):</strong> All group means are equal</p>
+                <p>H₀: μ₁ = μ₂ = μ₃ = ... = μₖ</p>
+                
+                <p><strong>Alternative Hypothesis (H₁):</strong> At least one group mean differs</p>
+                <p>H₁: Not all μᵢ are equal</p>
+
+                <div class="example-box">
+                    <h4>Medical Research Example</h4>
+                    <p><strong>Research Question:</strong> Do three different pain medications have different effectiveness?</p>
+                    <ul>
+                        <li><strong>Group 1:</strong> Medication A (n=25)</li>
+                        <li><strong>Group 2:</strong> Medication B (n=23)</li>
+                        <li><strong>Group 3:</strong> Placebo (n=27)</li>
+                        <li><strong>Outcome:</strong> Pain reduction score (0-10 scale)</li>
+                    </ul>
+                    <p><strong>H₀:</strong> μₐ = μᵦ = μₚₗₐᶜₑᵦₒ (all medications equally effective)</p>
+                    <p><strong>H₁:</strong> At least one medication differs in effectiveness</p>
+                </div>
+
+                <h4>The F-Statistic</h4>
+
+                <p>ANOVA uses the F-statistic to compare variances:</p>
+
+                <div class="formula-box">
+                    F = MSB / MSW
+                    <br><br>
+                    where:
+                    <br>MSB = Mean Square Between groups
+                    <br>MSW = Mean Square Within groups
+                </div>
+
+                <div class="concept-box">
+                    <h4>Understanding the F-Ratio</h4>
+                    <ul>
+                        <li><strong>F ≈ 1:</strong> Between-group variation similar to within-group variation → No treatment effect</li>
+                        <li><strong>F >> 1:</strong> Between-group variation much larger → Likely treatment effect</li>
+                        <li><strong>F < 1:</strong> Rare, suggests less variation between groups than within (unusual)</li>
+                    </ul>
+                </div>
+
+                <h4>ANOVA Assumptions</h4>
+
+                <div class="warning-box">
+                    <h4>Critical Assumptions</h4>
+                    <ul>
+                        <li><strong>Independence:</strong> Observations must be independent</li>
+                        <li><strong>Normality:</strong> Data in each group should be approximately normal</li>
+                        <li><strong>Homoscedasticity:</strong> Equal variances across all groups</li>
+                    </ul>
+                    <p><strong>Violation Consequences:</strong> Increased Type I error, reduced power, invalid conclusions</p>
+                </div>
+
+                <div class="example-box">
+                    <h4>Checking Assumptions in Practice</h4>
+                    <p><strong>Independence:</strong> Ensure proper randomization and no clustering</p>
+                    <p><strong>Normality:</strong></p>
+                    <ul>
+                        <li>Visual: Q-Q plots, histograms for each group</li>
+                        <li>Statistical: Shapiro-Wilk test (if n < 50)</li>
+                        <li>Robust: ANOVA reasonably robust with n > 30 per group</li>
+                    </ul>
+                    <p><strong>Equal Variances:</strong></p>
+                    <ul>
+                        <li>Visual: Box plots, side-by-side</li>
+                        <li>Statistical: Levene's test (preferred), Bartlett's test</li>
+                        <li>Rule of thumb: Largest SD / Smallest SD < 2</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="section3-2" class="section">
+                <h3 class="section-title">3.2 One-Way ANOVA: Step-by-Step</h3>
+                <div class="difficulty-level intermediate">Intermediate</div>
+
+                <p>One-way ANOVA compares means across groups defined by a single categorical variable (factor).</p>
+
+                <h4>ANOVA Table Components</h4>
+
+                <div class="concept-box">
+                    <h4>Understanding ANOVA Table</h4>
+                    <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; font-family: 'Source Sans 3', sans-serif;">
+                        <tr style="background: #e2e8f0;">
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem; font-weight: 600;">Source</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem; font-weight: 600;">df</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem; font-weight: 600;">SS</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem; font-weight: 600;">MS</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem; font-weight: 600;">F</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">Between</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">k-1</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">SSB</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">MSB</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">MSB/MSW</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">Within</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">N-k</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">SSW</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">MSW</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">-</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">Total</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">N-1</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">SST</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">-</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">-</td>
+                        </tr>
+                    </table>
+                    <p><strong>Where:</strong> k = number of groups, N = total sample size</p>
+                </div>
+
+                <h4>Calculating Sum of Squares</h4>
+
+                <div class="formula-box">
+                    <strong>Total Sum of Squares (SST):</strong>
+                    <br>SST = Σᵢ(xᵢ - x̄)²
+                    <br><br>
+                    <strong>Between Groups Sum of Squares (SSB):</strong>
+                    <br>SSB = Σⱼnⱼ(x̄ⱼ - x̄)²
+                    <br><br>
+                    <strong>Within Groups Sum of Squares (SSW):</strong>
+                    <br>SSW = SST - SSB
+                </div>
+
+                <div class="example-box">
+                    <h4>Worked Example: Pain Medication Study</h4>
+                    <p><strong>Data:</strong></p>
+                    <ul>
+                        <li><strong>Medication A:</strong> 7, 8, 6, 9, 7 (n₁=5, x̄₁=7.4)</li>
+                        <li><strong>Medication B:</strong> 5, 6, 4, 7, 5 (n₂=5, x̄₂=5.4)</li>
+                        <li><strong>Placebo:</strong> 3, 4, 2, 5, 3 (n₃=5, x̄₃=3.4)</li>
+                    </ul>
+                    
+                    <p><strong>Step 1: Calculate overall mean</strong></p>
+                    <p>x̄ = (7.4×5 + 5.4×5 + 3.4×5) / 15 = 81/15 = 5.4</p>
+
+                    <p><strong>Step 2: Calculate SSB</strong></p>
+                    <p>SSB = 5×(7.4-5.4)² + 5×(5.4-5.4)² + 5×(3.4-5.4)²</p>
+                    <p>SSB = 5×4 + 5×0 + 5×4 = 40</p>
+
+                    <p><strong>Step 3: Calculate SST</strong></p>
+                    <p>SST = (7-5.4)² + (8-5.4)² + ... + (3-5.4)² = 56</p>
+
+                    <p><strong>Step 4: Calculate SSW</strong></p>
+                    <p>SSW = SST - SSB = 56 - 40 = 16</p>
+
+                    <p><strong>Step 5: Calculate Mean Squares</strong></p>
+                    <p>MSB = SSB/(k-1) = 40/(3-1) = 20</p>
+                    <p>MSW = SSW/(N-k) = 16/(15-3) = 1.33</p>
+
+                    <p><strong>Step 6: Calculate F-statistic</strong></p>
+                    <p>F = MSB/MSW = 20/1.33 = 15.0</p>
+
+                    <p><strong>Step 7: Compare to critical value</strong></p>
+                    <p>F₀.₀₅,₂,₁₂ = 3.89. Since 15.0 > 3.89, p < 0.05</p>
+                    <p><strong>Conclusion:</strong> Reject H₀. At least one medication differs significantly.</p>
+                </div>
+            </div>
+
+            <div id="section3-3" class="section">
+                <h3 class="section-title">3.3 Post-Hoc Tests and Multiple Comparisons</h3>
+                <div class="difficulty-level intermediate">Intermediate</div>
+
+                <p>When ANOVA shows significant differences, <strong>post-hoc tests</strong> determine which specific groups differ from each other.</p>
+
+                <div class="concept-box">
+                    <h4>Why Post-Hoc Tests?</h4>
+                    <p>ANOVA only tells us that "at least one group differs" but not:</p>
+                    <ul>
+                        <li>Which specific groups are different?</li>
+                        <li>How many groups are different?</li>
+                        <li>The magnitude of differences?</li>
+                    </ul>
+                    <p>Post-hoc tests provide pairwise comparisons while controlling family-wise error rate.</p>
+                </div>
+
+                <h4>Common Post-Hoc Tests</h4>
+
+                <div class="example-box">
+                    <h4>Tukey's HSD (Honestly Significant Difference)</h4>
+                    <p><strong>When to use:</strong> Most common, good balance of power and control</p>
+                    <p><strong>Formula:</strong> HSD = q × √(MSW/n)</p>
+                    <p><strong>Advantage:</strong> Controls family-wise error rate at α</p>
+                    <p><strong>Disadvantage:</strong> Requires equal sample sizes (or harmonic mean)</p>
+                    
+                    <p><strong>Interpretation:</strong> If |x̄ᵢ - x̄ⱼ| > HSD, groups i and j differ significantly</p>
+                </div>
+
+                <div class="example-box">
+                    <h4>Bonferroni Correction</h4>
+                    <p><strong>When to use:</strong> Conservative approach, few planned comparisons</p>
+                    <p><strong>Method:</strong> Use α/c for each comparison (c = number of comparisons)</p>
+                    <p><strong>Example:</strong> With 3 groups, 3 comparisons, use α = 0.05/3 = 0.017</p>
+                    <p><strong>Advantage:</strong> Simple, very conservative</p>
+                    <p><strong>Disadvantage:</strong> Can be overly conservative, reduced power</p>
+                </div>
+
+                <div class="example-box">
+                    <h4>Scheffé's Test</h4>
+                    <p><strong>When to use:</strong> Any possible comparison, not just pairwise</p>
+                    <p><strong>Advantage:</strong> Most flexible, allows complex contrasts</p>
+                    <p><strong>Disadvantage:</strong> Most conservative for simple pairwise comparisons</p>
+                </div>
+
+                <h4>Continuing Our Pain Medication Example</h4>
+
+                <div class="example-box">
+                    <h4>Post-Hoc Analysis</h4>
+                    <p>We found F = 15.0, p < 0.05. Now let's determine which medications differ:</p>
+                    
+                    <p><strong>Tukey's HSD Calculation:</strong></p>
+                    <p>HSD = q₀.₀₅,₃,₁₂ × √(MSW/n) = 3.77 × √(1.33/5) = 1.94</p>
+                    
+                    <p><strong>Pairwise Comparisons:</strong></p>
+                    <ul>
+                        <li>|Med A - Med B| = |7.4 - 5.4| = 2.0 > 1.94 ✓ <strong>Significant</strong></li>
+                        <li>|Med A - Placebo| = |7.4 - 3.4| = 4.0 > 1.94 ✓ <strong>Significant</strong></li>
+                        <li>|Med B - Placebo| = |5.4 - 3.4| = 2.0 > 1.94 ✓ <strong>Significant</strong></li>
+                    </ul>
+                    
+                    <p><strong>Conclusion:</strong> All three treatments differ significantly from each other.</p>
+                    <p><strong>Clinical Interpretation:</strong> Med A > Med B > Placebo for pain reduction.</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Common Mistakes in Post-Hoc Testing</h4>
+                    <ul>
+                        <li><strong>❌ Running post-hocs when ANOVA is not significant</strong> → Fishing for significance</li>
+                        <li><strong>❌ Using multiple different post-hoc tests</strong> → Inflated error rates</li>
+                        <li><strong>❌ Ignoring practical significance</strong> → Statistical ≠ clinical significance</li>
+                        <li><strong>✅ Choose post-hoc test before analysis</strong> → Avoid bias</li>
+                        <li><strong>✅ Report effect sizes</strong> → Practical importance</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="section3-4" class="section">
+                <h3 class="section-title">3.4 Two-Way ANOVA</h3>
+                <div class="difficulty-level advanced">Advanced</div>
+
+                <p>Two-way ANOVA examines the effects of two categorical variables (factors) simultaneously, including their potential interaction.</p>
+
+                <div class="concept-box">
+                    <h4>Advantages of Two-Way ANOVA</h4>
+                    <ul>
+                        <li><strong>Efficiency:</strong> Tests multiple factors in one analysis</li>
+                        <li><strong>Interaction Detection:</strong> Identifies when factors work together</li>
+                        <li><strong>Control:</strong> Accounts for additional sources of variation</li>
+                        <li><strong>Power:</strong> Often more powerful than separate one-way ANOVAs</li>
+                    </ul>
+                </div>
+
+                <h4>Three Research Questions</h4>
+
+                <p>Two-way ANOVA addresses three hypotheses simultaneously:</p>
+
+                <div class="formula-box">
+                    <strong>Main Effect of Factor A:</strong> H₀: μ₁• = μ₂• = ... = μₐ•
+                    <br><strong>Main Effect of Factor B:</strong> H₀: μ•₁ = μ•₂ = ... = μ•ᵦ
+                    <br><strong>Interaction Effect:</strong> H₀: No A×B interaction
+                </div>
+
+                <div class="example-box">
+                    <h4>Clinical Trial Example: Drug and Exercise</h4>
+                    <p><strong>Research Question:</strong> Do cholesterol-lowering drugs and exercise programs interact?</p>
+                    
+                    <p><strong>Factor A (Drug):</strong> New drug vs. Placebo</p>
+                    <p><strong>Factor B (Exercise):</strong> High intensity vs. Low intensity</p>
+                    <p><strong>Outcome:</strong> Cholesterol reduction (mg/dL)</p>
+                    
+                    <p><strong>Design:</strong> 2×2 factorial design</p>
+                    <ul>
+                        <li>Group 1: New drug + High exercise (n=20)</li>
+                        <li>Group 2: New drug + Low exercise (n=20)</li>
+                        <li>Group 3: Placebo + High exercise (n=20)</li>
+                        <li>Group 4: Placebo + Low exercise (n=20)</li>
+                    </ul>
+                </div>
+
+                <h4>Understanding Interactions</h4>
+
+                <div class="concept-box">
+                    <h4>Types of Interaction Effects</h4>
+                    <p><strong>No Interaction:</strong> Effect of Factor A is the same at all levels of Factor B</p>
+                    <p><strong>Ordinal Interaction:</strong> Effect of Factor A varies in magnitude but not direction</p>
+                    <p><strong>Disordinal Interaction:</strong> Effect of Factor A changes direction at different levels of Factor B</p>
+                </div>
+
+                <div class="example-box">
+                    <h4>Interpreting Interaction: Hypothetical Results</h4>
+                    <p><strong>Scenario 1: No Interaction</strong></p>
+                    <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                        <tr style="background: #e2e8f0;">
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;"></td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem; font-weight: 600;">High Exercise</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem; font-weight: 600;">Low Exercise</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem; font-weight: 600;">Difference</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem; font-weight: 600;">New Drug</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">40 mg/dL</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">30 mg/dL</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">10 mg/dL</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem; font-weight: 600;">Placebo</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">20 mg/dL</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">10 mg/dL</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">10 mg/dL</td>
+                        </tr>
+                    </table>
+                    <p><strong>Interpretation:</strong> Exercise always improves cholesterol by 10 mg/dL, regardless of drug</p>
+
+                    <p><strong>Scenario 2: Significant Interaction</strong></p>
+                    <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                        <tr style="background: #e2e8f0;">
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;"></td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem; font-weight: 600;">High Exercise</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem; font-weight: 600;">Low Exercise</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem; font-weight: 600;">Difference</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem; font-weight: 600;">New Drug</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">50 mg/dL</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">25 mg/dL</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">25 mg/dL</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem; font-weight: 600;">Placebo</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">15 mg/dL</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">10 mg/dL</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.5rem;">5 mg/dL</td>
+                        </tr>
+                    </table>
+                    <p><strong>Interpretation:</strong> The drug works much better with high exercise (synergistic effect)</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Interpreting Two-Way ANOVA Results</h4>
+                    <p><strong>If interaction is significant:</strong></p>
+                    <ul>
+                        <li>Focus primarily on interaction interpretation</li>
+                        <li>Main effects may be misleading</li>
+                        <li>Use simple effects analysis or interaction contrasts</li>
+                    </ul>
+                    
+                    <p><strong>If interaction is not significant:</strong></p>
+                    <ul>
+                        <li>Interpret main effects independently</li>
+                        <li>Each factor's effect is consistent across levels of the other</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="section3-5" class="section">
+                <h3 class="section-title">3.5 ANOVA in Practice: Assumptions and Alternatives</h3>
+                <div class="difficulty-level intermediate">Intermediate</div>
+
+                <h4>When ANOVA Assumptions Fail</h4>
+
+                <div class="warning-box">
+                    <h4>Assumption Violations and Solutions</h4>
+                    <p><strong>Non-normality:</strong></p>
+                    <ul>
+                        <li><strong>Mild violation:</strong> ANOVA is robust (central limit theorem)</li>
+                        <li><strong>Severe violation:</strong> Use Kruskal-Wallis test (non-parametric)</li>
+                        <li><strong>Transformation:</strong> Log, square root, or Box-Cox transformations</li>
+                    </ul>
+
+                    <p><strong>Unequal variances:</strong></p>
+                    <ul>
+                        <li><strong>Welch's ANOVA:</strong> Doesn't assume equal variances</li>
+                        <li><strong>Brown-Forsythe test:</strong> Robust to variance differences</li>
+                        <li><strong>Transformation:</strong> Often stabilizes variances</li>
+                    </ul>
+
+                    <p><strong>Non-independence:</strong></p>
+                    <ul>
+                        <li><strong>Most serious violation</strong> → Inflated Type I error</li>
+                        <li><strong>Solutions:</strong> Mixed-effects models, cluster-robust standard errors</li>
+                        <li><strong>Design fix:</strong> Proper randomization, account for clustering</li>
+                    </ul>
+                </div>
+
+                <h4>Effect Size and Practical Significance</h4>
+
+                <div class="concept-box">
+                    <h4>Effect Size Measures for ANOVA</h4>
+                    <p><strong>Eta-squared (η²):</strong> Proportion of total variance explained</p>
+                    <p>η² = SSB / SST</p>
+                    
+                    <p><strong>Partial Eta-squared:</strong> More common in complex designs</p>
+                    <p>ηₚ² = SSB / (SSB + SSW)</p>
+                    
+                    <p><strong>Cohen's Guidelines:</strong></p>
+                    <ul>
+                        <li>Small effect: η² = 0.01</li>
+                        <li>Medium effect: η² = 0.06</li>
+                        <li>Large effect: η² = 0.14</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <h4>Reporting ANOVA Results</h4>
+                    <p><strong>Complete ANOVA Report:</strong></p>
+                    <p>"A one-way ANOVA was conducted to compare the effectiveness of three pain medications. The analysis revealed a statistically significant difference between groups, F(2, 12) = 15.0, p < 0.001, η² = 0.71, indicating a large effect size.</p>
+                    
+                    <p>Post-hoc comparisons using Tukey's HSD test indicated that all pairwise comparisons were statistically significant (p < 0.05). Medication A (M = 7.4, SD = 1.1) was more effective than Medication B (M = 5.4, SD = 1.1), which was more effective than Placebo (M = 3.4, SD = 1.1)."</p>
+                </div>
+
+                <h4>Power Analysis for ANOVA</h4>
+
+                <div class="concept-box">
+                    <h4>Sample Size Planning</h4>
+                    <p>Power analysis helps determine appropriate sample sizes before conducting research:</p>
+                    <ul>
+                        <li><strong>Specify:</strong> Effect size, significance level (α), desired power</li>
+                        <li><strong>Effect size:</strong> Based on pilot data or literature</li>
+                        <li><strong>Common power:</strong> 0.80 (80% chance of detecting true effect)</li>
+                        <li><strong>Balance:</strong> Equal sample sizes maximize power</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <h4>Power Analysis Example</h4>
+                    <p><strong>Research Planning:</strong> Comparing 4 treatments for depression</p>
+                    <ul>
+                        <li><strong>Expected effect size:</strong> f = 0.25 (medium effect)</li>
+                        <li><strong>Significance level:</strong> α = 0.05</li>
+                        <li><strong>Desired power:</strong> 0.80</li>
+                        <li><strong>Result:</strong> Need n = 45 per group (180 total)</li>
+                    </ul>
+                    <p><strong>Interpretation:</strong> With 45 participants per group, we have an 80% chance of detecting a medium-sized difference if it truly exists.</p>
+                </div>
+            </div>
         </div>
 
         <div id="chapter4" class="chapter">
@@ -1254,6 +1866,11 @@
             <p style="margin-top: 2rem; color: #4a5568;"><em>Licensed under MIT License | © 2025 BioStatica</em></p>
         </footer>
     </div>
+
+    <!-- Mobile PDF Download Button (visible only on smaller screens) -->
+    <button id="mobilePdfBtn" class="mobile-pdf-btn" onclick="generatePDF()">
+        📄 Download PDF
+    </button>
 
     <div class="progress-tracker">
         <h3>Learning Progress</h3>
@@ -1291,6 +1908,11 @@
                 <button class="bookmark-btn" onclick="toggleBookmark(event, 'chapter3')" title="Bookmark this chapter">📌</button>
                 Ch 3: Multi-Group
             </div>
+            <div class="progress-subsection" data-target="section3-1" onclick="scrollToSection('section3-1')">3.1 Introduction to ANOVA</div>
+            <div class="progress-subsection" data-target="section3-2" onclick="scrollToSection('section3-2')">3.2 One-Way ANOVA</div>
+            <div class="progress-subsection" data-target="section3-3" onclick="scrollToSection('section3-3')">3.3 Post-Hoc Tests</div>
+            <div class="progress-subsection" data-target="section3-4" onclick="scrollToSection('section3-4')">3.4 Two-Way ANOVA</div>
+            <div class="progress-subsection" data-target="section3-5" onclick="scrollToSection('section3-5')">3.5 Assumptions & Alternatives</div>
         </div>
 
         <div class="progress-section">
@@ -1319,6 +1941,14 @@
             <div class="reading-progress-bar">
                 <div class="reading-progress-fill" id="progressFill"></div>
             </div>
+        </div>
+
+        <!-- PDF Download Button -->
+        <div class="pdf-download-container">
+            <button id="downloadPdfBtn" class="pdf-download-btn" onclick="generatePDF()">
+                📄 PDF
+            </button>
+            <div id="pdfStatus" class="pdf-status"></div>
         </div>
     </div>
 
@@ -1400,7 +2030,7 @@
         // Update active section in progress tracker
         function updateProgressTracker() {
             const sections = ['introduction', 'chapter1', 'chapter2', 'chapter3', 'chapter4', 'chapter5', 'chapter6'];
-            const subsections = ['section1-1', 'section1-2', 'section1-3', 'section1-4', 'section1-5', 'section1-6', 'section2-1'];
+            const subsections = ['section1-1', 'section1-2', 'section1-3', 'section1-4', 'section1-5', 'section1-6', 'section2-1', 'section3-1', 'section3-2', 'section3-3', 'section3-4', 'section3-5'];
             const allSections = [...sections, ...subsections];
             
             const progressItems = document.querySelectorAll('.progress-chapter, .progress-subsection');
@@ -1514,11 +2144,485 @@
         window.addEventListener('scroll', updateProgressTracker);
         window.addEventListener('hashchange', handleHashNavigation);
 
+        // Wait for jsPDF library to load
+        function waitForJsPDF() {
+            return new Promise((resolve, reject) => {
+                let attempts = 0;
+                const maxAttempts = 50; // 5 seconds
+                
+                function checkLibrary() {
+                    attempts++;
+                    if (typeof window.jspdf !== 'undefined') {
+                        console.log('jsPDF is ready via window.jspdf!');
+                        resolve(window.jspdf);
+                    } else if (typeof jsPDF !== 'undefined') {
+                        console.log('jsPDF is ready as global variable!');
+                        resolve({ jsPDF: jsPDF });
+                    } else if (attempts >= maxAttempts) {
+                        reject(new Error('jsPDF library failed to load after 5 seconds'));
+                    } else {
+                        setTimeout(checkLibrary, 100);
+                    }
+                }
+                
+                checkLibrary();
+            });
+        }
+
+
+        // Enhanced PDF Generation Function with proper page breaks and TOC
+        async function generatePDF() {
+            const button = document.getElementById('downloadPdfBtn');
+            const mobileButton = document.getElementById('mobilePdfBtn');
+            const statusDiv = document.getElementById('pdfStatus');
+            
+            // Disable both buttons
+            if (button) {
+                button.disabled = true;
+                button.innerHTML = '⏳ Generating...';
+            }
+            if (mobileButton) {
+                mobileButton.disabled = true;
+                mobileButton.innerHTML = '⏳ Generating PDF...';
+            }
+            
+            // Show status (only if statusDiv exists, for desktop)
+            if (statusDiv) {
+                statusDiv.className = 'pdf-status generating';
+                statusDiv.innerHTML = 'Initializing PDF generation...';
+            }
+
+            try {
+                // Wait for jsPDF to be available
+                if (statusDiv) statusDiv.innerHTML = 'Loading PDF library...';
+                
+                console.log('Starting PDF generation...');
+                const jsPDFModule = await waitForJsPDF();
+                console.log('PDF library loaded successfully');
+                
+                const { jsPDF } = jsPDFModule;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                // PDF settings
+                const pageWidth = 210;
+                const pageHeight = 297;
+                const margin = 20;
+                const lineHeight = 6;
+                const contentWidth = pageWidth - (2 * margin);
+                let currentY = margin;
+                let pageNumber = 1;
+                
+                if (statusDiv) statusDiv.innerHTML = 'Generating title page...';
+
+                // Set fonts
+                pdf.setFont('helvetica', 'bold');
+                
+                // Title Page
+                pdf.setFontSize(24);
+                pdf.text('BioStatica', pageWidth / 2, 60, { align: 'center' });
+                
+                pdf.setFontSize(16);
+                pdf.setFont('helvetica', 'normal');
+                pdf.text('A Complete Guide to Biostatistics:', pageWidth / 2, 80, { align: 'center' });
+                pdf.text('From Foundations to Advanced Methods', pageWidth / 2, 90, { align: 'center' });
+                
+                pdf.setFontSize(14);
+                pdf.text('By Pawan Rama Mali', pageWidth / 2, 120, { align: 'center' });
+                
+                pdf.setFontSize(12);
+                pdf.text('A comprehensive textbook for beginners to experts', pageWidth / 2, 140, { align: 'center' });
+                
+                // Add date
+                const titleNow = new Date();
+                const titleDateStr = titleNow.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                pdf.text(titleDateStr, pageWidth / 2, pageHeight - 40, { align: 'center' });
+
+                // Function to add page number
+                function addPageNumber() {
+                    pdf.setFontSize(10);
+                    pdf.setFont('helvetica', 'normal');
+                    pdf.text(`Page ${pageNumber}`, pageWidth - margin, pageHeight - 10, { align: 'right' });
+                    pageNumber++;
+                }
+
+                // Function to check if new page is needed
+                function checkNewPage(requiredSpace = 20) {
+                    if (currentY + requiredSpace > pageHeight - 30) {
+                        addPageNumber();
+                        pdf.addPage();
+                        currentY = margin;
+                        return true;
+                    }
+                    return false;
+                }
+
+                // Function to add text with word wrapping
+                function addText(text, fontSize = 11, fontStyle = 'normal', maxWidth = contentWidth, color = [0, 0, 0]) {
+                    pdf.setFontSize(fontSize);
+                    pdf.setFont('helvetica', fontStyle);
+                    pdf.setTextColor(color[0], color[1], color[2]);
+                    
+                    const lines = pdf.splitTextToSize(text, maxWidth);
+                    const textHeight = lines.length * lineHeight;
+                    
+                    checkNewPage(textHeight);
+                    
+                    lines.forEach(line => {
+                        pdf.text(line, margin, currentY);
+                        currentY += lineHeight;
+                    });
+                    
+                    return textHeight;
+                }
+
+                if (statusDiv) statusDiv.innerHTML = 'Creating table of contents...';
+
+                // New page for TOC
+                addPageNumber();
+                pdf.addPage();
+                currentY = margin;
+
+                // Table of Contents
+                pdf.setFontSize(18);
+                pdf.setFont('helvetica', 'bold');
+                pdf.text('Table of Contents', margin, currentY);
+                currentY += 15;
+
+                const tocItems = [
+                    { title: 'Introduction: Welcome to Biostatistics', page: pageNumber + 1 },
+                    { title: 'Chapter 1: Foundational Concepts', page: pageNumber + 2 },
+                    { title: '  1.1 Descriptive Statistics & Visualization', page: pageNumber + 3 },
+                    { title: '  1.2 Probability & Distributions', page: pageNumber + 5 },
+                    { title: '  1.3 Sampling & Sampling Distributions', page: pageNumber + 7 },
+                    { title: '  1.4 Point & Interval Estimation', page: pageNumber + 9 },
+                    { title: '  1.5 Hypothesis Testing Framework', page: pageNumber + 11 },
+                    { title: '  1.6 One-Sample & Two-Sample t-Tests', page: pageNumber + 15 },
+                    { title: 'Chapter 2: Comparative Inference', page: pageNumber + 17 },
+                    { title: '  2.1 Welch\'s t-Test & Paired t-Test', page: pageNumber + 18 },
+                    { title: 'Chapter 3: Multi-Group Analysis', page: pageNumber + 19 },
+                    { title: 'Chapter 4: Interrelationships & Modeling', page: pageNumber + 20 },
+                    { title: 'Chapter 5: Design & Power Considerations', page: pageNumber + 21 },
+                    { title: 'Chapter 6: Specialized & Modern Methods', page: pageNumber + 22 }
+                ];
+
+                pdf.setFontSize(12);
+                pdf.setFont('helvetica', 'normal');
+
+                tocItems.forEach(item => {
+                    checkNewPage();
+                    const dots = '.'.repeat(Math.floor((contentWidth - pdf.getTextWidth(item.title) - pdf.getTextWidth(item.page.toString())) / pdf.getTextWidth('.')));
+                    pdf.text(`${item.title} ${dots} ${item.page}`, margin, currentY);
+                    currentY += 8;
+                });
+
+                if (statusDiv) statusDiv.innerHTML = 'Processing content sections...';
+
+                // Content sections
+                const sections = [
+                    {
+                        id: 'introduction',
+                        title: 'Introduction: Welcome to Biostatistics',
+                        content: document.getElementById('introduction')
+                    },
+                    {
+                        id: 'chapter1',
+                        title: 'Chapter 1: Foundational Concepts',
+                        content: document.getElementById('chapter1')
+                    },
+                    {
+                        id: 'chapter2',
+                        title: 'Chapter 2: Comparative Inference',
+                        content: document.getElementById('chapter2')
+                    },
+                    {
+                        id: 'chapter3',
+                        title: 'Chapter 3: Multi-Group Analysis',
+                        content: document.getElementById('chapter3')
+                    },
+                    {
+                        id: 'chapter4',
+                        title: 'Chapter 4: Interrelationships & Modeling',
+                        content: document.getElementById('chapter4')
+                    },
+                    {
+                        id: 'chapter5',
+                        title: 'Chapter 5: Design & Power Considerations',
+                        content: document.getElementById('chapter5')
+                    },
+                    {
+                        id: 'chapter6',
+                        title: 'Chapter 6: Specialized & Modern Methods',
+                        content: document.getElementById('chapter6')
+                    }
+                ];
+
+                function processElement(element, isFirstLevel = true) {
+                    if (!element) return;
+
+                    const tagName = element.tagName?.toLowerCase();
+                    const text = element.textContent?.trim();
+                    
+                    if (!text) return;
+
+                    switch (tagName) {
+                        case 'h2':
+                            if (element.classList.contains('chapter-title')) {
+                                checkNewPage(40);
+                                addPageNumber();
+                                pdf.addPage();
+                                currentY = margin;
+                                addText(text, 18, 'bold');
+                                currentY += 10;
+                            }
+                            break;
+                            
+                        case 'h3':
+                            if (element.classList.contains('section-title')) {
+                                checkNewPage(25);
+                                currentY += 5;
+                                addText(text, 14, 'bold');
+                                currentY += 5;
+                            }
+                            break;
+                            
+                        case 'h4':
+                            checkNewPage(20);
+                            currentY += 3;
+                            addText(text, 12, 'bold');
+                            currentY += 3;
+                            break;
+                            
+                        case 'p':
+                            if (text && !element.classList.contains('chapter-intro') && !element.classList.contains('reading-time')) {
+                                checkNewPage(15);
+                                addText(text, 11, 'normal');
+                                currentY += 3;
+                            } else if (element.classList.contains('chapter-intro')) {
+                                checkNewPage(20);
+                                addText(text, 12, 'italic');
+                                currentY += 8;
+                            }
+                            break;
+                            
+                        case 'ul':
+                        case 'ol':
+                            const listItems = element.querySelectorAll('li');
+                            listItems.forEach(li => {
+                                const liText = li.textContent?.trim();
+                                if (liText) {
+                                    checkNewPage(10);
+                                    addText(`• ${liText}`, 11, 'normal', contentWidth - 10);
+                                }
+                            });
+                            currentY += 5;
+                            break;
+                            
+                        case 'div':
+                            if (element.classList.contains('concept-box')) {
+                                checkNewPage(30);
+                                currentY += 5;
+                                
+                                // Add colored background effect with border
+                                pdf.setDrawColor(49, 130, 206);
+                                pdf.setLineWidth(2);
+                                pdf.line(margin, currentY - 3, margin, currentY + 25);
+                                
+                                const h4 = element.querySelector('h4');
+                                if (h4) {
+                                    addText(h4.textContent, 12, 'bold', contentWidth - 10, [49, 130, 206]);
+                                }
+                                
+                                const content = element.textContent.replace(h4?.textContent || '', '').trim();
+                                if (content) {
+                                    addText(content, 11, 'normal', contentWidth - 10);
+                                }
+                                currentY += 8;
+                                
+                            } else if (element.classList.contains('example-box')) {
+                                checkNewPage(30);
+                                currentY += 5;
+                                
+                                pdf.setDrawColor(56, 161, 105);
+                                pdf.setLineWidth(2);
+                                pdf.line(margin, currentY - 3, margin, currentY + 25);
+                                
+                                const h4 = element.querySelector('h4');
+                                if (h4) {
+                                    addText(h4.textContent, 12, 'bold', contentWidth - 10, [56, 161, 105]);
+                                }
+                                
+                                const content = element.textContent.replace(h4?.textContent || '', '').trim();
+                                if (content) {
+                                    addText(content, 11, 'normal', contentWidth - 10);
+                                }
+                                currentY += 8;
+                                
+                            } else if (element.classList.contains('warning-box')) {
+                                checkNewPage(30);
+                                currentY += 5;
+                                
+                                pdf.setDrawColor(245, 158, 11);
+                                pdf.setLineWidth(2);
+                                pdf.line(margin, currentY - 3, margin, currentY + 25);
+                                
+                                const h4 = element.querySelector('h4');
+                                if (h4) {
+                                    addText(h4.textContent, 12, 'bold', contentWidth - 10, [245, 158, 11]);
+                                }
+                                
+                                const content = element.textContent.replace(h4?.textContent || '', '').trim();
+                                if (content) {
+                                    addText(content, 11, 'normal', contentWidth - 10);
+                                }
+                                currentY += 8;
+                                
+                            } else if (element.classList.contains('formula-box')) {
+                                checkNewPage(20);
+                                currentY += 5;
+                                
+                                pdf.setDrawColor(246, 173, 85);
+                                pdf.setFillColor(254, 245, 231);
+                                pdf.rect(margin, currentY - 3, contentWidth, 15, 'FD');
+                                
+                                addText(text, 12, 'bold', contentWidth, [116, 66, 16]);
+                                currentY += 8;
+                            } else {
+                                // Process child elements
+                                Array.from(element.children).forEach(child => processElement(child, false));
+                            }
+                            break;
+                            
+                        case 'table':
+                            checkNewPage(40);
+                            currentY += 5;
+                            
+                            const rows = element.querySelectorAll('tr');
+                            rows.forEach(row => {
+                                const cells = row.querySelectorAll('td');
+                                let startX = margin;
+                                const cellWidth = contentWidth / cells.length;
+                                
+                                cells.forEach(cell => {
+                                    const cellText = cell.textContent?.trim();
+                                    if (cellText) {
+                                        pdf.setDrawColor(160, 174, 192);
+                                        pdf.rect(startX, currentY - 3, cellWidth, 10);
+                                        pdf.text(cellText, startX + 2, currentY + 2);
+                                        startX += cellWidth;
+                                    }
+                                });
+                                currentY += 10;
+                            });
+                            currentY += 5;
+                            break;
+                    }
+                }
+
+                // Process each section
+                sections.forEach((section, index) => {
+                    if (statusDiv) statusDiv.innerHTML = `Processing ${section.title}...`;
+                    
+                    if (section.content) {
+                        Array.from(section.content.children).forEach(child => processElement(child));
+                    }
+                });
+
+                // Add final page number
+                addPageNumber();
+
+                if (statusDiv) statusDiv.innerHTML = 'Finalizing PDF...';
+
+                // Generate filename with current date
+                const completeNow = new Date();
+                const completeDateStr = completeNow.toISOString().split('T')[0];
+                const filename = `BioStatica_Complete_Guide_${completeDateStr}.pdf`;
+
+                // Download the PDF
+                pdf.save(filename);
+
+                // Show success status
+                console.log('PDF generation completed successfully');
+                if (statusDiv) {
+                    statusDiv.className = 'pdf-status success';
+                    statusDiv.innerHTML = `✅ Complete PDF generated successfully!`;
+                } else {
+                    // Show alert for mobile users
+                    alert('✅ Complete BioStatica guide downloaded successfully!');
+                }
+
+            } catch (error) {
+                console.error('PDF generation error:', error);
+                
+                // Show error status
+                if (statusDiv) {
+                    statusDiv.className = 'pdf-status error';
+                    statusDiv.innerHTML = '❌ Error generating PDF. Please try again.';
+                } else {
+                    // Show alert for mobile users
+                    alert('Error generating PDF. Please try again.');
+                }
+            } finally {
+                // Reset buttons
+                if (button) {
+                    button.disabled = false;
+                    button.innerHTML = '📄 PDF';
+                }
+                if (mobileButton) {
+                    mobileButton.disabled = false;
+                    mobileButton.innerHTML = '📄 Download PDF';
+                }
+
+                // Hide status after 8 seconds
+                if (statusDiv) {
+                    setTimeout(() => {
+                        statusDiv.className = 'pdf-status';
+                    }, 8000);
+                }
+            }
+        }
+
         // Initialize everything when page loads
         document.addEventListener('DOMContentLoaded', function() {
             initializeProgress();
             updateProgressTracker();
             handleHashNavigation();
+            
+            // Check library loading status
+            setTimeout(function() {
+                if (typeof window.jspdf !== 'undefined') {
+                    console.log('✅ jsPDF loaded successfully');
+                } else if (typeof jsPDF !== 'undefined') {
+                    console.log('✅ jsPDF loaded successfully as global');
+                } else {
+                    console.error('❌ jsPDF failed to load');
+                }
+            }, 1000);
+            
+            // Add event listeners for PDF buttons as backup
+            const pdfBtn = document.getElementById('downloadPdfBtn');
+            const mobilePdfBtn = document.getElementById('mobilePdfBtn');
+            
+            if (pdfBtn) {
+                console.log('Adding event listener to desktop PDF button');
+                pdfBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Desktop PDF button clicked via event listener');
+                    generatePDF();
+                });
+            }
+            
+            if (mobilePdfBtn) {
+                console.log('Adding event listener to mobile PDF button');
+                mobilePdfBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Mobile PDF button clicked via event listener');
+                    generatePDF();
+                });
+            }
         });
     </script>
 </body>
