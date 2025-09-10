@@ -912,15 +912,196 @@
                     </ul>
                 </div>
 
-                <h4>Types of Errors</h4>
+                <h4>Types of Errors in Statistical Testing</h4>
 
-                <p><strong>Type I Error (α):</strong> Rejecting a true null hypothesis (false positive)</p>
-                <p><strong>Type II Error (β):</strong> Failing to reject a false null hypothesis (false negative)</p>
+                <p>Statistical testing is not perfect—we can make two types of errors when making decisions about hypotheses. Understanding these errors is crucial for interpreting research results and making informed decisions.</p>
 
                 <div class="concept-box">
-                    <h4>Medical Context of Errors</h4>
-                    <p><strong>Type I Error:</strong> Concluding a treatment works when it doesn't (could lead to using ineffective treatment)</p>
-                    <p><strong>Type II Error:</strong> Concluding a treatment doesn't work when it does (could lead to abandoning effective treatment)</p>
+                    <h4>The Truth Table of Statistical Decisions</h4>
+                    <p>When conducting a hypothesis test, there are four possible outcomes:</p>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 1rem; font-family: 'Source Sans 3', sans-serif;">
+                        <tr style="background: #e2e8f0;">
+                            <td style="border: 1px solid #a0aec0; padding: 0.8rem; font-weight: 600;"></td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.8rem; text-align: center; font-weight: 600;">H₀ is True</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.8rem; text-align: center; font-weight: 600;">H₀ is False</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #a0aec0; padding: 0.8rem; font-weight: 600;">Reject H₀</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.8rem; text-align: center; background: #fed7d7; color: #c53030;">Type I Error (α)</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.8rem; text-align: center; background: #c6f6d5; color: #2f855a;">Correct Decision</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #a0aec0; padding: 0.8rem; font-weight: 600;">Fail to Reject H₀</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.8rem; text-align: center; background: #c6f6d5; color: #2f855a;">Correct Decision</td>
+                            <td style="border: 1px solid #a0aec0; padding: 0.8rem; text-align: center; background: #fed7d7; color: #c53030;">Type II Error (β)</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h4>Type I Error (α): False Positive</h4>
+
+                <p><strong>Definition:</strong> Rejecting a true null hypothesis—concluding there is an effect when there really isn't one.</p>
+
+                <p><strong>Probability:</strong> The significance level (α) represents the maximum Type I error rate we're willing to accept, typically set at 0.05 (5%).</p>
+
+                <div class="example-box">
+                    <h4>Type I Error Examples</h4>
+                    
+                    <p><strong>Example 1: Drug Testing</strong></p>
+                    <ul>
+                        <li><strong>H₀:</strong> New drug has no effect (same as placebo)</li>
+                        <li><strong>Truth:</strong> Drug actually has no effect</li>
+                        <li><strong>Type I Error:</strong> Study concludes drug is effective</li>
+                        <li><strong>Consequences:</strong> Ineffective drug approved, wasting resources and potentially exposing patients to unnecessary side effects</li>
+                    </ul>
+
+                    <p><strong>Example 2: Diagnostic Testing</strong></p>
+                    <ul>
+                        <li><strong>H₀:</strong> Patient does not have disease</li>
+                        <li><strong>Truth:</strong> Patient is actually healthy</li>
+                        <li><strong>Type I Error:</strong> Test indicates patient has disease (false positive)</li>
+                        <li><strong>Consequences:</strong> Unnecessary anxiety, additional testing, and potentially harmful treatments</li>
+                    </ul>
+
+                    <p><strong>Example 3: Quality Control</strong></p>
+                    <ul>
+                        <li><strong>H₀:</strong> Manufacturing process is working correctly</li>
+                        <li><strong>Truth:</strong> Process is actually working fine</li>
+                        <li><strong>Type I Error:</strong> Conclude process is faulty</li>
+                        <li><strong>Consequences:</strong> Unnecessary production shutdown, wasted time and money investigating non-existent problems</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Controlling Type I Error</h4>
+                    <p>We control Type I error by setting the significance level (α) before conducting our test:</p>
+                    <ul>
+                        <li><strong>α = 0.05:</strong> 5% chance of Type I error (most common)</li>
+                        <li><strong>α = 0.01:</strong> 1% chance of Type I error (more stringent)</li>
+                        <li><strong>α = 0.10:</strong> 10% chance of Type I error (more lenient)</li>
+                    </ul>
+                    <p><em>Lowering α reduces Type I errors but increases Type II errors.</em></p>
+                </div>
+
+                <h4>Type II Error (β): False Negative</h4>
+
+                <p><strong>Definition:</strong> Failing to reject a false null hypothesis—missing a real effect that actually exists.</p>
+
+                <p><strong>Statistical Power:</strong> Power = 1 - β, represents the probability of correctly detecting an effect when it truly exists.</p>
+
+                <div class="example-box">
+                    <h4>Type II Error Examples</h4>
+                    
+                    <p><strong>Example 1: Drug Testing</strong></p>
+                    <ul>
+                        <li><strong>H₀:</strong> New drug has no effect</li>
+                        <li><strong>Truth:</strong> Drug is actually effective</li>
+                        <li><strong>Type II Error:</strong> Study fails to detect drug's effectiveness</li>
+                        <li><strong>Consequences:</strong> Effective treatment not approved, patients continue suffering from treatable condition</li>
+                    </ul>
+
+                    <p><strong>Example 2: Diagnostic Testing</strong></p>
+                    <ul>
+                        <li><strong>H₀:</strong> Patient does not have disease</li>
+                        <li><strong>Truth:</strong> Patient actually has the disease</li>
+                        <li><strong>Type II Error:</strong> Test fails to detect disease (false negative)</li>
+                        <li><strong>Consequences:</strong> Delayed treatment, disease progression, potentially fatal outcomes</li>
+                    </ul>
+
+                    <p><strong>Example 3: Environmental Monitoring</strong></p>
+                    <ul>
+                        <li><strong>H₀:</strong> Pollution levels are safe</li>
+                        <li><strong>Truth:</strong> Pollution levels are actually dangerous</li>
+                        <li><strong>Type II Error:</strong> Fail to detect dangerous pollution</li>
+                        <li><strong>Consequences:</strong> Continued exposure to harmful substances, public health risks</li>
+                    </ul>
+                </div>
+
+                <div class="concept-box">
+                    <h4>Factors Affecting Type II Error (β)</h4>
+                    <p>Several factors influence the probability of Type II error:</p>
+                    <ul>
+                        <li><strong>Effect Size:</strong> Larger true effects are easier to detect (lower β)</li>
+                        <li><strong>Sample Size:</strong> Larger samples reduce β</li>
+                        <li><strong>Significance Level (α):</strong> Higher α reduces β</li>
+                        <li><strong>Variability:</strong> Less noisy data reduces β</li>
+                        <li><strong>Study Design:</strong> Better designs reduce β</li>
+                    </ul>
+                </div>
+
+                <h4>Real-World Clinical Example: COVID-19 Testing</h4>
+
+                <div class="example-box">
+                    <h4>Understanding Both Error Types in Practice</h4>
+                    
+                    <p><strong>Scenario:</strong> Testing for COVID-19 infection</p>
+                    <p><strong>H₀:</strong> Person is not infected with COVID-19</p>
+                    <p><strong>H₁:</strong> Person is infected with COVID-19</p>
+
+                    <p><strong>Type I Error (False Positive):</strong></p>
+                    <ul>
+                        <li>Test says "infected" when person is actually healthy</li>
+                        <li>Rate: Depends on test specificity (1 - specificity)</li>
+                        <li>Consequences: Unnecessary quarantine, contact tracing, anxiety</li>
+                        <li>Public health impact: Resource waste, reduced public confidence</li>
+                    </ul>
+
+                    <p><strong>Type II Error (False Negative):</strong></p>
+                    <ul>
+                        <li>Test says "not infected" when person is actually infected</li>
+                        <li>Rate: Depends on test sensitivity (1 - sensitivity)</li>
+                        <li>Consequences: Continued spread, no treatment, false security</li>
+                        <li>Public health impact: Disease transmission, outbreak expansion</li>
+                    </ul>
+
+                    <p><strong>The Trade-off:</strong> During a pandemic, false negatives (Type II errors) are often considered more dangerous than false positives (Type I errors) because missing infected individuals leads to continued disease spread.</p>
+                </div>
+
+                <h4>The Relationship Between Error Types</h4>
+
+                <div class="concept-box">
+                    <h4>Key Insights About Statistical Errors</h4>
+                    <ul>
+                        <li><strong>Inverse Relationship:</strong> Generally, as Type I error decreases, Type II error increases</li>
+                        <li><strong>Sample Size Effect:</strong> Larger samples reduce both types of errors</li>
+                        <li><strong>Effect Size Matters:</strong> Larger true effects make Type II errors less likely</li>
+                        <li><strong>Context Dependent:</strong> The relative cost of each error type varies by situation</li>
+                        <li><strong>Power Analysis:</strong> Helps balance these errors when designing studies</li>
+                    </ul>
+                </div>
+
+                <div class="formula-box">
+                    Key Relationships:<br>
+                    Power = 1 - β<br>
+                    P(Type I Error) = α<br>
+                    P(Type II Error) = β<br>
+                    As n ↑, both α and β ↓ (for fixed effect size)
+                </div>
+
+                <h4>Practical Guidelines for Researchers</h4>
+
+                <div class="warning-box">
+                    <h4>Choosing Error Tolerances</h4>
+                    <p><strong>When Type I errors are more serious:</strong></p>
+                    <ul>
+                        <li>Drug approval studies (don't approve ineffective drugs)</li>
+                        <li>Diagnostic tests for serious conditions</li>
+                        <li>Use lower α (0.01 or 0.001)</li>
+                    </ul>
+
+                    <p><strong>When Type II errors are more serious:</strong></p>
+                    <ul>
+                        <li>Screening for treatable conditions</li>
+                        <li>Safety monitoring studies</li>
+                        <li>Use higher α (0.10) or ensure high power (0.90+)</li>
+                    </ul>
+                </div>
+
+                <div class="concept-box">
+                    <h4>Medical Context Summary</h4>
+                    <p><strong>Type I Error (False Positive):</strong> Concluding a treatment works when it doesn't, a diagnostic test is positive when disease is absent, or an intervention has an effect when it doesn't.</p>
+                    <p><strong>Type II Error (False Negative):</strong> Failing to detect a treatment that actually works, missing a disease that is present, or failing to identify a real intervention effect.</p>
+                    <p><strong>Clinical Impact:</strong> Both errors have serious consequences in healthcare—unnecessary treatments and missed diagnoses can both harm patients.</p>
                 </div>
 
                 <h4>P-values</h4>
