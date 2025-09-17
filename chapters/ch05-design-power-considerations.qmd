@@ -1,4 +1,4 @@
-# Chapter 5: Design & Power Considerations
+# Design & Power Considerations
 
 Plan studies effectively by determining appropriate sample sizes and control error rates when testing multiple hypotheses.
 

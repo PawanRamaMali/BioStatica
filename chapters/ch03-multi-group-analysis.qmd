@@ -1,4 +1,4 @@
-# Chapter 3: Multi-Group Analysis
+# Multi-Group Analysis
 
 When research involves comparing three or more groups, specialized techniques prevent inflated error rates while maintaining statistical power.
 

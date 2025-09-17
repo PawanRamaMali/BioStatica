@@ -1,4 +1,4 @@
-# Chapter 1: Foundational Concepts
+# Foundational Concepts
 
 Master the essential building blocks of statistical thinking that form the foundation for all biostatistical analysis.
 

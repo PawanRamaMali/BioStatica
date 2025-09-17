@@ -1,4 +1,4 @@
-# Chapter 4: Interrelationships & Modeling
+# Interrelationships & Modeling
 
 Move beyond simple group comparisons to understand relationships between variables and build predictive models.
 

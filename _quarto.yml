@@ -10,12 +10,12 @@ book:
   chapters:
     - index.qmd
     - introduction.qmd
-    - ch01-foundational-concepts.qmd
-    - ch02-comparative-inference.qmd
-    - ch03-multi-group-analysis.qmd
-    - ch04-interrelationships-modeling.qmd
-    - ch05-design-power-considerations.qmd
-    - ch06-specialized-modern-methods.qmd
+    - chapters/ch01-foundational-concepts.qmd
+    - chapters/ch02-comparative-inference.qmd
+    - chapters/ch03-multi-group-analysis.qmd
+    - chapters/ch04-interrelationships-modeling.qmd
+    - chapters/ch05-design-power-considerations.qmd
+    - chapters/ch06-specialized-modern-methods.qmd
     - references.qmd
 
   navbar:
@@ -30,8 +30,8 @@ format:
   html:
     theme:
       - cosmo
-      - custom.scss
-    css: styles.css
+      - assets/custom.scss
+    css: assets/styles.css
     toc: true
     toc-depth: 3
     number-sections: true

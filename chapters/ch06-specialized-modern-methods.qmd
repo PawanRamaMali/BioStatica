@@ -1,4 +1,4 @@
-# Chapter 6: Specialized & Modern Methods
+# Specialized & Modern Methods
 
 Advanced techniques for complex data scenarios, from time-to-event analysis to modern computational approaches in the era of big data.
 

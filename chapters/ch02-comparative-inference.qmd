@@ -1,4 +1,4 @@
-# Chapter 2: Comparative Inference
+# Comparative Inference
 
 Advanced techniques for comparing groups when traditional assumptions don't hold, ensuring robust statistical inference across diverse research scenarios.
 
