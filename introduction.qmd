@@ -1,0 +1,18 @@
+# Introduction: Welcome to Biostatistics
+
+Biostatistics is the application of statistics to biological and health-related data. This field bridges the gap between mathematical theory and real-world medical research, helping us make sense of complex biological phenomena and draw meaningful conclusions from data.
+
+Whether you're a medical student beginning your research journey, a healthcare professional seeking to understand clinical studies, or a researcher diving into data analysis, this comprehensive guide will take you from basic concepts to advanced methodologies used in cutting-edge research.
+
+:::{.callout-note}
+## Why Biostatistics Matters
+
+Every major medical breakthrough—from vaccine development to treatment protocols—relies on biostatistical methods. Understanding these concepts enables you to:
+
+- Critically evaluate medical literature
+- Design robust research studies
+- Analyze complex biological data
+- Make evidence-based decisions in healthcare
+:::
+
+This textbook is structured to provide a logical progression from fundamental concepts to specialized applications. Each chapter builds upon previous knowledge while remaining accessible to readers at different levels of statistical background.

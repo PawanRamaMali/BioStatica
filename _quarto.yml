@@ -1,0 +1,83 @@
+project:
+  type: book
+  output-dir: _site
+
+book:
+  title: "BioStatica - Complete Guide to Biostatistics"
+  subtitle: "From foundational principles to modern methodologies used in cutting-edge research"
+  author: "Pawan Rama Mali"
+  date: today
+  chapters:
+    - index.qmd
+    - introduction.qmd
+    - ch01-foundational-concepts.qmd
+    - ch02-comparative-inference.qmd
+    - ch03-multi-group-analysis.qmd
+    - ch04-interrelationships-modeling.qmd
+    - ch05-design-power-considerations.qmd
+    - ch06-specialized-modern-methods.qmd
+    - references.qmd
+
+  navbar:
+    background: primary
+    search: true
+    tools:
+      - icon: github
+        href: https://github.com/PawanRamaMali/BioStatica
+        text: "Source Code"
+
+format:
+  html:
+    theme:
+      - cosmo
+      - custom.scss
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    number-depth: 3
+    code-fold: true
+    code-tools: true
+    code-copy: true
+    fig-width: 8
+    fig-height: 6
+    fig-format: retina
+    fig-dpi: 300
+    embed-resources: false
+    smooth-scroll: true
+    link-external-newwindow: true
+    citations-hover: true
+    footnotes-hover: true
+
+  pdf:
+    documentclass: book
+    classoption: [oneside]
+    geometry:
+      - top=1in
+      - bottom=1in
+      - left=1.2in
+      - right=1in
+    fontfamily: crimson
+    fontsize: 11pt
+    linestretch: 1.2
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    colorlinks: true
+
+execute:
+  freeze: auto
+  cache: true
+  warning: false
+  message: false
+
+bibliography: references.bib
+
+crossref:
+  fig-title: "Figure"
+  tbl-title: "Table"
+  eq-title: "Equation"
+
+lang: en
+
+editor: visual

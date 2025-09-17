@@ -1,0 +1,26 @@
+# Chapter 2: Comparative Inference
+
+Advanced techniques for comparing groups when traditional assumptions don't hold, ensuring robust statistical inference across diverse research scenarios.
+
+## 2.1 Welch's t-Test & Paired t-Test
+
+When the equal variance assumption is violated or when data comes in natural pairs, we need specialized approaches to maintain valid statistical inference.
+
+### Welch's t-Test (Unequal Variances)
+
+When group variances differ substantially, the pooled t-test can give misleading results. Welch's t-test adjusts for unequal variances.
+
+$$t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}$$
+
+$$df = \frac{\left(\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}\right)^2}{\frac{\left(\frac{s_1^2}{n_1}\right)^2}{n_1-1} + \frac{\left(\frac{s_2^2}{n_2}\right)^2}{n_2-1}}$$
+
+:::{.callout-tip title="When Variances Differ"}
+Comparing recovery times between two surgical procedures:
+
+- **Procedure A:** mean=7 days, sd=2 days (low variability)
+- **Procedure B:** mean=8 days, sd=5 days (high variability)
+
+The large difference in standard deviations suggests using Welch's t-test.
+:::
+
+*Note: This chapter appears to be incomplete in the source HTML file. Additional content for paired t-tests and other comparative inference methods would typically be included here.*

@@ -1,0 +1,38 @@
+# References {.unnumbered}
+
+::: {#refs}
+:::
+
+## Recommended Reading
+
+### Foundational Texts
+
+- **Rosner, B.** (2015). *Fundamentals of Biostatistics* (8th ed.). Cengage Learning.
+- **Pagano, M., & Gauvreau, K.** (2000). *Principles of Biostatistics* (2nd ed.). Duxbury Press.
+- **Jewell, N. P.** (2003). *Statistics for Epidemiology*. Chapman and Hall/CRC.
+
+### Advanced Methods
+
+- **Kleinbaum, D. G., & Klein, M.** (2012). *Survival Analysis: A Self-Learning Text* (3rd ed.). Springer.
+- **Hosmer, D. W., Lemeshow, S., & Sturdivant, R. X.** (2013). *Applied Logistic Regression* (3rd ed.). Wiley.
+- **Diggle, P., Heagerty, P., Liang, K. Y., & Zeger, S.** (2002). *Analysis of Longitudinal Data* (2nd ed.). Oxford University Press.
+
+### Statistical Software
+
+- **R Core Team** (2023). *R: A language and environment for statistical computing*. R Foundation for Statistical Computing. https://www.R-project.org/
+- **Wickham, H., & Grolemund, G.** (2017). *R for Data Science*. O'Reilly Media. https://r4ds.had.co.nz/
+- **VanderPlas, J.** (2016). *Python Data Science Handbook*. O'Reilly Media.
+
+### Methodological Resources
+
+- **Altman, D. G.** (1991). *Practical Statistics for Medical Research*. Chapman and Hall/CRC.
+- **Bland, M.** (2015). *An Introduction to Medical Statistics* (4th ed.). Oxford University Press.
+- **Zar, J. H.** (2013). *Biostatistical Analysis* (5th ed.). Pearson.
+
+### Online Resources
+
+- **Khan Academy Statistics and Probability**: https://www.khanacademy.org/math/statistics-probability
+- **Coursera Biostatistics Courses**: Various universities offer comprehensive biostatistics courses
+- **edX Statistics Courses**: Free courses from top universities
+- **R Documentation**: https://www.rdocumentation.org/
+- **Python Statistics Libraries**: SciPy, StatsModels, Scikit-learn documentation

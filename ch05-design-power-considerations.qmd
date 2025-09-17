@@ -1,0 +1,15 @@
+# Chapter 5: Design & Power Considerations
+
+Plan studies effectively by determining appropriate sample sizes and control error rates when testing multiple hypotheses.
+
+*Note: This chapter appears to be incomplete in the source HTML file. Only the title and introduction were available. Additional content for design and power considerations would typically include:*
+
+- Study design principles
+- Sample size calculation methods
+- Power analysis techniques
+- Multiple testing corrections (Bonferroni, FDR, etc.)
+- Type I and Type II error control
+- Interim analysis and stopping rules
+- Adaptive trial designs
+
+*These topics would be covered in a complete version of this chapter.*

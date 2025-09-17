@@ -1,0 +1,372 @@
+# Chapter 3: Multi-Group Analysis
+
+When research involves comparing three or more groups, specialized techniques prevent inflated error rates while maintaining statistical power.
+
+## 3.1 Introduction to ANOVA (Analysis of Variance)
+
+When comparing means across three or more groups, using multiple t-tests creates a serious statistical problem: **multiple comparisons**. ANOVA provides an elegant solution by testing all groups simultaneously while controlling error rates.
+
+:::{.callout-warning}
+## Why Not Multiple t-Tests?
+
+With 3 groups, you'd need 3 t-tests. With α = 0.05 for each test:
+
+- **Individual error rate:** 5% per test
+- **Family-wise error rate:** 1 - (0.95)³ = 14.3%
+- **Problem:** Much higher chance of false positives!
+
+With 5 groups, you'd need 10 tests, inflating error rate to ~40%!
+:::
+
+:::{.callout-note}
+## The Logic of ANOVA
+
+ANOVA compares two sources of variation:
+
+- **Between-groups variation:** Differences due to treatment effects
+- **Within-groups variation:** Random variation (noise)
+
+**Key Insight:** If treatment has no effect, both sources should be similar. If there's a real effect, between-groups variation will be much larger.
+:::
+
+### ANOVA Hypotheses
+
+**Null Hypothesis (H₀):** All group means are equal
+H₀: μ₁ = μ₂ = μ₃ = ... = μₖ
+
+**Alternative Hypothesis (H₁):** At least one group mean differs
+H₁: Not all μᵢ are equal
+
+:::{.callout-tip title="Medical Research Example"}
+**Research Question:** Do three different pain medications have different effectiveness?
+
+- **Group 1:** Medication A (n=25)
+- **Group 2:** Medication B (n=23)
+- **Group 3:** Placebo (n=27)
+- **Outcome:** Pain reduction score (0-10 scale)
+
+**H₀:** μₐ = μᵦ = μₚₗₐᶜₑᵦₒ (all medications equally effective)
+**H₁:** At least one medication differs in effectiveness
+:::
+
+### The F-Statistic
+
+ANOVA uses the F-statistic to compare variances:
+
+$$F = \frac{\text{MSB}}{\text{MSW}}$$
+
+where:
+- MSB = Mean Square Between groups
+- MSW = Mean Square Within groups
+
+:::{.callout-note}
+## Understanding the F-Ratio
+
+- **F ≈ 1:** Between-group variation similar to within-group variation → No treatment effect
+- **F >> 1:** Between-group variation much larger → Likely treatment effect
+- **F < 1:** Rare, suggests less variation between groups than within (unusual)
+:::
+
+### ANOVA Assumptions
+
+:::{.callout-warning}
+## Critical Assumptions
+
+- **Independence:** Observations must be independent
+- **Normality:** Data in each group should be approximately normal
+- **Homoscedasticity:** Equal variances across all groups
+
+**Violation Consequences:** Increased Type I error, reduced power, invalid conclusions
+:::
+
+:::{.callout-tip title="Checking Assumptions in Practice"}
+**Independence:** Ensure proper randomization and no clustering
+
+**Normality:**
+- Visual: Q-Q plots, histograms for each group
+- Statistical: Shapiro-Wilk test (if n < 50)
+- Robust: ANOVA reasonably robust with n > 30 per group
+
+**Equal Variances:**
+- Visual: Box plots, side-by-side
+- Statistical: Levene's test (preferred), Bartlett's test
+- Rule of thumb: Largest SD / Smallest SD < 2
+:::
+
+## 3.2 One-Way ANOVA: Step-by-Step
+
+One-way ANOVA compares means across groups defined by a single categorical variable (factor).
+
+### ANOVA Table Components
+
+:::{.callout-note}
+## Understanding ANOVA Table
+
+| Source  | df  | SS  | MS  | F       |
+|---------|-----|-----|-----|---------|
+| Between | k-1 | SSB | MSB | MSB/MSW |
+| Within  | N-k | SSW | MSW | -       |
+| Total   | N-1 | SST | -   | -       |
+
+**Where:** k = number of groups, N = total sample size
+:::
+
+### Calculating Sum of Squares
+
+**Total Sum of Squares (SST):**
+$$\text{SST} = \sum_i(x_i - \bar{x})^2$$
+
+**Between Groups Sum of Squares (SSB):**
+$$\text{SSB} = \sum_j n_j(\bar{x}_j - \bar{x})^2$$
+
+**Within Groups Sum of Squares (SSW):**
+$$\text{SSW} = \text{SST} - \text{SSB}$$
+
+:::{.callout-tip title="Worked Example: Pain Medication Study"}
+**Data:**
+- **Medication A:** 7, 8, 6, 9, 7 (n₁=5, x̄₁=7.4)
+- **Medication B:** 5, 6, 4, 7, 5 (n₂=5, x̄₂=5.4)
+- **Placebo:** 3, 4, 2, 5, 3 (n₃=5, x̄₃=3.4)
+
+**Step 1: Calculate overall mean**
+x̄ = (7.4×5 + 5.4×5 + 3.4×5) / 15 = 81/15 = 5.4
+
+**Step 2: Calculate SSB**
+SSB = 5×(7.4-5.4)² + 5×(5.4-5.4)² + 5×(3.4-5.4)²
+SSB = 5×4 + 5×0 + 5×4 = 40
+
+**Step 3: Calculate SST**
+SST = (7-5.4)² + (8-5.4)² + ... + (3-5.4)² = 56
+
+**Step 4: Calculate SSW**
+SSW = SST - SSB = 56 - 40 = 16
+
+**Step 5: Calculate Mean Squares**
+MSB = SSB/(k-1) = 40/(3-1) = 20
+MSW = SSW/(N-k) = 16/(15-3) = 1.33
+
+**Step 6: Calculate F-statistic**
+F = MSB/MSW = 20/1.33 = 15.0
+
+**Step 7: Compare to critical value**
+F₀.₀₅,₂,₁₂ = 3.89. Since 15.0 > 3.89, p < 0.05
+**Conclusion:** Reject H₀. At least one medication differs significantly.
+:::
+
+## 3.3 Post-Hoc Tests and Multiple Comparisons
+
+When ANOVA shows significant differences, **post-hoc tests** determine which specific groups differ from each other.
+
+:::{.callout-note}
+## Why Post-Hoc Tests?
+
+ANOVA only tells us that "at least one group differs" but not:
+
+- Which specific groups are different?
+- How many groups are different?
+- The magnitude of differences?
+
+Post-hoc tests provide pairwise comparisons while controlling family-wise error rate.
+:::
+
+### Common Post-Hoc Tests
+
+:::{.callout-tip title="Tukey's HSD (Honestly Significant Difference)"}
+**When to use:** Most common, good balance of power and control
+**Formula:** HSD = q × √(MSW/n)
+**Advantage:** Controls family-wise error rate at α
+**Disadvantage:** Requires equal sample sizes (or harmonic mean)
+
+**Interpretation:** If |x̄ᵢ - x̄ⱼ| > HSD, groups i and j differ significantly
+:::
+
+:::{.callout-tip title="Bonferroni Correction"}
+**When to use:** Conservative approach, few planned comparisons
+**Method:** Use α/c for each comparison (c = number of comparisons)
+**Example:** With 3 groups, 3 comparisons, use α = 0.05/3 = 0.017
+**Advantage:** Simple, very conservative
+**Disadvantage:** Can be overly conservative, reduced power
+:::
+
+:::{.callout-tip title="Scheffé's Test"}
+**When to use:** Any possible comparison, not just pairwise
+**Advantage:** Most flexible, allows complex contrasts
+**Disadvantage:** Most conservative for simple pairwise comparisons
+:::
+
+### Continuing Our Pain Medication Example
+
+:::{.callout-tip title="Post-Hoc Analysis"}
+We found F = 15.0, p < 0.05. Now let's determine which medications differ:
+
+**Tukey's HSD Calculation:**
+HSD = q₀.₀₅,₃,₁₂ × √(MSW/n) = 3.77 × √(1.33/5) = 1.94
+
+**Pairwise Comparisons:**
+- |Med A - Med B| = |7.4 - 5.4| = 2.0 > 1.94 ✓ **Significant**
+- |Med A - Placebo| = |7.4 - 3.4| = 4.0 > 1.94 ✓ **Significant**
+- |Med B - Placebo| = |5.4 - 3.4| = 2.0 > 1.94 ✓ **Significant**
+
+**Conclusion:** All three treatments differ significantly from each other.
+**Clinical Interpretation:** Med A > Med B > Placebo for pain reduction.
+:::
+
+:::{.callout-warning}
+## Common Mistakes in Post-Hoc Testing
+
+- **❌ Running post-hocs when ANOVA is not significant** → Fishing for significance
+- **❌ Using multiple different post-hoc tests** → Inflated error rates
+- **❌ Ignoring practical significance** → Statistical ≠ clinical significance
+- **✅ Choose post-hoc test before analysis** → Avoid bias
+- **✅ Report effect sizes** → Practical importance
+:::
+
+## 3.4 Two-Way ANOVA
+
+Two-way ANOVA examines the effects of two categorical variables (factors) simultaneously, including their potential interaction.
+
+:::{.callout-note}
+## Advantages of Two-Way ANOVA
+
+- **Efficiency:** Tests multiple factors in one analysis
+- **Interaction Detection:** Identifies when factors work together
+- **Control:** Accounts for additional sources of variation
+- **Power:** Often more powerful than separate one-way ANOVAs
+:::
+
+### Three Research Questions
+
+Two-way ANOVA addresses three hypotheses simultaneously:
+
+**Main Effect of Factor A:** H₀: μ₁• = μ₂• = ... = μₐ•
+**Main Effect of Factor B:** H₀: μ•₁ = μ•₂ = ... = μ•ᵦ
+**Interaction Effect:** H₀: No A×B interaction
+
+:::{.callout-tip title="Clinical Trial Example: Drug and Exercise"}
+**Research Question:** Do cholesterol-lowering drugs and exercise programs interact?
+
+**Factor A (Drug):** New drug vs. Placebo
+**Factor B (Exercise):** High intensity vs. Low intensity
+**Outcome:** Cholesterol reduction (mg/dL)
+
+**Design:** 2×2 factorial design
+- Group 1: New drug + High exercise (n=20)
+- Group 2: New drug + Low exercise (n=20)
+- Group 3: Placebo + High exercise (n=20)
+- Group 4: Placebo + Low exercise (n=20)
+:::
+
+### Understanding Interactions
+
+:::{.callout-note}
+## Types of Interaction Effects
+
+**No Interaction:** Effect of Factor A is the same at all levels of Factor B
+**Ordinal Interaction:** Effect of Factor A varies in magnitude but not direction
+**Disordinal Interaction:** Effect of Factor A changes direction at different levels of Factor B
+:::
+
+:::{.callout-tip title="Interpreting Interaction: Hypothetical Results"}
+**Scenario 1: No Interaction**
+
+|           | High Exercise | Low Exercise | Difference |
+|-----------|---------------|--------------|------------|
+| New Drug  | 40 mg/dL      | 30 mg/dL     | 10 mg/dL   |
+| Placebo   | 20 mg/dL      | 10 mg/dL     | 10 mg/dL   |
+
+**Interpretation:** Exercise always improves cholesterol by 10 mg/dL, regardless of drug
+
+**Scenario 2: Significant Interaction**
+
+|           | High Exercise | Low Exercise | Difference |
+|-----------|---------------|--------------|------------|
+| New Drug  | 50 mg/dL      | 25 mg/dL     | 25 mg/dL   |
+| Placebo   | 15 mg/dL      | 10 mg/dL     | 5 mg/dL    |
+
+**Interpretation:** The drug works much better with high exercise (synergistic effect)
+:::
+
+:::{.callout-warning}
+## Interpreting Two-Way ANOVA Results
+
+**If interaction is significant:**
+- Focus primarily on interaction interpretation
+- Main effects may be misleading
+- Use simple effects analysis or interaction contrasts
+
+**If interaction is not significant:**
+- Interpret main effects independently
+- Each factor's effect is consistent across levels of the other
+:::
+
+## 3.5 ANOVA in Practice: Assumptions and Alternatives
+
+### When ANOVA Assumptions Fail
+
+:::{.callout-warning}
+## Assumption Violations and Solutions
+
+**Non-normality:**
+- **Mild violation:** ANOVA is robust (central limit theorem)
+- **Severe violation:** Use Kruskal-Wallis test (non-parametric)
+- **Transformation:** Log, square root, or Box-Cox transformations
+
+**Unequal variances:**
+- **Welch's ANOVA:** Doesn't assume equal variances
+- **Brown-Forsythe test:** Robust to variance differences
+- **Transformation:** Often stabilizes variances
+
+**Non-independence:**
+- **Most serious violation** → Inflated Type I error
+- **Solutions:** Mixed-effects models, cluster-robust standard errors
+- **Design fix:** Proper randomization, account for clustering
+:::
+
+### Effect Size and Practical Significance
+
+:::{.callout-note}
+## Effect Size Measures for ANOVA
+
+**Eta-squared (η²):** Proportion of total variance explained
+η² = SSB / SST
+
+**Partial Eta-squared:** More common in complex designs
+ηₚ² = SSB / (SSB + SSW)
+
+**Cohen's Guidelines:**
+- Small effect: η² = 0.01
+- Medium effect: η² = 0.06
+- Large effect: η² = 0.14
+:::
+
+:::{.callout-tip title="Reporting ANOVA Results"}
+**Complete ANOVA Report:**
+
+"A one-way ANOVA was conducted to compare the effectiveness of three pain medications. The analysis revealed a statistically significant difference between groups, F(2, 12) = 15.0, p < 0.001, η² = 0.71, indicating a large effect size.
+
+Post-hoc comparisons using Tukey's HSD test indicated that all pairwise comparisons were statistically significant (p < 0.05). Medication A (M = 7.4, SD = 1.1) was more effective than Medication B (M = 5.4, SD = 1.1), which was more effective than Placebo (M = 3.4, SD = 1.1)."
+:::
+
+### Power Analysis for ANOVA
+
+:::{.callout-note}
+## Sample Size Planning
+
+Power analysis helps determine appropriate sample sizes before conducting research:
+
+- **Specify:** Effect size, significance level (α), desired power
+- **Effect size:** Based on pilot data or literature
+- **Common power:** 0.80 (80% chance of detecting true effect)
+- **Balance:** Equal sample sizes maximize power
+:::
+
+:::{.callout-tip title="Power Analysis Example"}
+**Research Planning:** Comparing 4 treatments for depression
+
+- **Expected effect size:** f = 0.25 (medium effect)
+- **Significance level:** α = 0.05
+- **Desired power:** 0.80
+- **Result:** Need n = 45 per group (180 total)
+
+**Interpretation:** With 45 participants per group, we have an 80% chance of detecting a medium-sized difference if it truly exists.
+:::

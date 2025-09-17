@@ -1,0 +1,1875 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  11pt,
+  letterpaper,
+  oneside]{book}
+
+\usepackage{amsmath,amssymb}
+\usepackage{setspace}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage[]{crimson}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[top=1in,bottom=1in,left=1.2in,right=1in]{geometry}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
+\@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{english}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={BioStatica - Complete Guide to Biostatistics},
+  pdfauthor={Pawan Rama Mali},
+  pdflang={en},
+  colorlinks=true,
+  linkcolor={Maroon},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{BioStatica - Complete Guide to Biostatistics}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{From foundational principles to modern methodologies used in
+cutting-edge research}
+\author{Pawan Rama Mali}
+\date{2025-09-17}
+
+\begin{document}
+\frontmatter
+\maketitle
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+
+\setstretch{1.2}
+\mainmatter
+\bookmarksetup{startatroot}
+
+\chapter*{Preface}\label{preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+\markboth{Preface}{Preface}
+
+BioStatica is a comprehensive, beginner-friendly platform offering
+tutorials, interactive modules, and real-world examples to master
+biostatistics---from foundational principles to modern methodologies
+used in cutting-edge research.
+
+\section*{About This Book}\label{about-this-book}
+\addcontentsline{toc}{section}{About This Book}
+
+\markright{About This Book}
+
+This book delivers a structured learning pathway---from statistical
+fundamentals to advanced methods in biostatistics---blending clarity
+with rigor for learners at all levels. Whether you're a student
+beginning your journey in biostatistics or a researcher looking to
+deepen your understanding, this guide provides practical insights and
+real-world applications.
+
+\section*{Prerequisites}\label{prerequisites}
+\addcontentsline{toc}{section}{Prerequisites}
+
+\markright{Prerequisites}
+
+Before diving into this book, you should have:
+
+\begin{itemize}
+\tightlist
+\item
+  Basic understanding of mathematics and algebra
+\item
+  Familiarity with statistical software (R, Python, or similar)
+\item
+  Access to a computer with statistical software installed
+\end{itemize}
+
+\section*{How to Use This Book}\label{how-to-use-this-book}
+\addcontentsline{toc}{section}{How to Use This Book}
+
+\markright{How to Use This Book}
+
+Each chapter builds upon previous concepts, so we recommend reading them
+in order, especially if you're new to biostatistics. However,
+experienced readers may jump to specific topics of interest.
+
+\section*{Interactive Learning}\label{interactive-learning}
+\addcontentsline{toc}{section}{Interactive Learning}
+
+\markright{Interactive Learning}
+
+This book includes:
+
+\begin{itemize}
+\tightlist
+\item
+  Interactive examples and exercises
+\item
+  Real-world datasets for practice
+\item
+  Code snippets in R and Python
+\item
+  Visual demonstrations of statistical concepts
+\item
+  Practical applications in biological and medical research
+\end{itemize}
+
+\section*{Contributing}\label{contributing}
+\addcontentsline{toc}{section}{Contributing}
+
+\markright{Contributing}
+
+This is an open-source project. Contributions, suggestions, and feedback
+are welcome. Please visit our
+\href{https://github.com/PawanRamaMali/BioStatica}{GitHub repository} to
+contribute.
+
+\section*{Acknowledgments}\label{acknowledgments}
+\addcontentsline{toc}{section}{Acknowledgments}
+
+\markright{Acknowledgments}
+
+We thank the biostatistics and open science communities for their
+continued support and contributions to making statistical education
+accessible to all.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\emph{Ready to begin your journey into biostatistics? Let's start with
+the introduction.}
+
+\bookmarksetup{startatroot}
+
+\chapter{Introduction: Welcome to
+Biostatistics}\label{introduction-welcome-to-biostatistics}
+
+Biostatistics is the application of statistics to biological and
+health-related data. This field bridges the gap between mathematical
+theory and real-world medical research, helping us make sense of complex
+biological phenomena and draw meaningful conclusions from data.
+
+Whether you're a medical student beginning your research journey, a
+healthcare professional seeking to understand clinical studies, or a
+researcher diving into data analysis, this comprehensive guide will take
+you from basic concepts to advanced methodologies used in cutting-edge
+research.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Why Biostatistics Matters}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+Every major medical breakthrough---from vaccine development to treatment
+protocols---relies on biostatistical methods. Understanding these
+concepts enables you to:
+
+\begin{itemize}
+\tightlist
+\item
+  Critically evaluate medical literature
+\item
+  Design robust research studies
+\item
+  Analyze complex biological data
+\item
+  Make evidence-based decisions in healthcare
+\end{itemize}
+
+\end{tcolorbox}
+
+This textbook is structured to provide a logical progression from
+fundamental concepts to specialized applications. Each chapter builds
+upon previous knowledge while remaining accessible to readers at
+different levels of statistical background.
+
+\bookmarksetup{startatroot}
+
+\chapter{Chapter 1: Foundational
+Concepts}\label{chapter-1-foundational-concepts}
+
+Master the essential building blocks of statistical thinking that form
+the foundation for all biostatistical analysis.
+
+\section{1.1 Descriptive Statistics \&
+Visualization}\label{descriptive-statistics-visualization}
+
+Before diving into complex analyses, we must first understand how to
+describe and visualize our data. Descriptive statistics provide the
+first glimpse into what our data tells us.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Understanding Your Data}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+Every dataset tells a story. Descriptive statistics help us understand:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Central Tendency:} Where does the typical value lie?
+\item
+  \textbf{Variability:} How spread out are our observations?
+\item
+  \textbf{Shape:} Is the data symmetric or skewed?
+\item
+  \textbf{Outliers:} Are there unusual observations?
+\end{itemize}
+
+\end{tcolorbox}
+
+\subsection{Measures of Central
+Tendency}\label{measures-of-central-tendency}
+
+\textbf{Mean (Average):} The arithmetic mean is the sum of all values
+divided by the number of observations. While intuitive, it's sensitive
+to extreme values.
+
+\[\text{Mean} = \frac{\sum x}{n}\]
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Example: Blood Pressure Study}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+Consider systolic blood pressure measurements from 7 patients: 120, 125,
+118, 140, 122, 135, 180
+
+Mean = (120 + 125 + 118 + 140 + 122 + 135 + 180) / 7 = 134.3 mmHg
+
+Notice how the outlier (180) pulls the mean upward.
+
+\end{tcolorbox}
+
+\textbf{Median:} The middle value when data is arranged in order. More
+robust to outliers than the mean.
+
+\textbf{Mode:} The most frequently occurring value. Useful for
+categorical data or to identify peaks in distributions.
+
+\subsection{Measures of Variability}\label{measures-of-variability}
+
+\textbf{Range:} Simply the difference between maximum and minimum
+values. Easy to calculate but affected by outliers.
+
+\textbf{Standard Deviation:} Measures how much individual observations
+deviate from the mean. This is perhaps the most important measure of
+variability in statistics.
+
+\[\text{Standard Deviation} = \sqrt{\frac{\sum(x - \text{mean})^2}{n-1}}\]
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Common Mistake}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+Always use n-1 (not n) in the denominator when calculating sample
+standard deviation. This provides an unbiased estimate of population
+variability.
+
+\end{tcolorbox}
+
+\textbf{Variance:} The square of standard deviation. While less
+intuitive (different units), it's mathematically convenient for many
+statistical procedures.
+
+\subsection{Data Visualization}\label{data-visualization}
+
+Visual representation of data often reveals patterns invisible in raw
+numbers:
+
+\textbf{Histograms:} Show the distribution shape and identify skewness,
+multiple peaks, or outliers.
+
+\textbf{Box Plots:} Provide a five-number summary (minimum, Q1, median,
+Q3, maximum) and clearly highlight outliers.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Interpreting Box Plots in Medical Research}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+A box plot of recovery times after surgery might show:
+
+\begin{itemize}
+\tightlist
+\item
+  Median recovery: 7 days
+\item
+  Most patients recover between 5-10 days (IQR)
+\item
+  Some outliers taking 20+ days
+\item
+  Distribution skewed toward longer recovery times
+\end{itemize}
+
+\end{tcolorbox}
+
+\textbf{Scatter Plots:} Essential for examining relationships between
+two continuous variables.
+
+\section{1.2 Probability \&
+Distributions}\label{probability-distributions}
+
+Probability theory provides the mathematical foundation for statistical
+inference. Understanding distributions helps us model real-world
+phenomena and calculate the likelihood of different outcomes.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{What is Probability?}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+Probability quantifies uncertainty. In medical research, we use
+probability to:
+
+\begin{itemize}
+\tightlist
+\item
+  Assess the likelihood of treatment success
+\item
+  Calculate confidence in our estimates
+\item
+  Determine sample sizes needed for studies
+\item
+  Evaluate the strength of evidence against hypotheses
+\end{itemize}
+
+\end{tcolorbox}
+
+\subsection{Basic Probability Rules}\label{basic-probability-rules}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Addition Rule:} P(A or B) = P(A) + P(B) - P(A and B)
+\item
+  \textbf{Multiplication Rule:} P(A and B) = P(A) × P(B\textbar A)
+\item
+  \textbf{Complement Rule:} P(not A) = 1 - P(A)
+\end{enumerate}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Medical Example: Disease Testing}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+Consider a diagnostic test for a rare disease:
+
+\begin{itemize}
+\tightlist
+\item
+  Disease prevalence: 1\% (P(Disease) = 0.01)
+\item
+  Test sensitivity: 95\% (P(Positive\textbar Disease) = 0.95)
+\item
+  Test specificity: 90\% (P(Negative\textbar No Disease) = 0.90)
+\end{itemize}
+
+What's the probability someone actually has the disease if they test
+positive?
+
+This requires Bayes' theorem and often surprises medical professionals!
+
+\end{tcolorbox}
+
+\subsection{The Normal Distribution}\label{the-normal-distribution}
+
+The normal (Gaussian) distribution is the cornerstone of statistical
+analysis. Many biological measurements naturally follow this bell-shaped
+curve.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Properties of Normal Distribution}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\begin{itemize}
+\tightlist
+\item
+  Symmetric and bell-shaped
+\item
+  Mean = Median = Mode
+\item
+  68\% of data within 1 standard deviation
+\item
+  95\% of data within 2 standard deviations
+\item
+  99.7\% of data within 3 standard deviations
+\end{itemize}
+
+\end{tcolorbox}
+
+Examples of normally distributed biological variables:
+
+\begin{itemize}
+\tightlist
+\item
+  Height and weight in populations
+\item
+  Blood pressure readings
+\item
+  IQ scores
+\item
+  Many laboratory test results
+\end{itemize}
+
+\subsection{The t-Distribution}\label{the-t-distribution}
+
+When working with small samples (n \textless{} 30), the t-distribution
+becomes crucial. It's similar to the normal distribution but with
+heavier tails, accounting for additional uncertainty from small sample
+sizes.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{When to Use t vs Normal}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+Use t-distribution when:
+
+\begin{itemize}
+\tightlist
+\item
+  Sample size is small (n \textless{} 30)
+\item
+  Population standard deviation is unknown
+\item
+  Data is approximately normally distributed
+\end{itemize}
+
+\end{tcolorbox}
+
+\section{1.3 Sampling \& Sampling
+Distributions}\label{sampling-sampling-distributions}
+
+Understanding how samples relate to populations is fundamental to
+statistical inference. The Central Limit Theorem bridges individual
+observations to population-level conclusions.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Population vs Sample}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{Population:} All possible subjects of interest (e.g., all
+patients with diabetes)
+
+\textbf{Sample:} A subset of the population we actually observe (e.g.,
+100 diabetic patients in our study)
+
+We use sample statistics to estimate population parameters.
+
+\end{tcolorbox}
+
+\subsection{Sampling Methods}\label{sampling-methods}
+
+\textbf{Simple Random Sampling:} Every member has equal chance of
+selection.
+
+\textbf{Stratified Sampling:} Population divided into groups (strata),
+then random sampling within each group.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Stratified Sampling in Clinical Trials}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+When studying a new cardiac medication, researchers might stratify by:
+
+\begin{itemize}
+\tightlist
+\item
+  Age groups (18-40, 41-65, 65+)
+\item
+  Gender
+\item
+  Severity of condition
+\end{itemize}
+
+This ensures adequate representation across important subgroups.
+
+\end{tcolorbox}
+
+\subsection{The Central Limit Theorem}\label{the-central-limit-theorem}
+
+This fundamental theorem states that sample means will be approximately
+normally distributed, regardless of the population distribution, as
+sample size increases (typically n ≥ 30).
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Implications of Central Limit Theorem}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\begin{itemize}
+\tightlist
+\item
+  We can use normal distribution for inference about means
+\item
+  Larger samples give more precise estimates
+\item
+  We can calculate confidence intervals and p-values
+\item
+  Many statistical tests are based on this principle
+\end{itemize}
+
+\end{tcolorbox}
+
+\[\text{Standard Error of Mean} = \frac{\sigma}{\sqrt{n}}\]
+
+The standard error quantifies how much sample means vary from the true
+population mean.
+
+\section{1.4 Point \& Interval
+Estimation}\label{point-interval-estimation}
+
+Estimation allows us to use sample data to make educated guesses about
+population parameters, with quantified uncertainty.
+
+\subsection{Point Estimation}\label{point-estimation}
+
+A point estimate is a single value that serves as our ``best guess'' for
+a population parameter.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Point Estimates in Medicine}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\begin{itemize}
+\tightlist
+\item
+  Sample mean blood pressure → Population mean blood pressure
+\item
+  Sample proportion cured → Population cure rate
+\item
+  Sample correlation → Population correlation
+\end{itemize}
+
+\end{tcolorbox}
+
+\subsection{Interval Estimation (Confidence
+Intervals)}\label{interval-estimation-confidence-intervals}
+
+While point estimates provide a single value, confidence intervals
+provide a range of plausible values for the population parameter.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Interpreting Confidence Intervals}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+A 95\% confidence interval means:
+
+``If we repeated this study 100 times, approximately 95 of the resulting
+confidence intervals would contain the true population parameter.''
+
+\end{tcolorbox}
+
+\[95\% \text{ CI for mean} = \bar{x} \pm t_{(0.025, df)} \times \frac{s}{\sqrt{n}}\]
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Clinical Example}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+A new pain medication reduces pain scores by an average of 3.2 points
+(95\% CI: 2.1 to 4.3).
+
+\textbf{Interpretation:} We're 95\% confident the true average reduction
+is between 2.1 and 4.3 points.
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Common Misinterpretation}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+❌ ``There's a 95\% chance the true mean is in this interval''
+
+✅ ``95\% of such intervals would contain the true mean''
+
+\end{tcolorbox}
+
+\section{1.5 Hypothesis Testing
+Framework}\label{hypothesis-testing-framework}
+
+Hypothesis testing provides a structured approach to making decisions
+under uncertainty, fundamental to scientific research.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{The Logic of Hypothesis Testing}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+We start with a skeptical position (null hypothesis) and ask: ``Is our
+observed data surprising enough to abandon this position?''
+
+\end{tcolorbox}
+
+\subsection{Setting Up Hypotheses}\label{setting-up-hypotheses}
+
+\textbf{Null Hypothesis (H₀):} The ``no effect'' or ``status quo''
+hypothesis. What we assume is true until proven otherwise.
+
+\textbf{Alternative Hypothesis (H₁ or Hₐ):} The research hypothesis
+we're trying to establish.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Hypothesis Example: New Treatment}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+Research question: ``Does new drug X reduce blood pressure more than
+placebo?''
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{H₀:} Drug X has no effect (μ\_drug = μ\_placebo)
+\item
+  \textbf{H₁:} Drug X reduces blood pressure (μ\_drug \textless{}
+  μ\_placebo)
+\end{itemize}
+
+\end{tcolorbox}
+
+\subsection{Types of Errors in Statistical
+Testing}\label{types-of-errors-in-statistical-testing}
+
+Statistical testing is not perfect---we can make two types of errors
+when making decisions about hypotheses. Understanding these errors is
+crucial for interpreting research results and making informed decisions.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{The Truth Table of Statistical Decisions}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+When conducting a hypothesis test, there are four possible outcomes:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+& H₀ is True & H₀ is False \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Reject H₀ & Type I Error (α) & Correct Decision \\
+Fail to Reject H₀ & Correct Decision & Type II Error (β) \\
+\end{longtable}
+
+\end{tcolorbox}
+
+\subsection{Type I Error (α): False
+Positive}\label{type-i-error-ux3b1-false-positive}
+
+\textbf{Definition:} Rejecting a true null hypothesis---concluding there
+is an effect when there really isn't one.
+
+\textbf{Probability:} The significance level (α) represents the maximum
+Type I error rate we're willing to accept, typically set at 0.05 (5\%).
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Type I Error Examples}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{Example 1: Drug Testing} - \textbf{H₀:} New drug has no effect
+(same as placebo) - \textbf{Truth:} Drug actually has no effect -
+\textbf{Type I Error:} Study concludes drug is effective -
+\textbf{Consequences:} Ineffective drug approved, wasting resources and
+potentially exposing patients to unnecessary side effects
+
+\textbf{Example 2: Diagnostic Testing} - \textbf{H₀:} Patient does not
+have disease - \textbf{Truth:} Patient is actually healthy -
+\textbf{Type I Error:} Test indicates patient has disease (false
+positive) - \textbf{Consequences:} Unnecessary anxiety, additional
+testing, and potentially harmful treatments
+
+\textbf{Example 3: Quality Control} - \textbf{H₀:} Manufacturing process
+is working correctly - \textbf{Truth:} Process is actually working fine
+- \textbf{Type I Error:} Conclude process is faulty -
+\textbf{Consequences:} Unnecessary production shutdown, wasted time and
+money investigating non-existent problems
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Controlling Type I Error}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+We control Type I error by setting the significance level (α) before
+conducting our test:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{α = 0.05:} 5\% chance of Type I error (most common)
+\item
+  \textbf{α = 0.01:} 1\% chance of Type I error (more stringent)
+\item
+  \textbf{α = 0.10:} 10\% chance of Type I error (more lenient)
+\end{itemize}
+
+\emph{Lowering α reduces Type I errors but increases Type II errors.}
+
+\end{tcolorbox}
+
+\subsection{Type II Error (β): False
+Negative}\label{type-ii-error-ux3b2-false-negative}
+
+\textbf{Definition:} Failing to reject a false null hypothesis---missing
+a real effect that actually exists.
+
+\textbf{Statistical Power:} Power = 1 - β, represents the probability of
+correctly detecting an effect when it truly exists.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Type II Error Examples}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{Example 1: Drug Testing} - \textbf{H₀:} New drug has no effect -
+\textbf{Truth:} Drug is actually effective - \textbf{Type II Error:}
+Study fails to detect drug's effectiveness - \textbf{Consequences:}
+Effective treatment not approved, patients continue suffering from
+treatable condition
+
+\textbf{Example 2: Diagnostic Testing} - \textbf{H₀:} Patient does not
+have disease - \textbf{Truth:} Patient actually has the disease -
+\textbf{Type II Error:} Test fails to detect disease (false negative) -
+\textbf{Consequences:} Delayed treatment, disease progression,
+potentially fatal outcomes
+
+\textbf{Example 3: Environmental Monitoring} - \textbf{H₀:} Pollution
+levels are safe - \textbf{Truth:} Pollution levels are actually
+dangerous - \textbf{Type II Error:} Fail to detect dangerous pollution -
+\textbf{Consequences:} Continued exposure to harmful substances, public
+health risks
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Factors Affecting Type II Error (β)}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+Several factors influence the probability of Type II error:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Effect Size:} Larger true effects are easier to detect (lower
+  β)
+\item
+  \textbf{Sample Size:} Larger samples reduce β
+\item
+  \textbf{Significance Level (α):} Higher α reduces β
+\item
+  \textbf{Variability:} Less noisy data reduces β
+\item
+  \textbf{Study Design:} Better designs reduce β
+\end{itemize}
+
+\end{tcolorbox}
+
+\subsection{Real-World Clinical Example: COVID-19
+Testing}\label{real-world-clinical-example-covid-19-testing}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Understanding Both Error Types in Practice}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{Scenario:} Testing for COVID-19 infection \textbf{H₀:} Person is
+not infected with COVID-19 \textbf{H₁:} Person is infected with COVID-19
+
+\textbf{Type I Error (False Positive):} - Test says ``infected'' when
+person is actually healthy - Rate: Depends on test specificity (1 -
+specificity) - Consequences: Unnecessary quarantine, contact tracing,
+anxiety - Public health impact: Resource waste, reduced public
+confidence
+
+\textbf{Type II Error (False Negative):} - Test says ``not infected''
+when person is actually infected - Rate: Depends on test sensitivity (1
+- sensitivity) - Consequences: Continued spread, no treatment, false
+security - Public health impact: Disease transmission, outbreak
+expansion
+
+\textbf{The Trade-off:} During a pandemic, false negatives (Type II
+errors) are often considered more dangerous than false positives (Type I
+errors) because missing infected individuals leads to continued disease
+spread.
+
+\end{tcolorbox}
+
+\subsection{The Relationship Between Error
+Types}\label{the-relationship-between-error-types}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Key Insights About Statistical Errors}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Inverse Relationship:} Generally, as Type I error decreases,
+  Type II error increases
+\item
+  \textbf{Sample Size Effect:} Larger samples reduce both types of
+  errors
+\item
+  \textbf{Effect Size Matters:} Larger true effects make Type II errors
+  less likely
+\item
+  \textbf{Context Dependent:} The relative cost of each error type
+  varies by situation
+\item
+  \textbf{Power Analysis:} Helps balance these errors when designing
+  studies
+\end{itemize}
+
+\end{tcolorbox}
+
+\textbf{Key Relationships:} - Power = 1 - β - P(Type I Error) = α -
+P(Type II Error) = β - As n ↑, both α and β ↓ (for fixed effect size)
+
+\subsection{Practical Guidelines for
+Researchers}\label{practical-guidelines-for-researchers}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Choosing Error Tolerances}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{When Type I errors are more serious:} - Drug approval studies
+(don't approve ineffective drugs) - Diagnostic tests for serious
+conditions - Use lower α (0.01 or 0.001)
+
+\textbf{When Type II errors are more serious:} - Screening for treatable
+conditions - Safety monitoring studies - Use higher α (0.10) or ensure
+high power (0.90+)
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Medical Context Summary}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{Type I Error (False Positive):} Concluding a treatment works
+when it doesn't, a diagnostic test is positive when disease is absent,
+or an intervention has an effect when it doesn't.
+
+\textbf{Type II Error (False Negative):} Failing to detect a treatment
+that actually works, missing a disease that is present, or failing to
+identify a real intervention effect.
+
+\textbf{Clinical Impact:} Both errors have serious consequences in
+healthcare---unnecessary treatments and missed diagnoses can both harm
+patients.
+
+\end{tcolorbox}
+
+\subsection{P-values}\label{p-values}
+
+The p-value answers: ``If the null hypothesis were true, what's the
+probability of observing data as extreme or more extreme than what we
+actually observed?''
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{P-value Misconceptions}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+❌ ``P-value is the probability the null hypothesis is true''
+
+❌ ``P-value is the probability of making a mistake''
+
+✅ ``P-value is the probability of observing such data if null
+hypothesis is true''
+
+\end{tcolorbox}
+
+\textbf{Statistical Significance:} Typically, p \textless{} 0.05 is
+considered statistically significant, meaning we reject the null
+hypothesis.
+
+\section{1.6 One-Sample \& Two-Sample
+t-Tests}\label{one-sample-two-sample-t-tests}
+
+T-tests are among the most commonly used statistical tests in biomedical
+research, allowing us to compare means between groups or against known
+values.
+
+\subsection{One-Sample t-Test}\label{one-sample-t-test}
+
+Compares a sample mean to a known population value or theoretical
+expectation.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{One-Sample Example}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+Normal body temperature is supposedly 98.6°F. We measure 25 healthy
+adults and want to test if the population mean differs from 98.6°F.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{H₀:} μ = 98.6°F
+\item
+  \textbf{H₁:} μ ≠ 98.6°F
+\end{itemize}
+
+\end{tcolorbox}
+
+\[t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}\] \[df = n - 1\]
+
+\subsection{Two-Sample t-Test (Equal
+Variances)}\label{two-sample-t-test-equal-variances}
+
+Compares means between two independent groups, assuming equal population
+variances.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Assumptions for Two-Sample t-Test}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\begin{itemize}
+\tightlist
+\item
+  Both samples from normal distributions
+\item
+  Independent observations
+\item
+  Equal population variances (homoscedasticity)
+\end{itemize}
+
+\end{tcolorbox}
+
+The \textbf{pooled standard deviation} combines information from both
+samples:
+
+\[s_{pooled} = \sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}}\]
+
+\[t = \frac{\bar{x}_1 - \bar{x}_2}{s_{pooled} \times \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}\]
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Clinical Trial Example}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+Comparing pain scores between treatment and control groups:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Treatment group:} n=20, mean=4.2, sd=1.8
+\item
+  \textbf{Control group:} n=18, mean=6.1, sd=2.1
+\item
+  \textbf{Question:} Does treatment reduce pain scores?
+\end{itemize}
+
+\end{tcolorbox}
+
+\subsection{When to Use Pooled vs Unpooled (Welch's)
+t-Test}\label{when-to-use-pooled-vs-unpooled-welchs-t-test}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Testing Equal Variances}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+Use F-test or Levene's test to check equal variance assumption. If p
+\textgreater{} 0.05, variances are likely equal and pooled t-test is
+appropriate.
+
+\end{tcolorbox}
+
+The pooled t-test is more powerful when variances are truly equal, but
+Welch's t-test is more robust when they're not.
+
+\bookmarksetup{startatroot}
+
+\chapter{Chapter 2: Comparative
+Inference}\label{chapter-2-comparative-inference}
+
+Advanced techniques for comparing groups when traditional assumptions
+don't hold, ensuring robust statistical inference across diverse
+research scenarios.
+
+\section{2.1 Welch's t-Test \& Paired
+t-Test}\label{welchs-t-test-paired-t-test}
+
+When the equal variance assumption is violated or when data comes in
+natural pairs, we need specialized approaches to maintain valid
+statistical inference.
+
+\subsection{Welch's t-Test (Unequal
+Variances)}\label{welchs-t-test-unequal-variances}
+
+When group variances differ substantially, the pooled t-test can give
+misleading results. Welch's t-test adjusts for unequal variances.
+
+\[t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}\]
+
+\[df = \frac{\left(\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}\right)^2}{\frac{\left(\frac{s_1^2}{n_1}\right)^2}{n_1-1} + \frac{\left(\frac{s_2^2}{n_2}\right)^2}{n_2-1}}\]
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{When Variances Differ}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+Comparing recovery times between two surgical procedures:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Procedure A:} mean=7 days, sd=2 days (low variability)
+\item
+  \textbf{Procedure B:} mean=8 days, sd=5 days (high variability)
+\end{itemize}
+
+The large difference in standard deviations suggests using Welch's
+t-test.
+
+\end{tcolorbox}
+
+\emph{Note: This chapter appears to be incomplete in the source HTML
+file. Additional content for paired t-tests and other comparative
+inference methods would typically be included here.}
+
+\bookmarksetup{startatroot}
+
+\chapter{Chapter 3: Multi-Group
+Analysis}\label{chapter-3-multi-group-analysis}
+
+When research involves comparing three or more groups, specialized
+techniques prevent inflated error rates while maintaining statistical
+power.
+
+\section{3.1 Introduction to ANOVA (Analysis of
+Variance)}\label{introduction-to-anova-analysis-of-variance}
+
+When comparing means across three or more groups, using multiple t-tests
+creates a serious statistical problem: \textbf{multiple comparisons}.
+ANOVA provides an elegant solution by testing all groups simultaneously
+while controlling error rates.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Why Not Multiple t-Tests?}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+With 3 groups, you'd need 3 t-tests. With α = 0.05 for each test:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Individual error rate:} 5\% per test
+\item
+  \textbf{Family-wise error rate:} 1 - (0.95)³ = 14.3\%
+\item
+  \textbf{Problem:} Much higher chance of false positives!
+\end{itemize}
+
+With 5 groups, you'd need 10 tests, inflating error rate to
+\textasciitilde40\%!
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{The Logic of ANOVA}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+ANOVA compares two sources of variation:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Between-groups variation:} Differences due to treatment
+  effects
+\item
+  \textbf{Within-groups variation:} Random variation (noise)
+\end{itemize}
+
+\textbf{Key Insight:} If treatment has no effect, both sources should be
+similar. If there's a real effect, between-groups variation will be much
+larger.
+
+\end{tcolorbox}
+
+\subsection{ANOVA Hypotheses}\label{anova-hypotheses}
+
+\textbf{Null Hypothesis (H₀):} All group means are equal H₀: μ₁ = μ₂ =
+μ₃ = \ldots{} = μₖ
+
+\textbf{Alternative Hypothesis (H₁):} At least one group mean differs
+H₁: Not all μᵢ are equal
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Medical Research Example}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{Research Question:} Do three different pain medications have
+different effectiveness?
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Group 1:} Medication A (n=25)
+\item
+  \textbf{Group 2:} Medication B (n=23)
+\item
+  \textbf{Group 3:} Placebo (n=27)
+\item
+  \textbf{Outcome:} Pain reduction score (0-10 scale)
+\end{itemize}
+
+\textbf{H₀:} μₐ = μᵦ = μₚₗₐᶜₑᵦₒ (all medications equally effective)
+\textbf{H₁:} At least one medication differs in effectiveness
+
+\end{tcolorbox}
+
+\subsection{The F-Statistic}\label{the-f-statistic}
+
+ANOVA uses the F-statistic to compare variances:
+
+\[F = \frac{\text{MSB}}{\text{MSW}}\]
+
+where: - MSB = Mean Square Between groups - MSW = Mean Square Within
+groups
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Understanding the F-Ratio}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{F ≈ 1:} Between-group variation similar to within-group
+  variation → No treatment effect
+\item
+  \textbf{F \textgreater\textgreater{} 1:} Between-group variation much
+  larger → Likely treatment effect
+\item
+  \textbf{F \textless{} 1:} Rare, suggests less variation between groups
+  than within (unusual)
+\end{itemize}
+
+\end{tcolorbox}
+
+\subsection{ANOVA Assumptions}\label{anova-assumptions}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Critical Assumptions}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Independence:} Observations must be independent
+\item
+  \textbf{Normality:} Data in each group should be approximately normal
+\item
+  \textbf{Homoscedasticity:} Equal variances across all groups
+\end{itemize}
+
+\textbf{Violation Consequences:} Increased Type I error, reduced power,
+invalid conclusions
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Checking Assumptions in Practice}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{Independence:} Ensure proper randomization and no clustering
+
+\textbf{Normality:} - Visual: Q-Q plots, histograms for each group -
+Statistical: Shapiro-Wilk test (if n \textless{} 50) - Robust: ANOVA
+reasonably robust with n \textgreater{} 30 per group
+
+\textbf{Equal Variances:} - Visual: Box plots, side-by-side -
+Statistical: Levene's test (preferred), Bartlett's test - Rule of thumb:
+Largest SD / Smallest SD \textless{} 2
+
+\end{tcolorbox}
+
+\section{3.2 One-Way ANOVA:
+Step-by-Step}\label{one-way-anova-step-by-step}
+
+One-way ANOVA compares means across groups defined by a single
+categorical variable (factor).
+
+\subsection{ANOVA Table Components}\label{anova-table-components}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Understanding ANOVA Table}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule\noalign{}
+Source & df & SS & MS & F \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Between & k-1 & SSB & MSB & MSB/MSW \\
+Within & N-k & SSW & MSW & - \\
+Total & N-1 & SST & - & - \\
+\end{longtable}
+
+\textbf{Where:} k = number of groups, N = total sample size
+
+\end{tcolorbox}
+
+\subsection{Calculating Sum of
+Squares}\label{calculating-sum-of-squares}
+
+\textbf{Total Sum of Squares (SST):}
+\[\text{SST} = \sum_i(x_i - \bar{x})^2\]
+
+\textbf{Between Groups Sum of Squares (SSB):}
+\[\text{SSB} = \sum_j n_j(\bar{x}_j - \bar{x})^2\]
+
+\textbf{Within Groups Sum of Squares (SSW):}
+\[\text{SSW} = \text{SST} - \text{SSB}\]
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Worked Example: Pain Medication Study}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{Data:} - \textbf{Medication A:} 7, 8, 6, 9, 7 (n₁=5, x̄₁=7.4) -
+\textbf{Medication B:} 5, 6, 4, 7, 5 (n₂=5, x̄₂=5.4) - \textbf{Placebo:}
+3, 4, 2, 5, 3 (n₃=5, x̄₃=3.4)
+
+\textbf{Step 1: Calculate overall mean} x̄ = (7.4×5 + 5.4×5 + 3.4×5) / 15
+= 81/15 = 5.4
+
+\textbf{Step 2: Calculate SSB} SSB = 5×(7.4-5.4)² + 5×(5.4-5.4)² +
+5×(3.4-5.4)² SSB = 5×4 + 5×0 + 5×4 = 40
+
+\textbf{Step 3: Calculate SST} SST = (7-5.4)² + (8-5.4)² + \ldots{} +
+(3-5.4)² = 56
+
+\textbf{Step 4: Calculate SSW} SSW = SST - SSB = 56 - 40 = 16
+
+\textbf{Step 5: Calculate Mean Squares} MSB = SSB/(k-1) = 40/(3-1) = 20
+MSW = SSW/(N-k) = 16/(15-3) = 1.33
+
+\textbf{Step 6: Calculate F-statistic} F = MSB/MSW = 20/1.33 = 15.0
+
+\textbf{Step 7: Compare to critical value} F₀.₀₅,₂,₁₂ = 3.89. Since 15.0
+\textgreater{} 3.89, p \textless{} 0.05 \textbf{Conclusion:} Reject H₀.
+At least one medication differs significantly.
+
+\end{tcolorbox}
+
+\section{3.3 Post-Hoc Tests and Multiple
+Comparisons}\label{post-hoc-tests-and-multiple-comparisons}
+
+When ANOVA shows significant differences, \textbf{post-hoc tests}
+determine which specific groups differ from each other.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Why Post-Hoc Tests?}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+ANOVA only tells us that ``at least one group differs'' but not:
+
+\begin{itemize}
+\tightlist
+\item
+  Which specific groups are different?
+\item
+  How many groups are different?
+\item
+  The magnitude of differences?
+\end{itemize}
+
+Post-hoc tests provide pairwise comparisons while controlling
+family-wise error rate.
+
+\end{tcolorbox}
+
+\subsection{Common Post-Hoc Tests}\label{common-post-hoc-tests}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tukey's HSD (Honestly Significant Difference)}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{When to use:} Most common, good balance of power and control
+\textbf{Formula:} HSD = q × √(MSW/n) \textbf{Advantage:} Controls
+family-wise error rate at α \textbf{Disadvantage:} Requires equal sample
+sizes (or harmonic mean)
+
+\textbf{Interpretation:} If \textbar x̄ᵢ - x̄ⱼ\textbar{} \textgreater{}
+HSD, groups i and j differ significantly
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Bonferroni Correction}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{When to use:} Conservative approach, few planned comparisons
+\textbf{Method:} Use α/c for each comparison (c = number of comparisons)
+\textbf{Example:} With 3 groups, 3 comparisons, use α = 0.05/3 = 0.017
+\textbf{Advantage:} Simple, very conservative \textbf{Disadvantage:} Can
+be overly conservative, reduced power
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Scheffé's Test}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{When to use:} Any possible comparison, not just pairwise
+\textbf{Advantage:} Most flexible, allows complex contrasts
+\textbf{Disadvantage:} Most conservative for simple pairwise comparisons
+
+\end{tcolorbox}
+
+\subsection{Continuing Our Pain Medication
+Example}\label{continuing-our-pain-medication-example}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Post-Hoc Analysis}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+We found F = 15.0, p \textless{} 0.05. Now let's determine which
+medications differ:
+
+\textbf{Tukey's HSD Calculation:} HSD = q₀.₀₅,₃,₁₂ × √(MSW/n) = 3.77 ×
+√(1.33/5) = 1.94
+
+\textbf{Pairwise Comparisons:} - \textbar Med A - Med B\textbar{} =
+\textbar7.4 - 5.4\textbar{} = 2.0 \textgreater{} 1.94 ✓
+\textbf{Significant} - \textbar Med A - Placebo\textbar{} = \textbar7.4
+- 3.4\textbar{} = 4.0 \textgreater{} 1.94 ✓ \textbf{Significant} -
+\textbar Med B - Placebo\textbar{} = \textbar5.4 - 3.4\textbar{} = 2.0
+\textgreater{} 1.94 ✓ \textbf{Significant}
+
+\textbf{Conclusion:} All three treatments differ significantly from each
+other. \textbf{Clinical Interpretation:} Med A \textgreater{} Med B
+\textgreater{} Placebo for pain reduction.
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Common Mistakes in Post-Hoc Testing}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{❌ Running post-hocs when ANOVA is not significant} → Fishing
+  for significance
+\item
+  \textbf{❌ Using multiple different post-hoc tests} → Inflated error
+  rates
+\item
+  \textbf{❌ Ignoring practical significance} → Statistical ≠ clinical
+  significance
+\item
+  \textbf{✅ Choose post-hoc test before analysis} → Avoid bias
+\item
+  \textbf{✅ Report effect sizes} → Practical importance
+\end{itemize}
+
+\end{tcolorbox}
+
+\section{3.4 Two-Way ANOVA}\label{two-way-anova}
+
+Two-way ANOVA examines the effects of two categorical variables
+(factors) simultaneously, including their potential interaction.
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Advantages of Two-Way ANOVA}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Efficiency:} Tests multiple factors in one analysis
+\item
+  \textbf{Interaction Detection:} Identifies when factors work together
+\item
+  \textbf{Control:} Accounts for additional sources of variation
+\item
+  \textbf{Power:} Often more powerful than separate one-way ANOVAs
+\end{itemize}
+
+\end{tcolorbox}
+
+\subsection{Three Research Questions}\label{three-research-questions}
+
+Two-way ANOVA addresses three hypotheses simultaneously:
+
+\textbf{Main Effect of Factor A:} H₀: μ₁• = μ₂• = \ldots{} = μₐ•
+\textbf{Main Effect of Factor B:} H₀: μ•₁ = μ•₂ = \ldots{} = μ•ᵦ
+\textbf{Interaction Effect:} H₀: No A×B interaction
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Clinical Trial Example: Drug and Exercise}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{Research Question:} Do cholesterol-lowering drugs and exercise
+programs interact?
+
+\textbf{Factor A (Drug):} New drug vs.~Placebo \textbf{Factor B
+(Exercise):} High intensity vs.~Low intensity \textbf{Outcome:}
+Cholesterol reduction (mg/dL)
+
+\textbf{Design:} 2×2 factorial design - Group 1: New drug + High
+exercise (n=20) - Group 2: New drug + Low exercise (n=20) - Group 3:
+Placebo + High exercise (n=20) - Group 4: Placebo + Low exercise (n=20)
+
+\end{tcolorbox}
+
+\subsection{Understanding
+Interactions}\label{understanding-interactions}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Types of Interaction Effects}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{No Interaction:} Effect of Factor A is the same at all levels of
+Factor B \textbf{Ordinal Interaction:} Effect of Factor A varies in
+magnitude but not direction \textbf{Disordinal Interaction:} Effect of
+Factor A changes direction at different levels of Factor B
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Interpreting Interaction: Hypothetical Results}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{Scenario 1: No Interaction}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+& High Exercise & Low Exercise & Difference \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+New Drug & 40 mg/dL & 30 mg/dL & 10 mg/dL \\
+Placebo & 20 mg/dL & 10 mg/dL & 10 mg/dL \\
+\end{longtable}
+
+\textbf{Interpretation:} Exercise always improves cholesterol by 10
+mg/dL, regardless of drug
+
+\textbf{Scenario 2: Significant Interaction}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+& High Exercise & Low Exercise & Difference \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+New Drug & 50 mg/dL & 25 mg/dL & 25 mg/dL \\
+Placebo & 15 mg/dL & 10 mg/dL & 5 mg/dL \\
+\end{longtable}
+
+\textbf{Interpretation:} The drug works much better with high exercise
+(synergistic effect)
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Interpreting Two-Way ANOVA Results}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{If interaction is significant:} - Focus primarily on interaction
+interpretation - Main effects may be misleading - Use simple effects
+analysis or interaction contrasts
+
+\textbf{If interaction is not significant:} - Interpret main effects
+independently - Each factor's effect is consistent across levels of the
+other
+
+\end{tcolorbox}
+
+\section{3.5 ANOVA in Practice: Assumptions and
+Alternatives}\label{anova-in-practice-assumptions-and-alternatives}
+
+\subsection{When ANOVA Assumptions
+Fail}\label{when-anova-assumptions-fail}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, colframe=quarto-callout-warning-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Assumption Violations and Solutions}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{Non-normality:} - \textbf{Mild violation:} ANOVA is robust
+(central limit theorem) - \textbf{Severe violation:} Use Kruskal-Wallis
+test (non-parametric) - \textbf{Transformation:} Log, square root, or
+Box-Cox transformations
+
+\textbf{Unequal variances:} - \textbf{Welch's ANOVA:} Doesn't assume
+equal variances - \textbf{Brown-Forsythe test:} Robust to variance
+differences - \textbf{Transformation:} Often stabilizes variances
+
+\textbf{Non-independence:} - \textbf{Most serious violation} → Inflated
+Type I error - \textbf{Solutions:} Mixed-effects models, cluster-robust
+standard errors - \textbf{Design fix:} Proper randomization, account for
+clustering
+
+\end{tcolorbox}
+
+\subsection{Effect Size and Practical
+Significance}\label{effect-size-and-practical-significance}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Effect Size Measures for ANOVA}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{Eta-squared (η²):} Proportion of total variance explained η² =
+SSB / SST
+
+\textbf{Partial Eta-squared:} More common in complex designs ηₚ² = SSB /
+(SSB + SSW)
+
+\textbf{Cohen's Guidelines:} - Small effect: η² = 0.01 - Medium effect:
+η² = 0.06 - Large effect: η² = 0.14
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Reporting ANOVA Results}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{Complete ANOVA Report:}
+
+``A one-way ANOVA was conducted to compare the effectiveness of three
+pain medications. The analysis revealed a statistically significant
+difference between groups, F(2, 12) = 15.0, p \textless{} 0.001, η² =
+0.71, indicating a large effect size.
+
+Post-hoc comparisons using Tukey's HSD test indicated that all pairwise
+comparisons were statistically significant (p \textless{} 0.05).
+Medication A (M = 7.4, SD = 1.1) was more effective than Medication B (M
+= 5.4, SD = 1.1), which was more effective than Placebo (M = 3.4, SD =
+1.1).''
+
+\end{tcolorbox}
+
+\subsection{Power Analysis for ANOVA}\label{power-analysis-for-anova}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, colframe=quarto-callout-note-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Sample Size Planning}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+Power analysis helps determine appropriate sample sizes before
+conducting research:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Specify:} Effect size, significance level (α), desired power
+\item
+  \textbf{Effect size:} Based on pilot data or literature
+\item
+  \textbf{Common power:} 0.80 (80\% chance of detecting true effect)
+\item
+  \textbf{Balance:} Equal sample sizes maximize power
+\end{itemize}
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, opacitybacktitle=0.6, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, colframe=quarto-callout-tip-color-frame, breakable, leftrule=.75mm, left=2mm, titlerule=0mm, bottomtitle=1mm, colback=white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Power Analysis Example}, rightrule=.15mm, coltitle=black, arc=.35mm, bottomrule=.15mm, toprule=.15mm]
+
+\textbf{Research Planning:} Comparing 4 treatments for depression
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Expected effect size:} f = 0.25 (medium effect)
+\item
+  \textbf{Significance level:} α = 0.05
+\item
+  \textbf{Desired power:} 0.80
+\item
+  \textbf{Result:} Need n = 45 per group (180 total)
+\end{itemize}
+
+\textbf{Interpretation:} With 45 participants per group, we have an 80\%
+chance of detecting a medium-sized difference if it truly exists.
+
+\end{tcolorbox}
+
+\bookmarksetup{startatroot}
+
+\chapter{Chapter 4: Interrelationships \&
+Modeling}\label{chapter-4-interrelationships-modeling}
+
+Move beyond simple group comparisons to understand relationships between
+variables and build predictive models.
+
+\emph{Note: This chapter appears to be incomplete in the source HTML
+file. Only the title and introduction were available. Additional content
+for interrelationships and modeling methods would typically include:}
+
+\begin{itemize}
+\tightlist
+\item
+  Correlation analysis
+\item
+  Simple and multiple linear regression
+\item
+  Logistic regression
+\item
+  Model diagnostics and assumptions
+\item
+  Variable selection techniques
+\item
+  Model interpretation and inference
+\end{itemize}
+
+\emph{These topics would be covered in a complete version of this
+chapter.}
+
+\bookmarksetup{startatroot}
+
+\chapter{Chapter 5: Design \& Power
+Considerations}\label{chapter-5-design-power-considerations}
+
+Plan studies effectively by determining appropriate sample sizes and
+control error rates when testing multiple hypotheses.
+
+\emph{Note: This chapter appears to be incomplete in the source HTML
+file. Only the title and introduction were available. Additional content
+for design and power considerations would typically include:}
+
+\begin{itemize}
+\tightlist
+\item
+  Study design principles
+\item
+  Sample size calculation methods
+\item
+  Power analysis techniques
+\item
+  Multiple testing corrections (Bonferroni, FDR, etc.)
+\item
+  Type I and Type II error control
+\item
+  Interim analysis and stopping rules
+\item
+  Adaptive trial designs
+\end{itemize}
+
+\emph{These topics would be covered in a complete version of this
+chapter.}
+
+\bookmarksetup{startatroot}
+
+\chapter{Chapter 6: Specialized \& Modern
+Methods}\label{chapter-6-specialized-modern-methods}
+
+Advanced techniques for complex data scenarios, from time-to-event
+analysis to modern computational approaches in the era of big data.
+
+\emph{Note: This chapter appears to be incomplete in the source HTML
+file. Only the title and introduction were available. Additional content
+for specialized and modern methods would typically include:}
+
+\begin{itemize}
+\tightlist
+\item
+  Survival analysis (Kaplan-Meier, Cox regression)
+\item
+  Non-parametric methods (Mann-Whitney, Kruskal-Wallis, etc.)
+\item
+  Bootstrap and resampling methods
+\item
+  Mixed-effects models for repeated measures
+\item
+  Time series analysis
+\item
+  Machine learning approaches in biostatistics
+\item
+  Bayesian methods
+\item
+  Meta-analysis techniques
+\item
+  Handling missing data (imputation methods)
+\item
+  High-dimensional data analysis
+\end{itemize}
+
+\emph{These topics would be covered in a complete version of this
+chapter.}
+
+\bookmarksetup{startatroot}
+
+\chapter*{References}\label{references}
+\addcontentsline{toc}{chapter}{References}
+
+\markboth{References}{References}
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{0}{1}
+\end{CSLReferences}
+
+\section*{Recommended Reading}\label{recommended-reading}
+\addcontentsline{toc}{section}{Recommended Reading}
+
+\markright{Recommended Reading}
+
+\subsection*{Foundational Texts}\label{foundational-texts}
+\addcontentsline{toc}{subsection}{Foundational Texts}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Rosner, B.} (2015). \emph{Fundamentals of Biostatistics} (8th
+  ed.). Cengage Learning.
+\item
+  \textbf{Pagano, M., \& Gauvreau, K.} (2000). \emph{Principles of
+  Biostatistics} (2nd ed.). Duxbury Press.
+\item
+  \textbf{Jewell, N. P.} (2003). \emph{Statistics for Epidemiology}.
+  Chapman and Hall/CRC.
+\end{itemize}
+
+\subsection*{Advanced Methods}\label{advanced-methods}
+\addcontentsline{toc}{subsection}{Advanced Methods}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Kleinbaum, D. G., \& Klein, M.} (2012). \emph{Survival
+  Analysis: A Self-Learning Text} (3rd ed.). Springer.
+\item
+  \textbf{Hosmer, D. W., Lemeshow, S., \& Sturdivant, R. X.} (2013).
+  \emph{Applied Logistic Regression} (3rd ed.). Wiley.
+\item
+  \textbf{Diggle, P., Heagerty, P., Liang, K. Y., \& Zeger, S.} (2002).
+  \emph{Analysis of Longitudinal Data} (2nd ed.). Oxford University
+  Press.
+\end{itemize}
+
+\subsection*{Statistical Software}\label{statistical-software}
+\addcontentsline{toc}{subsection}{Statistical Software}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{R Core Team} (2023). \emph{R: A language and environment for
+  statistical computing}. R Foundation for Statistical Computing.
+  https://www.R-project.org/
+\item
+  \textbf{Wickham, H., \& Grolemund, G.} (2017). \emph{R for Data
+  Science}. O'Reilly Media. https://r4ds.had.co.nz/
+\item
+  \textbf{VanderPlas, J.} (2016). \emph{Python Data Science Handbook}.
+  O'Reilly Media.
+\end{itemize}
+
+\subsection*{Methodological Resources}\label{methodological-resources}
+\addcontentsline{toc}{subsection}{Methodological Resources}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Altman, D. G.} (1991). \emph{Practical Statistics for Medical
+  Research}. Chapman and Hall/CRC.
+\item
+  \textbf{Bland, M.} (2015). \emph{An Introduction to Medical
+  Statistics} (4th ed.). Oxford University Press.
+\item
+  \textbf{Zar, J. H.} (2013). \emph{Biostatistical Analysis} (5th ed.).
+  Pearson.
+\end{itemize}
+
+\subsection*{Online Resources}\label{online-resources}
+\addcontentsline{toc}{subsection}{Online Resources}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Khan Academy Statistics and Probability}:
+  https://www.khanacademy.org/math/statistics-probability
+\item
+  \textbf{Coursera Biostatistics Courses}: Various universities offer
+  comprehensive biostatistics courses
+\item
+  \textbf{edX Statistics Courses}: Free courses from top universities
+\item
+  \textbf{R Documentation}: https://www.rdocumentation.org/
+\item
+  \textbf{Python Statistics Libraries}: SciPy, StatsModels, Scikit-learn
+  documentation
+\end{itemize}
+
+
+\backmatter
+
+
+\end{document}

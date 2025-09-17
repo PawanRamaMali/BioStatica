@@ -1,0 +1,41 @@
+# Preface {.unnumbered}
+
+BioStatica is a comprehensive, beginner-friendly platform offering tutorials, interactive modules, and real-world examples to master biostatistics—from foundational principles to modern methodologies used in cutting-edge research.
+
+## About This Book
+
+This book delivers a structured learning pathway—from statistical fundamentals to advanced methods in biostatistics—blending clarity with rigor for learners at all levels. Whether you're a student beginning your journey in biostatistics or a researcher looking to deepen your understanding, this guide provides practical insights and real-world applications.
+
+## Prerequisites
+
+Before diving into this book, you should have:
+
+- Basic understanding of mathematics and algebra
+- Familiarity with statistical software (R, Python, or similar)
+- Access to a computer with statistical software installed
+
+## How to Use This Book
+
+Each chapter builds upon previous concepts, so we recommend reading them in order, especially if you're new to biostatistics. However, experienced readers may jump to specific topics of interest.
+
+## Interactive Learning
+
+This book includes:
+
+- Interactive examples and exercises
+- Real-world datasets for practice
+- Code snippets in R and Python
+- Visual demonstrations of statistical concepts
+- Practical applications in biological and medical research
+
+## Contributing
+
+This is an open-source project. Contributions, suggestions, and feedback are welcome. Please visit our [GitHub repository](https://github.com/PawanRamaMali/BioStatica) to contribute.
+
+## Acknowledgments
+
+We thank the biostatistics and open science communities for their continued support and contributions to making statistical education accessible to all.
+
+---
+
+*Ready to begin your journey into biostatistics? Let's start with the introduction.*

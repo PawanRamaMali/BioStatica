@@ -1,0 +1,14 @@
+# Chapter 4: Interrelationships & Modeling
+
+Move beyond simple group comparisons to understand relationships between variables and build predictive models.
+
+*Note: This chapter appears to be incomplete in the source HTML file. Only the title and introduction were available. Additional content for interrelationships and modeling methods would typically include:*
+
+- Correlation analysis
+- Simple and multiple linear regression
+- Logistic regression
+- Model diagnostics and assumptions
+- Variable selection techniques
+- Model interpretation and inference
+
+*These topics would be covered in a complete version of this chapter.*

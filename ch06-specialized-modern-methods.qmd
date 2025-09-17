@@ -1,0 +1,18 @@
+# Chapter 6: Specialized & Modern Methods
+
+Advanced techniques for complex data scenarios, from time-to-event analysis to modern computational approaches in the era of big data.
+
+*Note: This chapter appears to be incomplete in the source HTML file. Only the title and introduction were available. Additional content for specialized and modern methods would typically include:*
+
+- Survival analysis (Kaplan-Meier, Cox regression)
+- Non-parametric methods (Mann-Whitney, Kruskal-Wallis, etc.)
+- Bootstrap and resampling methods
+- Mixed-effects models for repeated measures
+- Time series analysis
+- Machine learning approaches in biostatistics
+- Bayesian methods
+- Meta-analysis techniques
+- Handling missing data (imputation methods)
+- High-dimensional data analysis
+
+*These topics would be covered in a complete version of this chapter.*

@@ -1,0 +1,481 @@
+# Chapter 1: Foundational Concepts
+
+Master the essential building blocks of statistical thinking that form the foundation for all biostatistical analysis.
+
+## 1.1 Descriptive Statistics & Visualization
+
+Before diving into complex analyses, we must first understand how to describe and visualize our data. Descriptive statistics provide the first glimpse into what our data tells us.
+
+:::{.callout-note}
+## Understanding Your Data
+
+Every dataset tells a story. Descriptive statistics help us understand:
+
+- **Central Tendency:** Where does the typical value lie?
+- **Variability:** How spread out are our observations?
+- **Shape:** Is the data symmetric or skewed?
+- **Outliers:** Are there unusual observations?
+:::
+
+### Measures of Central Tendency
+
+**Mean (Average):** The arithmetic mean is the sum of all values divided by the number of observations. While intuitive, it's sensitive to extreme values.
+
+$$\text{Mean} = \frac{\sum x}{n}$$
+
+:::{.callout-tip title="Example: Blood Pressure Study"}
+Consider systolic blood pressure measurements from 7 patients: 120, 125, 118, 140, 122, 135, 180
+
+Mean = (120 + 125 + 118 + 140 + 122 + 135 + 180) / 7 = 134.3 mmHg
+
+Notice how the outlier (180) pulls the mean upward.
+:::
+
+**Median:** The middle value when data is arranged in order. More robust to outliers than the mean.
+
+**Mode:** The most frequently occurring value. Useful for categorical data or to identify peaks in distributions.
+
+### Measures of Variability
+
+**Range:** Simply the difference between maximum and minimum values. Easy to calculate but affected by outliers.
+
+**Standard Deviation:** Measures how much individual observations deviate from the mean. This is perhaps the most important measure of variability in statistics.
+
+$$\text{Standard Deviation} = \sqrt{\frac{\sum(x - \text{mean})^2}{n-1}}$$
+
+:::{.callout-warning}
+## Common Mistake
+
+Always use n-1 (not n) in the denominator when calculating sample standard deviation. This provides an unbiased estimate of population variability.
+:::
+
+**Variance:** The square of standard deviation. While less intuitive (different units), it's mathematically convenient for many statistical procedures.
+
+### Data Visualization
+
+Visual representation of data often reveals patterns invisible in raw numbers:
+
+**Histograms:** Show the distribution shape and identify skewness, multiple peaks, or outliers.
+
+**Box Plots:** Provide a five-number summary (minimum, Q1, median, Q3, maximum) and clearly highlight outliers.
+
+:::{.callout-tip title="Interpreting Box Plots in Medical Research"}
+A box plot of recovery times after surgery might show:
+
+- Median recovery: 7 days
+- Most patients recover between 5-10 days (IQR)
+- Some outliers taking 20+ days
+- Distribution skewed toward longer recovery times
+:::
+
+**Scatter Plots:** Essential for examining relationships between two continuous variables.
+
+## 1.2 Probability & Distributions
+
+Probability theory provides the mathematical foundation for statistical inference. Understanding distributions helps us model real-world phenomena and calculate the likelihood of different outcomes.
+
+:::{.callout-note}
+## What is Probability?
+
+Probability quantifies uncertainty. In medical research, we use probability to:
+
+- Assess the likelihood of treatment success
+- Calculate confidence in our estimates
+- Determine sample sizes needed for studies
+- Evaluate the strength of evidence against hypotheses
+:::
+
+### Basic Probability Rules
+
+1. **Addition Rule:** P(A or B) = P(A) + P(B) - P(A and B)
+2. **Multiplication Rule:** P(A and B) = P(A) × P(B|A)
+3. **Complement Rule:** P(not A) = 1 - P(A)
+
+:::{.callout-tip title="Medical Example: Disease Testing"}
+Consider a diagnostic test for a rare disease:
+
+- Disease prevalence: 1% (P(Disease) = 0.01)
+- Test sensitivity: 95% (P(Positive|Disease) = 0.95)
+- Test specificity: 90% (P(Negative|No Disease) = 0.90)
+
+What's the probability someone actually has the disease if they test positive?
+
+This requires Bayes' theorem and often surprises medical professionals!
+:::
+
+### The Normal Distribution
+
+The normal (Gaussian) distribution is the cornerstone of statistical analysis. Many biological measurements naturally follow this bell-shaped curve.
+
+:::{.callout-note}
+## Properties of Normal Distribution
+
+- Symmetric and bell-shaped
+- Mean = Median = Mode
+- 68% of data within 1 standard deviation
+- 95% of data within 2 standard deviations
+- 99.7% of data within 3 standard deviations
+:::
+
+Examples of normally distributed biological variables:
+
+- Height and weight in populations
+- Blood pressure readings
+- IQ scores
+- Many laboratory test results
+
+### The t-Distribution
+
+When working with small samples (n < 30), the t-distribution becomes crucial. It's similar to the normal distribution but with heavier tails, accounting for additional uncertainty from small sample sizes.
+
+:::{.callout-warning}
+## When to Use t vs Normal
+
+Use t-distribution when:
+
+- Sample size is small (n < 30)
+- Population standard deviation is unknown
+- Data is approximately normally distributed
+:::
+
+## 1.3 Sampling & Sampling Distributions
+
+Understanding how samples relate to populations is fundamental to statistical inference. The Central Limit Theorem bridges individual observations to population-level conclusions.
+
+:::{.callout-note}
+## Population vs Sample
+
+**Population:** All possible subjects of interest (e.g., all patients with diabetes)
+
+**Sample:** A subset of the population we actually observe (e.g., 100 diabetic patients in our study)
+
+We use sample statistics to estimate population parameters.
+:::
+
+### Sampling Methods
+
+**Simple Random Sampling:** Every member has equal chance of selection.
+
+**Stratified Sampling:** Population divided into groups (strata), then random sampling within each group.
+
+:::{.callout-tip title="Stratified Sampling in Clinical Trials"}
+When studying a new cardiac medication, researchers might stratify by:
+
+- Age groups (18-40, 41-65, 65+)
+- Gender
+- Severity of condition
+
+This ensures adequate representation across important subgroups.
+:::
+
+### The Central Limit Theorem
+
+This fundamental theorem states that sample means will be approximately normally distributed, regardless of the population distribution, as sample size increases (typically n ≥ 30).
+
+:::{.callout-note}
+## Implications of Central Limit Theorem
+
+- We can use normal distribution for inference about means
+- Larger samples give more precise estimates
+- We can calculate confidence intervals and p-values
+- Many statistical tests are based on this principle
+:::
+
+$$\text{Standard Error of Mean} = \frac{\sigma}{\sqrt{n}}$$
+
+The standard error quantifies how much sample means vary from the true population mean.
+
+## 1.4 Point & Interval Estimation
+
+Estimation allows us to use sample data to make educated guesses about population parameters, with quantified uncertainty.
+
+### Point Estimation
+
+A point estimate is a single value that serves as our "best guess" for a population parameter.
+
+:::{.callout-tip title="Point Estimates in Medicine"}
+- Sample mean blood pressure → Population mean blood pressure
+- Sample proportion cured → Population cure rate
+- Sample correlation → Population correlation
+:::
+
+### Interval Estimation (Confidence Intervals)
+
+While point estimates provide a single value, confidence intervals provide a range of plausible values for the population parameter.
+
+:::{.callout-note}
+## Interpreting Confidence Intervals
+
+A 95% confidence interval means:
+
+"If we repeated this study 100 times, approximately 95 of the resulting confidence intervals would contain the true population parameter."
+:::
+
+$$95\% \text{ CI for mean} = \bar{x} \pm t_{(0.025, df)} \times \frac{s}{\sqrt{n}}$$
+
+:::{.callout-tip title="Clinical Example"}
+A new pain medication reduces pain scores by an average of 3.2 points (95% CI: 2.1 to 4.3).
+
+**Interpretation:** We're 95% confident the true average reduction is between 2.1 and 4.3 points.
+:::
+
+:::{.callout-warning}
+## Common Misinterpretation
+
+❌ "There's a 95% chance the true mean is in this interval"
+
+✅ "95% of such intervals would contain the true mean"
+:::
+
+## 1.5 Hypothesis Testing Framework
+
+Hypothesis testing provides a structured approach to making decisions under uncertainty, fundamental to scientific research.
+
+:::{.callout-note}
+## The Logic of Hypothesis Testing
+
+We start with a skeptical position (null hypothesis) and ask: "Is our observed data surprising enough to abandon this position?"
+:::
+
+### Setting Up Hypotheses
+
+**Null Hypothesis (H₀):** The "no effect" or "status quo" hypothesis. What we assume is true until proven otherwise.
+
+**Alternative Hypothesis (H₁ or Hₐ):** The research hypothesis we're trying to establish.
+
+:::{.callout-tip title="Hypothesis Example: New Treatment"}
+Research question: "Does new drug X reduce blood pressure more than placebo?"
+
+- **H₀:** Drug X has no effect (μ_drug = μ_placebo)
+- **H₁:** Drug X reduces blood pressure (μ_drug < μ_placebo)
+:::
+
+### Types of Errors in Statistical Testing
+
+Statistical testing is not perfect—we can make two types of errors when making decisions about hypotheses. Understanding these errors is crucial for interpreting research results and making informed decisions.
+
+:::{.callout-note}
+## The Truth Table of Statistical Decisions
+
+When conducting a hypothesis test, there are four possible outcomes:
+
+|                    | H₀ is True      | H₀ is False     |
+|--------------------|-----------------|-----------------|
+| Reject H₀          | Type I Error (α) | Correct Decision |
+| Fail to Reject H₀  | Correct Decision | Type II Error (β)|
+:::
+
+### Type I Error (α): False Positive
+
+**Definition:** Rejecting a true null hypothesis—concluding there is an effect when there really isn't one.
+
+**Probability:** The significance level (α) represents the maximum Type I error rate we're willing to accept, typically set at 0.05 (5%).
+
+:::{.callout-tip title="Type I Error Examples"}
+
+**Example 1: Drug Testing**
+- **H₀:** New drug has no effect (same as placebo)
+- **Truth:** Drug actually has no effect
+- **Type I Error:** Study concludes drug is effective
+- **Consequences:** Ineffective drug approved, wasting resources and potentially exposing patients to unnecessary side effects
+
+**Example 2: Diagnostic Testing**
+- **H₀:** Patient does not have disease
+- **Truth:** Patient is actually healthy
+- **Type I Error:** Test indicates patient has disease (false positive)
+- **Consequences:** Unnecessary anxiety, additional testing, and potentially harmful treatments
+
+**Example 3: Quality Control**
+- **H₀:** Manufacturing process is working correctly
+- **Truth:** Process is actually working fine
+- **Type I Error:** Conclude process is faulty
+- **Consequences:** Unnecessary production shutdown, wasted time and money investigating non-existent problems
+:::
+
+:::{.callout-warning}
+## Controlling Type I Error
+
+We control Type I error by setting the significance level (α) before conducting our test:
+
+- **α = 0.05:** 5% chance of Type I error (most common)
+- **α = 0.01:** 1% chance of Type I error (more stringent)
+- **α = 0.10:** 10% chance of Type I error (more lenient)
+
+*Lowering α reduces Type I errors but increases Type II errors.*
+:::
+
+### Type II Error (β): False Negative
+
+**Definition:** Failing to reject a false null hypothesis—missing a real effect that actually exists.
+
+**Statistical Power:** Power = 1 - β, represents the probability of correctly detecting an effect when it truly exists.
+
+:::{.callout-tip title="Type II Error Examples"}
+
+**Example 1: Drug Testing**
+- **H₀:** New drug has no effect
+- **Truth:** Drug is actually effective
+- **Type II Error:** Study fails to detect drug's effectiveness
+- **Consequences:** Effective treatment not approved, patients continue suffering from treatable condition
+
+**Example 2: Diagnostic Testing**
+- **H₀:** Patient does not have disease
+- **Truth:** Patient actually has the disease
+- **Type II Error:** Test fails to detect disease (false negative)
+- **Consequences:** Delayed treatment, disease progression, potentially fatal outcomes
+
+**Example 3: Environmental Monitoring**
+- **H₀:** Pollution levels are safe
+- **Truth:** Pollution levels are actually dangerous
+- **Type II Error:** Fail to detect dangerous pollution
+- **Consequences:** Continued exposure to harmful substances, public health risks
+:::
+
+:::{.callout-note}
+## Factors Affecting Type II Error (β)
+
+Several factors influence the probability of Type II error:
+
+- **Effect Size:** Larger true effects are easier to detect (lower β)
+- **Sample Size:** Larger samples reduce β
+- **Significance Level (α):** Higher α reduces β
+- **Variability:** Less noisy data reduces β
+- **Study Design:** Better designs reduce β
+:::
+
+### Real-World Clinical Example: COVID-19 Testing
+
+:::{.callout-tip title="Understanding Both Error Types in Practice"}
+
+**Scenario:** Testing for COVID-19 infection
+**H₀:** Person is not infected with COVID-19
+**H₁:** Person is infected with COVID-19
+
+**Type I Error (False Positive):**
+- Test says "infected" when person is actually healthy
+- Rate: Depends on test specificity (1 - specificity)
+- Consequences: Unnecessary quarantine, contact tracing, anxiety
+- Public health impact: Resource waste, reduced public confidence
+
+**Type II Error (False Negative):**
+- Test says "not infected" when person is actually infected
+- Rate: Depends on test sensitivity (1 - sensitivity)
+- Consequences: Continued spread, no treatment, false security
+- Public health impact: Disease transmission, outbreak expansion
+
+**The Trade-off:** During a pandemic, false negatives (Type II errors) are often considered more dangerous than false positives (Type I errors) because missing infected individuals leads to continued disease spread.
+:::
+
+### The Relationship Between Error Types
+
+:::{.callout-note}
+## Key Insights About Statistical Errors
+
+- **Inverse Relationship:** Generally, as Type I error decreases, Type II error increases
+- **Sample Size Effect:** Larger samples reduce both types of errors
+- **Effect Size Matters:** Larger true effects make Type II errors less likely
+- **Context Dependent:** The relative cost of each error type varies by situation
+- **Power Analysis:** Helps balance these errors when designing studies
+:::
+
+**Key Relationships:**
+- Power = 1 - β
+- P(Type I Error) = α
+- P(Type II Error) = β
+- As n ↑, both α and β ↓ (for fixed effect size)
+
+### Practical Guidelines for Researchers
+
+:::{.callout-warning}
+## Choosing Error Tolerances
+
+**When Type I errors are more serious:**
+- Drug approval studies (don't approve ineffective drugs)
+- Diagnostic tests for serious conditions
+- Use lower α (0.01 or 0.001)
+
+**When Type II errors are more serious:**
+- Screening for treatable conditions
+- Safety monitoring studies
+- Use higher α (0.10) or ensure high power (0.90+)
+:::
+
+:::{.callout-note}
+## Medical Context Summary
+
+**Type I Error (False Positive):** Concluding a treatment works when it doesn't, a diagnostic test is positive when disease is absent, or an intervention has an effect when it doesn't.
+
+**Type II Error (False Negative):** Failing to detect a treatment that actually works, missing a disease that is present, or failing to identify a real intervention effect.
+
+**Clinical Impact:** Both errors have serious consequences in healthcare—unnecessary treatments and missed diagnoses can both harm patients.
+:::
+
+### P-values
+
+The p-value answers: "If the null hypothesis were true, what's the probability of observing data as extreme or more extreme than what we actually observed?"
+
+:::{.callout-warning}
+## P-value Misconceptions
+
+❌ "P-value is the probability the null hypothesis is true"
+
+❌ "P-value is the probability of making a mistake"
+
+✅ "P-value is the probability of observing such data if null hypothesis is true"
+:::
+
+**Statistical Significance:** Typically, p < 0.05 is considered statistically significant, meaning we reject the null hypothesis.
+
+## 1.6 One-Sample & Two-Sample t-Tests
+
+T-tests are among the most commonly used statistical tests in biomedical research, allowing us to compare means between groups or against known values.
+
+### One-Sample t-Test
+
+Compares a sample mean to a known population value or theoretical expectation.
+
+:::{.callout-tip title="One-Sample Example"}
+Normal body temperature is supposedly 98.6°F. We measure 25 healthy adults and want to test if the population mean differs from 98.6°F.
+
+- **H₀:** μ = 98.6°F
+- **H₁:** μ ≠ 98.6°F
+:::
+
+$$t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}$$
+$$df = n - 1$$
+
+### Two-Sample t-Test (Equal Variances)
+
+Compares means between two independent groups, assuming equal population variances.
+
+:::{.callout-note}
+## Assumptions for Two-Sample t-Test
+
+- Both samples from normal distributions
+- Independent observations
+- Equal population variances (homoscedasticity)
+:::
+
+The **pooled standard deviation** combines information from both samples:
+
+$$s_{pooled} = \sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}}$$
+
+$$t = \frac{\bar{x}_1 - \bar{x}_2}{s_{pooled} \times \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}$$
+
+:::{.callout-tip title="Clinical Trial Example"}
+Comparing pain scores between treatment and control groups:
+
+- **Treatment group:** n=20, mean=4.2, sd=1.8
+- **Control group:** n=18, mean=6.1, sd=2.1
+- **Question:** Does treatment reduce pain scores?
+:::
+
+### When to Use Pooled vs Unpooled (Welch's) t-Test
+
+:::{.callout-warning}
+## Testing Equal Variances
+
+Use F-test or Levene's test to check equal variance assumption. If p > 0.05, variances are likely equal and pooled t-test is appropriate.
+:::
+
+The pooled t-test is more powerful when variances are truly equal, but Welch's t-test is more robust when they're not.
