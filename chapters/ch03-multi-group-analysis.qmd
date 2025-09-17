@@ -2,7 +2,7 @@
 
 When research involves comparing three or more groups, specialized techniques prevent inflated error rates while maintaining statistical power.
 
-## 3.1 Introduction to ANOVA (Analysis of Variance)
+## Introduction to ANOVA (Analysis of Variance)
 
 When comparing means across three or more groups, using multiple t-tests creates a serious statistical problem: **multiple comparisons**. ANOVA provides an elegant solution by testing all groups simultaneously while controlling error rates.
 
@@ -93,7 +93,7 @@ where:
 - Rule of thumb: Largest SD / Smallest SD < 2
 :::
 
-## 3.2 One-Way ANOVA: Step-by-Step
+## One-Way ANOVA: Step-by-Step
 
 One-way ANOVA compares means across groups defined by a single categorical variable (factor).
 
@@ -153,7 +153,7 @@ F₀.₀₅,₂,₁₂ = 3.89. Since 15.0 > 3.89, p < 0.05
 **Conclusion:** Reject H₀. At least one medication differs significantly.
 :::
 
-## 3.3 Post-Hoc Tests and Multiple Comparisons
+## Post-Hoc Tests and Multiple Comparisons
 
 When ANOVA shows significant differences, **post-hoc tests** determine which specific groups differ from each other.
 
@@ -221,7 +221,7 @@ HSD = q₀.₀₅,₃,₁₂ × √(MSW/n) = 3.77 × √(1.33/5) = 1.94
 - **✅ Report effect sizes** → Practical importance
 :::
 
-## 3.4 Two-Way ANOVA
+## Two-Way ANOVA
 
 Two-way ANOVA examines the effects of two categorical variables (factors) simultaneously, including their potential interaction.
 
@@ -299,7 +299,7 @@ Two-way ANOVA addresses three hypotheses simultaneously:
 - Each factor's effect is consistent across levels of the other
 :::
 
-## 3.5 ANOVA in Practice: Assumptions and Alternatives
+## ANOVA in Practice: Assumptions and Alternatives
 
 ### When ANOVA Assumptions Fail
 

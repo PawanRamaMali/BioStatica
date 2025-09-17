@@ -2,7 +2,7 @@
 
 Advanced techniques for comparing groups when traditional assumptions don't hold, ensuring robust statistical inference across diverse research scenarios.
 
-## 2.1 Welch's t-Test & Paired t-Test
+## Welch's t-Test & Paired t-Test
 
 When the equal variance assumption is violated or when data comes in natural pairs, we need specialized approaches to maintain valid statistical inference.
 
