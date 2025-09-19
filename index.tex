@@ -68,6 +68,46 @@
 \fi
 \makeatother
 
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
@@ -226,7 +266,7 @@
 \subtitle{From foundational principles to modern methodologies used in
 cutting-edge research}
 \author{Pawan Rama Mali}
-\date{2025-09-17}
+\date{2025-09-19}
 
 \begin{document}
 \frontmatter
@@ -352,7 +392,7 @@ researcher diving into data analysis, this comprehensive guide will take
 you from basic concepts to advanced methodologies used in cutting-edge
 research.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Why Biostatistics Matters}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Why Biostatistics Matters}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 Every major medical breakthrough---from vaccine development to treatment
 protocols---relies on biostatistical methods. Understanding these
@@ -391,7 +431,7 @@ Before diving into complex analyses, we must first understand how to
 describe and visualize our data. Descriptive statistics provide the
 first glimpse into what our data tells us.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Understanding Your Data}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Understanding Your Data}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 Every dataset tells a story. Descriptive statistics help us understand:
 
@@ -418,7 +458,7 @@ to extreme values.
 
 \[\text{Mean} = \frac{\sum x}{n}\]
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Example: Blood Pressure Study}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Example: Blood Pressure Study}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 Consider systolic blood pressure measurements from 7 patients: 120, 125,
 118, 140, 122, 135, 180
@@ -446,7 +486,7 @@ variability in statistics.
 
 \[\text{Standard Deviation} = \sqrt{\frac{\sum(x - \text{mean})^2}{n-1}}\]
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Common Mistake}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Common Mistake}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 Always use n-1 (not n) in the denominator when calculating sample
 standard deviation. This provides an unbiased estimate of population
@@ -469,7 +509,7 @@ multiple peaks, or outliers.
 \textbf{Box Plots:} Provide a five-number summary (minimum, Q1, median,
 Q3, maximum) and clearly highlight outliers.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Interpreting Box Plots in Medical Research}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Interpreting Box Plots in Medical Research}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 A box plot of recovery times after surgery might show:
 
@@ -496,7 +536,7 @@ Probability theory provides the mathematical foundation for statistical
 inference. Understanding distributions helps us model real-world
 phenomena and calculate the likelihood of different outcomes.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{What is Probability?}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{What is Probability?}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 Probability quantifies uncertainty. In medical research, we use
 probability to:
@@ -528,7 +568,7 @@ probability to:
   \textbf{Complement Rule:} P(not A) = 1 - P(A)
 \end{enumerate}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Medical Example: Disease Testing}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Medical Example: Disease Testing}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 Consider a diagnostic test for a rare disease:
 
@@ -555,7 +595,7 @@ The normal (Gaussian) distribution is the cornerstone of statistical
 analysis. Many biological measurements naturally follow this bell-shaped
 curve.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Properties of Normal Distribution}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Properties of Normal Distribution}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \begin{itemize}
 \tightlist
@@ -594,7 +634,7 @@ becomes crucial. It's similar to the normal distribution but with
 heavier tails, accounting for additional uncertainty from small sample
 sizes.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{When to Use t vs Normal}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{When to Use t vs Normal}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 Use t-distribution when:
 
@@ -617,7 +657,7 @@ Understanding how samples relate to populations is fundamental to
 statistical inference. The Central Limit Theorem bridges individual
 observations to population-level conclusions.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Population vs Sample}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Population vs Sample}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{Population:} All possible subjects of interest (e.g., all
 patients with diabetes)
@@ -637,7 +677,7 @@ selection.
 \textbf{Stratified Sampling:} Population divided into groups (strata),
 then random sampling within each group.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Stratified Sampling in Clinical Trials}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Stratified Sampling in Clinical Trials}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 When studying a new cardiac medication, researchers might stratify by:
 
@@ -661,7 +701,7 @@ This fundamental theorem states that sample means will be approximately
 normally distributed, regardless of the population distribution, as
 sample size increases (typically n ≥ 30).
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Implications of Central Limit Theorem}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Implications of Central Limit Theorem}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \begin{itemize}
 \tightlist
@@ -692,7 +732,7 @@ population parameters, with quantified uncertainty.
 A point estimate is a single value that serves as our ``best guess'' for
 a population parameter.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Point Estimates in Medicine}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Point Estimates in Medicine}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \begin{itemize}
 \tightlist
@@ -712,7 +752,7 @@ Intervals)}\label{interval-estimation-confidence-intervals}
 While point estimates provide a single value, confidence intervals
 provide a range of plausible values for the population parameter.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Interpreting Confidence Intervals}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Interpreting Confidence Intervals}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 A 95\% confidence interval means:
 
@@ -723,7 +763,7 @@ confidence intervals would contain the true population parameter.''
 
 \[95\% \text{ CI for mean} = \bar{x} \pm t_{(0.025, df)} \times \frac{s}{\sqrt{n}}\]
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Clinical Example}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Clinical Example}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 A new pain medication reduces pain scores by an average of 3.2 points
 (95\% CI: 2.1 to 4.3).
@@ -733,7 +773,7 @@ is between 2.1 and 4.3 points.
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Common Misinterpretation}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Common Misinterpretation}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 ❌ ``There's a 95\% chance the true mean is in this interval''
 
@@ -747,7 +787,7 @@ Framework}\label{hypothesis-testing-framework}
 Hypothesis testing provides a structured approach to making decisions
 under uncertainty, fundamental to scientific research.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{The Logic of Hypothesis Testing}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{The Logic of Hypothesis Testing}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 We start with a skeptical position (null hypothesis) and ask: ``Is our
 observed data surprising enough to abandon this position?''
@@ -762,7 +802,7 @@ hypothesis. What we assume is true until proven otherwise.
 \textbf{Alternative Hypothesis (H₁ or Hₐ):} The research hypothesis
 we're trying to establish.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Hypothesis Example: New Treatment}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Hypothesis Example: New Treatment}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 Research question: ``Does new drug X reduce blood pressure more than
 placebo?''
@@ -785,7 +825,7 @@ Statistical testing is not perfect---we can make two types of errors
 when making decisions about hypotheses. Understanding these errors is
 crucial for interpreting research results and making informed decisions.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{The Truth Table of Statistical Decisions}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{The Truth Table of Statistical Decisions}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 When conducting a hypothesis test, there are four possible outcomes:
 
@@ -811,7 +851,7 @@ is an effect when there really isn't one.
 \textbf{Probability:} The significance level (α) represents the maximum
 Type I error rate we're willing to accept, typically set at 0.05 (5\%).
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Type I Error Examples}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Type I Error Examples}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{Example 1: Drug Testing} - \textbf{H₀:} New drug has no effect
 (same as placebo) - \textbf{Truth:} Drug actually has no effect -
@@ -833,7 +873,7 @@ money investigating non-existent problems
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Controlling Type I Error}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Controlling Type I Error}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 We control Type I error by setting the significance level (α) before
 conducting our test:
@@ -861,7 +901,7 @@ a real effect that actually exists.
 \textbf{Statistical Power:} Power = 1 - β, represents the probability of
 correctly detecting an effect when it truly exists.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Type II Error Examples}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Type II Error Examples}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{Example 1: Drug Testing} - \textbf{H₀:} New drug has no effect -
 \textbf{Truth:} Drug is actually effective - \textbf{Type II Error:}
@@ -883,7 +923,7 @@ health risks
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Factors Affecting Type II Error (β)}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Factors Affecting Type II Error (β)}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 Several factors influence the probability of Type II error:
 
@@ -907,7 +947,7 @@ Several factors influence the probability of Type II error:
 \subsection{Real-World Clinical Example: COVID-19
 Testing}\label{real-world-clinical-example-covid-19-testing}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Understanding Both Error Types in Practice}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Understanding Both Error Types in Practice}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{Scenario:} Testing for COVID-19 infection \textbf{H₀:} Person is
 not infected with COVID-19 \textbf{H₁:} Person is infected with COVID-19
@@ -934,7 +974,7 @@ spread.
 \subsection{The Relationship Between Error
 Types}\label{the-relationship-between-error-types}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Key Insights About Statistical Errors}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Key Insights About Statistical Errors}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \begin{itemize}
 \tightlist
@@ -963,7 +1003,7 @@ P(Type II Error) = β - As n ↑, both α and β ↓ (for fixed effect size)
 \subsection{Practical Guidelines for
 Researchers}\label{practical-guidelines-for-researchers}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Choosing Error Tolerances}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Choosing Error Tolerances}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{When Type I errors are more serious:} - Drug approval studies
 (don't approve ineffective drugs) - Diagnostic tests for serious
@@ -975,7 +1015,7 @@ high power (0.90+)
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Medical Context Summary}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Medical Context Summary}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{Type I Error (False Positive):} Concluding a treatment works
 when it doesn't, a diagnostic test is positive when disease is absent,
@@ -997,7 +1037,7 @@ The p-value answers: ``If the null hypothesis were true, what's the
 probability of observing data as extreme or more extreme than what we
 actually observed?''
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{P-value Misconceptions}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{P-value Misconceptions}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 ❌ ``P-value is the probability the null hypothesis is true''
 
@@ -1024,7 +1064,7 @@ values.
 Compares a sample mean to a known population value or theoretical
 expectation.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{One-Sample Example}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{One-Sample Example}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 Normal body temperature is supposedly 98.6°F. We measure 25 healthy
 adults and want to test if the population mean differs from 98.6°F.
@@ -1047,7 +1087,7 @@ Variances)}\label{two-sample-t-test-equal-variances}
 Compares means between two independent groups, assuming equal population
 variances.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Assumptions for Two-Sample t-Test}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Assumptions for Two-Sample t-Test}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \begin{itemize}
 \tightlist
@@ -1068,7 +1108,7 @@ samples:
 
 \[t = \frac{\bar{x}_1 - \bar{x}_2}{s_{pooled} \times \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}\]
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Clinical Trial Example}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Clinical Trial Example}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 Comparing pain scores between treatment and control groups:
 
@@ -1087,7 +1127,7 @@ Comparing pain scores between treatment and control groups:
 \subsection{When to Use Pooled vs Unpooled (Welch's)
 t-Test}\label{when-to-use-pooled-vs-unpooled-welchs-t-test}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Testing Equal Variances}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Testing Equal Variances}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 Use F-test or Levene's test to check equal variance assumption. If p
 \textgreater{} 0.05, variances are likely equal and pooled t-test is
@@ -1123,7 +1163,7 @@ misleading results. Welch's t-test adjusts for unequal variances.
 
 \[df = \frac{\left(\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}\right)^2}{\frac{\left(\frac{s_1^2}{n_1}\right)^2}{n_1-1} + \frac{\left(\frac{s_2^2}{n_2}\right)^2}{n_2-1}}\]
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{When Variances Differ}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{When Variances Differ}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 Comparing recovery times between two surgical procedures:
 
@@ -1160,7 +1200,7 @@ creates a serious statistical problem: \textbf{multiple comparisons}.
 ANOVA provides an elegant solution by testing all groups simultaneously
 while controlling error rates.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Why Not Multiple t-Tests?}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Why Not Multiple t-Tests?}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 With 3 groups, you'd need 3 t-tests. With α = 0.05 for each test:
 
@@ -1179,7 +1219,7 @@ With 5 groups, you'd need 10 tests, inflating error rate to
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{The Logic of ANOVA}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{The Logic of ANOVA}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 ANOVA compares two sources of variation:
 
@@ -1206,7 +1246,7 @@ larger.
 \textbf{Alternative Hypothesis (H₁):} At least one group mean differs
 H₁: Not all μᵢ are equal
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Medical Research Example}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Medical Research Example}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{Research Question:} Do three different pain medications have
 different effectiveness?
@@ -1237,7 +1277,7 @@ ANOVA uses the F-statistic to compare variances:
 where: - MSB = Mean Square Between groups - MSW = Mean Square Within
 groups
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Understanding the F-Ratio}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Understanding the F-Ratio}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \begin{itemize}
 \tightlist
@@ -1256,7 +1296,7 @@ groups
 
 \subsection{ANOVA Assumptions}\label{anova-assumptions}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Critical Assumptions}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Critical Assumptions}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \begin{itemize}
 \tightlist
@@ -1273,7 +1313,7 @@ invalid conclusions
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Checking Assumptions in Practice}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Checking Assumptions in Practice}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{Independence:} Ensure proper randomization and no clustering
 
@@ -1294,7 +1334,7 @@ categorical variable (factor).
 
 \subsection{ANOVA Table Components}\label{anova-table-components}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Understanding ANOVA Table}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Understanding ANOVA Table}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \begin{longtable}[]{@{}lllll@{}}
 \toprule\noalign{}
@@ -1324,7 +1364,7 @@ Squares}\label{calculating-sum-of-squares}
 \textbf{Within Groups Sum of Squares (SSW):}
 \[\text{SSW} = \text{SST} - \text{SSB}\]
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Worked Example: Pain Medication Study}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Worked Example: Pain Medication Study}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{Data:} - \textbf{Medication A:} 7, 8, 6, 9, 7 (n₁=5, x̄₁=7.4) -
 \textbf{Medication B:} 5, 6, 4, 7, 5 (n₂=5, x̄₂=5.4) - \textbf{Placebo:}
@@ -1358,7 +1398,7 @@ Comparisons}\label{post-hoc-tests-and-multiple-comparisons}
 When ANOVA shows significant differences, \textbf{post-hoc tests}
 determine which specific groups differ from each other.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Why Post-Hoc Tests?}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Why Post-Hoc Tests?}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 ANOVA only tells us that ``at least one group differs'' but not:
 
@@ -1379,7 +1419,7 @@ family-wise error rate.
 
 \subsection{Common Post-Hoc Tests}\label{common-post-hoc-tests}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tukey's HSD (Honestly Significant Difference)}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tukey's HSD (Honestly Significant Difference)}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{When to use:} Most common, good balance of power and control
 \textbf{Formula:} HSD = q × √(MSW/n) \textbf{Advantage:} Controls
@@ -1391,7 +1431,7 @@ HSD, groups i and j differ significantly
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Bonferroni Correction}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Bonferroni Correction}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{When to use:} Conservative approach, few planned comparisons
 \textbf{Method:} Use α/c for each comparison (c = number of comparisons)
@@ -1401,7 +1441,7 @@ be overly conservative, reduced power
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Scheffé's Test}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Scheffé's Test}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{When to use:} Any possible comparison, not just pairwise
 \textbf{Advantage:} Most flexible, allows complex contrasts
@@ -1412,7 +1452,7 @@ be overly conservative, reduced power
 \subsection{Continuing Our Pain Medication
 Example}\label{continuing-our-pain-medication-example}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Post-Hoc Analysis}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Post-Hoc Analysis}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 We found F = 15.0, p \textless{} 0.05. Now let's determine which
 medications differ:
@@ -1433,7 +1473,7 @@ other. \textbf{Clinical Interpretation:} Med A \textgreater{} Med B
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Common Mistakes in Post-Hoc Testing}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Common Mistakes in Post-Hoc Testing}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \begin{itemize}
 \tightlist
@@ -1459,7 +1499,7 @@ other. \textbf{Clinical Interpretation:} Med A \textgreater{} Med B
 Two-way ANOVA examines the effects of two categorical variables
 (factors) simultaneously, including their potential interaction.
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Advantages of Two-Way ANOVA}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Advantages of Two-Way ANOVA}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \begin{itemize}
 \tightlist
@@ -1483,7 +1523,7 @@ Two-way ANOVA addresses three hypotheses simultaneously:
 \textbf{Main Effect of Factor B:} H₀: μ•₁ = μ•₂ = \ldots{} = μ•ᵦ
 \textbf{Interaction Effect:} H₀: No A×B interaction
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Clinical Trial Example: Drug and Exercise}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Clinical Trial Example: Drug and Exercise}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{Research Question:} Do cholesterol-lowering drugs and exercise
 programs interact?
@@ -1501,7 +1541,7 @@ Placebo + High exercise (n=20) - Group 4: Placebo + Low exercise (n=20)
 \subsection{Understanding
 Interactions}\label{understanding-interactions}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Types of Interaction Effects}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Types of Interaction Effects}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{No Interaction:} Effect of Factor A is the same at all levels of
 Factor B \textbf{Ordinal Interaction:} Effect of Factor A varies in
@@ -1510,7 +1550,7 @@ Factor A changes direction at different levels of Factor B
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Interpreting Interaction: Hypothetical Results}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Interpreting Interaction: Hypothetical Results}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{Scenario 1: No Interaction}
 
@@ -1546,7 +1586,7 @@ Placebo & 15 mg/dL & 10 mg/dL & 5 mg/dL \\
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Interpreting Two-Way ANOVA Results}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Interpreting Two-Way ANOVA Results}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{If interaction is significant:} - Focus primarily on interaction
 interpretation - Main effects may be misleading - Use simple effects
@@ -1564,7 +1604,7 @@ Alternatives}\label{anova-in-practice-assumptions-and-alternatives}
 \subsection{When ANOVA Assumptions
 Fail}\label{when-anova-assumptions-fail}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-warning-color!10!white, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Assumption Violations and Solutions}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-warning-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Assumption Violations and Solutions}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{Non-normality:} - \textbf{Mild violation:} ANOVA is robust
 (central limit theorem) - \textbf{Severe violation:} Use Kruskal-Wallis
@@ -1585,7 +1625,7 @@ clustering
 \subsection{Effect Size and Practical
 Significance}\label{effect-size-and-practical-significance}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Effect Size Measures for ANOVA}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Effect Size Measures for ANOVA}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{Eta-squared (η²):} Proportion of total variance explained η² =
 SSB / SST
@@ -1598,7 +1638,7 @@ SSB / SST
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Reporting ANOVA Results}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Reporting ANOVA Results}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{Complete ANOVA Report:}
 
@@ -1617,7 +1657,7 @@ Medication A (M = 7.4, SD = 1.1) was more effective than Medication B (M
 
 \subsection{Power Analysis for ANOVA}\label{power-analysis-for-anova}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Sample Size Planning}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Sample Size Planning}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 Power analysis helps determine appropriate sample sizes before
 conducting research:
@@ -1636,7 +1676,7 @@ conducting research:
 
 \end{tcolorbox}
 
-\begin{tcolorbox}[enhanced jigsaw, left=2mm, opacityback=0, titlerule=0mm, leftrule=.75mm, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Power Analysis Example}, breakable, opacitybacktitle=0.6, rightrule=.15mm, colframe=quarto-callout-tip-color-frame, toprule=.15mm, bottomrule=.15mm, bottomtitle=1mm, toptitle=1mm, coltitle=black, arc=.35mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Power Analysis Example}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
 
 \textbf{Research Planning:} Comparing 4 treatments for depression
 
@@ -1665,28 +1705,563 @@ Modeling}\label{interrelationships-modeling}
 Move beyond simple group comparisons to understand relationships between
 variables and build predictive models.
 
-\emph{Note: This chapter appears to be incomplete in the source HTML
-file. Only the title and introduction were available. Additional content
-for interrelationships and modeling methods would typically include:}
+\section{Introduction}\label{introduction}
+
+In biostatistics, we often need to understand relationships between
+variables and make predictions. This chapter covers fundamental
+techniques for exploring associations, building predictive models, and
+evaluating their performance in medical and biological contexts.
+
+\section{Correlation Analysis}\label{correlation-analysis}
+
+\subsection{Understanding Correlation}\label{understanding-correlation}
+
+Correlation measures the strength and direction of a linear relationship
+between two continuous variables. In biostatistics, we might examine
+correlations between:
 
 \begin{itemize}
 \tightlist
 \item
-  Correlation analysis
+  Blood pressure and age
 \item
-  Simple and multiple linear regression
+  BMI and cholesterol levels
 \item
-  Logistic regression
-\item
-  Model diagnostics and assumptions
-\item
-  Variable selection techniques
-\item
-  Model interpretation and inference
+  Gene expression levels between related genes
 \end{itemize}
 
-\emph{These topics would be covered in a complete version of this
-chapter.}
+\subsection{Pearson Correlation
+Coefficient}\label{pearson-correlation-coefficient}
+
+The Pearson correlation coefficient (\(r\)) ranges from -1 to +1:
+
+\[r = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2 \sum_{i=1}^{n}(y_i - \bar{y})^2}}\]
+
+Where: - \(r = 1\): Perfect positive linear relationship - \(r = 0\): No
+linear relationship - \(r = -1\): Perfect negative linear relationship
+
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Interpreting Correlation Strength}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
+
+\begin{itemize}
+\tightlist
+\item
+  \textbar r\textbar{} \textless{} 0.3: Weak correlation
+\item
+  0.3 ≤ \textbar r\textbar{} \textless{} 0.7: Moderate correlation
+\item
+  \textbar r\textbar{} ≥ 0.7: Strong correlation
+\end{itemize}
+
+\end{tcolorbox}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Example: Correlation between age and blood pressure}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\CommentTok{\# Simulate data}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{age }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n, }\AttributeTok{mean =} \DecValTok{45}\NormalTok{, }\AttributeTok{sd =} \DecValTok{15}\NormalTok{)}
+\NormalTok{bp\_systolic }\OtherTok{\textless{}{-}} \DecValTok{90} \SpecialCharTok{+} \FloatTok{0.8} \SpecialCharTok{*}\NormalTok{ age }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(n, }\AttributeTok{sd =} \DecValTok{10}\NormalTok{)}
+
+\CommentTok{\# Calculate correlation}
+\NormalTok{cor\_result }\OtherTok{\textless{}{-}} \FunctionTok{cor.test}\NormalTok{(age, bp\_systolic)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Correlation:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(cor\_result}\SpecialCharTok{$}\NormalTok{estimate, }\DecValTok{3}\NormalTok{)))}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"P{-}value:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(cor\_result}\SpecialCharTok{$}\NormalTok{p.value, }\DecValTok{4}\NormalTok{)))}
+
+\CommentTok{\# Visualize}
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(age, bp\_systolic), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ age, }\AttributeTok{y =}\NormalTok{ bp\_systolic)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Age vs Systolic Blood Pressure"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Age (years)"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Systolic BP (mmHg)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Simple Linear Regression}\label{simple-linear-regression}
+
+\subsection{The Linear Model}\label{the-linear-model}
+
+Simple linear regression models the relationship between a predictor
+variable (X) and an outcome variable (Y):
+
+\[Y_i = \beta_0 + \beta_1 X_i + \epsilon_i\]
+
+Where: - \(\beta_0\): Intercept (value of Y when X = 0) - \(\beta_1\):
+Slope (change in Y per unit change in X) - \(\epsilon_i\): Random error
+term
+
+\subsection{Example: Predicting Blood Pressure from
+Age}\label{example-predicting-blood-pressure-from-age}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Fit linear regression model}
+\NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(bp\_systolic }\SpecialCharTok{\textasciitilde{}}\NormalTok{ age)}
+\FunctionTok{summary}\NormalTok{(model)}
+
+\CommentTok{\# The model: bp\_systolic = β₀ + β₁ × age}
+\CommentTok{\# Interpretation: For each additional year of age,}
+\CommentTok{\# systolic BP increases by β₁ mmHg on average}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Logistic Regression}\label{logistic-regression}
+
+\subsection{When to Use Logistic
+Regression}\label{when-to-use-logistic-regression}
+
+When your outcome variable is binary (diseased/healthy, survived/died,
+positive/negative test), logistic regression is the appropriate method.
+
+\subsection{The Logistic Model}\label{the-logistic-model}
+
+Instead of predicting the outcome directly, logistic regression predicts
+the log-odds:
+
+\[\text{logit}(p) = \ln\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_k X_k\]
+
+Where \(p\) is the probability of the event occurring.
+
+The probability is then:
+
+\[p = \frac{e^{\beta_0 + \beta_1 X_1 + ... + \beta_k X_k}}{1 + e^{\beta_0 + \beta_1 X_1 + ... + \beta_k X_k}}\]
+
+\subsection{Example: Predicting Heart Disease
+Risk}\label{example-predicting-heart-disease-risk}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Simulate heart disease data}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{456}\NormalTok{)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{500}
+\NormalTok{age }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n, }\DecValTok{55}\NormalTok{, }\DecValTok{12}\NormalTok{)}
+\NormalTok{cholesterol }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n, }\DecValTok{200}\NormalTok{, }\DecValTok{40}\NormalTok{)}
+\NormalTok{smoking }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(n, }\DecValTok{1}\NormalTok{, }\FloatTok{0.3}\NormalTok{)}
+
+\CommentTok{\# Create log{-}odds for heart disease}
+\NormalTok{log\_odds }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\DecValTok{5} \SpecialCharTok{+} \FloatTok{0.05}\SpecialCharTok{*}\NormalTok{age }\SpecialCharTok{+} \FloatTok{0.01}\SpecialCharTok{*}\NormalTok{cholesterol }\SpecialCharTok{+} \FloatTok{1.2}\SpecialCharTok{*}\NormalTok{smoking}
+\NormalTok{prob\_disease }\OtherTok{\textless{}{-}} \FunctionTok{exp}\NormalTok{(log\_odds)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1} \SpecialCharTok{+} \FunctionTok{exp}\NormalTok{(log\_odds))}
+\NormalTok{heart\_disease }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(n, }\DecValTok{1}\NormalTok{, prob\_disease)}
+
+\CommentTok{\# Fit logistic regression}
+\NormalTok{logit\_model }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(heart\_disease }\SpecialCharTok{\textasciitilde{}}\NormalTok{ age }\SpecialCharTok{+}\NormalTok{ cholesterol }\SpecialCharTok{+}\NormalTok{ smoking,}
+                   \AttributeTok{family =}\NormalTok{ binomial)}
+\FunctionTok{summary}\NormalTok{(logit\_model)}
+
+\CommentTok{\# Interpretation: exp(coefficient) gives the odds ratio}
+\FunctionTok{exp}\NormalTok{(}\FunctionTok{coef}\NormalTok{(logit\_model))}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Model Evaluation for
+Classification}\label{model-evaluation-for-classification}
+
+\subsection{The Confusion Matrix}\label{the-confusion-matrix}
+
+A confusion matrix is a table that shows how well our classification
+model performs. It's like a report card for prediction models.
+
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Think of it this way}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
+
+Imagine you're a doctor using a test to diagnose disease. The confusion
+matrix shows: - How many sick patients you correctly identified (True
+Positives) - How many healthy patients you correctly identified (True
+Negatives) - How many times you missed the disease (False Negatives) -
+How many times you incorrectly diagnosed disease (False Positives)
+
+\end{tcolorbox}
+
+\subsection{2×2 Confusion Matrix}\label{confusion-matrix}
+
+\begin{longtable}[]{@{}lcc@{}}
+\toprule\noalign{}
+& \textbf{Predicted} & \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Actual} & \textbf{Positive} & \textbf{Negative} \\
+\textbf{Positive} & TP & FN \\
+\textbf{Negative} & FP & TN \\
+\end{longtable}
+
+Where: - \textbf{TP (True Positives)}: Correctly predicted positive
+cases - \textbf{TN (True Negatives)}: Correctly predicted negative cases
+- \textbf{FP (False Positives)}: Incorrectly predicted positive (Type I
+error) - \textbf{FN (False Negatives)}: Incorrectly predicted negative
+(Type II error)
+
+\subsection{Example: COVID-19 Test
+Evaluation}\label{example-covid-19-test-evaluation}
+
+Let's say we have a COVID-19 test and we tested 1000 people:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create confusion matrix data}
+\FunctionTok{library}\NormalTok{(caret)}
+
+\CommentTok{\# Simulate COVID test results}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{789}\NormalTok{)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{true\_status }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"Positive"}\NormalTok{, }\DecValTok{100}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"Negative"}\NormalTok{, }\DecValTok{900}\NormalTok{))  }\CommentTok{\# 10\% prevalence}
+\NormalTok{test\_sensitivity }\OtherTok{\textless{}{-}} \FloatTok{0.95}  \CommentTok{\# 95\% of positive cases detected}
+\NormalTok{test\_specificity }\OtherTok{\textless{}{-}} \FloatTok{0.98}  \CommentTok{\# 98\% of negative cases correctly identified}
+
+\NormalTok{predicted\_status }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(}
+\NormalTok{  true\_status }\SpecialCharTok{==} \StringTok{"Positive"}\NormalTok{,}
+  \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{runif}\NormalTok{(}\FunctionTok{sum}\NormalTok{(true\_status }\SpecialCharTok{==} \StringTok{"Positive"}\NormalTok{)) }\SpecialCharTok{\textless{}}\NormalTok{ test\_sensitivity, }\StringTok{"Positive"}\NormalTok{, }\StringTok{"Negative"}\NormalTok{),}
+  \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{runif}\NormalTok{(}\FunctionTok{sum}\NormalTok{(true\_status }\SpecialCharTok{==} \StringTok{"Negative"}\NormalTok{)) }\SpecialCharTok{\textless{}}\NormalTok{ test\_specificity, }\StringTok{"Negative"}\NormalTok{, }\StringTok{"Positive"}\NormalTok{)}
+\NormalTok{)}
+
+\CommentTok{\# Create confusion matrix}
+\NormalTok{cm }\OtherTok{\textless{}{-}} \FunctionTok{confusionMatrix}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(predicted\_status), }\FunctionTok{as.factor}\NormalTok{(true\_status), }\AttributeTok{positive =} \StringTok{"Positive"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(cm)}
+
+\CommentTok{\# Visualize confusion matrix}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\NormalTok{cm\_table }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(cm}\SpecialCharTok{$}\NormalTok{table)}
+\FunctionTok{ggplot}\NormalTok{(cm\_table, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Reference, }\AttributeTok{y =}\NormalTok{ Prediction, }\AttributeTok{fill =}\NormalTok{ Freq)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_tile}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ Freq), }\AttributeTok{size =} \DecValTok{12}\NormalTok{, }\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_gradient}\NormalTok{(}\AttributeTok{low =} \StringTok{"lightblue"}\NormalTok{, }\AttributeTok{high =} \StringTok{"darkblue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"COVID{-}19 Test Confusion Matrix"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Actual Status"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Predicted Status"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Diagnostic Test Performance
+Metrics}\label{diagnostic-test-performance-metrics}
+
+From the confusion matrix, we can calculate several important metrics:
+
+\subsection{Sensitivity (True Positive
+Rate)}\label{sensitivity-true-positive-rate}
+
+\textbf{What it means}: Of all the people who actually have the disease,
+what percentage does our test catch?
+
+\[\text{Sensitivity} = \frac{TP}{TP + FN}\]
+
+\textbf{Example}: If sensitivity = 0.95, then our test catches 95\% of
+COVID-positive patients.
+
+\subsection{Specificity (True Negative
+Rate)}\label{specificity-true-negative-rate}
+
+\textbf{What it means}: Of all the people who don't have the disease,
+what percentage does our test correctly identify as negative?
+
+\[\text{Specificity} = \frac{TN}{TN + FP}\]
+
+\textbf{Example}: If specificity = 0.98, then our test correctly
+identifies 98\% of COVID-negative patients.
+
+\subsection{Positive Predictive Value
+(PPV)}\label{positive-predictive-value-ppv}
+
+\textbf{What it means}: If the test is positive, what's the probability
+the person actually has the disease?
+
+\[\text{PPV} = \frac{TP}{TP + FP}\]
+
+\subsection{Negative Predictive Value
+(NPV)}\label{negative-predictive-value-npv}
+
+\textbf{What it means}: If the test is negative, what's the probability
+the person actually doesn't have the disease?
+
+\[\text{NPV} = \frac{TN}{TN + FN}\]
+
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Important: PPV and NPV depend on disease prevalence!}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
+
+In a population where disease is rare, even a good test will have many
+false positives, lowering PPV. In a high-prevalence population, the same
+test will have better PPV.
+
+\end{tcolorbox}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate metrics manually}
+\NormalTok{calculate\_metrics }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(tp, tn, fp, fn) \{}
+\NormalTok{  sensitivity }\OtherTok{\textless{}{-}}\NormalTok{ tp }\SpecialCharTok{/}\NormalTok{ (tp }\SpecialCharTok{+}\NormalTok{ fn)}
+\NormalTok{  specificity }\OtherTok{\textless{}{-}}\NormalTok{ tn }\SpecialCharTok{/}\NormalTok{ (tn }\SpecialCharTok{+}\NormalTok{ fp)}
+\NormalTok{  ppv }\OtherTok{\textless{}{-}}\NormalTok{ tp }\SpecialCharTok{/}\NormalTok{ (tp }\SpecialCharTok{+}\NormalTok{ fp)}
+\NormalTok{  npv }\OtherTok{\textless{}{-}}\NormalTok{ tn }\SpecialCharTok{/}\NormalTok{ (tn }\SpecialCharTok{+}\NormalTok{ fn)}
+\NormalTok{  accuracy }\OtherTok{\textless{}{-}}\NormalTok{ (tp }\SpecialCharTok{+}\NormalTok{ tn) }\SpecialCharTok{/}\NormalTok{ (tp }\SpecialCharTok{+}\NormalTok{ tn }\SpecialCharTok{+}\NormalTok{ fp }\SpecialCharTok{+}\NormalTok{ fn)}
+
+  \FunctionTok{return}\NormalTok{(}\FunctionTok{list}\NormalTok{(}
+    \AttributeTok{Sensitivity =}\NormalTok{ sensitivity,}
+    \AttributeTok{Specificity =}\NormalTok{ specificity,}
+    \AttributeTok{PPV =}\NormalTok{ ppv,}
+    \AttributeTok{NPV =}\NormalTok{ npv,}
+    \AttributeTok{Accuracy =}\NormalTok{ accuracy}
+\NormalTok{  ))}
+\NormalTok{\}}
+
+\CommentTok{\# Example with our COVID data}
+\NormalTok{metrics }\OtherTok{\textless{}{-}} \FunctionTok{calculate\_metrics}\NormalTok{(}\AttributeTok{tp =} \DecValTok{95}\NormalTok{, }\AttributeTok{tn =} \DecValTok{882}\NormalTok{, }\AttributeTok{fp =} \DecValTok{18}\NormalTok{, }\AttributeTok{fn =} \DecValTok{5}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(metrics)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{ROC Curves and AUC}\label{roc-curves-and-auc}
+
+\subsection{What is an ROC Curve?}\label{what-is-an-roc-curve}
+
+ROC stands for ``Receiver Operating Characteristic.'' Think of it as a
+way to visualize the trade-off between catching true cases (sensitivity)
+and avoiding false alarms (1 - specificity).
+
+\textbf{Real-world analogy}: Imagine you're a security guard with a
+metal detector. You can adjust the sensitivity: - High sensitivity:
+Catches all weapons but sets off many false alarms - Low sensitivity:
+Fewer false alarms but might miss some weapons
+
+The ROC curve shows this trade-off at different threshold settings.
+
+\subsection{Mathematical Definition}\label{mathematical-definition}
+
+The ROC curve plots: - \textbf{Y-axis}: True Positive Rate (Sensitivity)
+= \(\frac{TP}{TP + FN}\) - \textbf{X-axis}: False Positive Rate (1 -
+Specificity) = \(\frac{FP}{FP + TN}\)
+
+\subsection{Creating ROC Curves}\label{creating-roc-curves}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(pROC)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\CommentTok{\# Simulate biomarker data for disease diagnosis}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{101}\NormalTok{)}
+\NormalTok{n\_healthy }\OtherTok{\textless{}{-}} \DecValTok{500}
+\NormalTok{n\_diseased }\OtherTok{\textless{}{-}} \DecValTok{200}
+
+\CommentTok{\# Healthy individuals: lower biomarker levels}
+\NormalTok{healthy\_biomarker }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n\_healthy, }\AttributeTok{mean =} \DecValTok{10}\NormalTok{, }\AttributeTok{sd =} \DecValTok{3}\NormalTok{)}
+
+\CommentTok{\# Diseased individuals: higher biomarker levels}
+\NormalTok{diseased\_biomarker }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n\_diseased, }\AttributeTok{mean =} \DecValTok{15}\NormalTok{, }\AttributeTok{sd =} \DecValTok{3}\NormalTok{)}
+
+\CommentTok{\# Combine data}
+\NormalTok{biomarker\_values }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(healthy\_biomarker, diseased\_biomarker)}
+\NormalTok{true\_status }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n\_healthy), }\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, n\_diseased))}
+
+\CommentTok{\# Create ROC curve}
+\NormalTok{roc\_obj }\OtherTok{\textless{}{-}} \FunctionTok{roc}\NormalTok{(true\_status, biomarker\_values)}
+
+\CommentTok{\# Plot ROC curve}
+\FunctionTok{ggroc}\NormalTok{(roc\_obj, }\AttributeTok{color =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{intercept =} \DecValTok{1}\NormalTok{, }\AttributeTok{slope =} \DecValTok{1}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"ROC Curve for Biomarker Test"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"False Positive Rate (1 {-} Specificity)"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"True Positive Rate (Sensitivity)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{annotate}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\AttributeTok{x =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{y =} \FloatTok{0.3}\NormalTok{,}
+           \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"AUC ="}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{auc}\NormalTok{(roc\_obj), }\DecValTok{3}\NormalTok{)), }\AttributeTok{size =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Understanding AUC (Area Under the
+Curve)}\label{understanding-auc-area-under-the-curve}
+
+The AUC summarizes the ROC curve into a single number between 0 and 1:
+
+\[\text{AUC} = \int_0^1 \text{TPR}(t) \, d(\text{FPR}(t))\]
+
+\textbf{Interpretation}: - \textbf{AUC = 0.5}: Random guessing (coin
+flip) - \textbf{AUC = 0.7}: Acceptable discrimination - \textbf{AUC =
+0.8}: Excellent discrimination - \textbf{AUC = 0.9}: Outstanding
+discrimination - \textbf{AUC = 1.0}: Perfect discrimination
+
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Intuitive AUC Interpretation}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
+
+AUC represents the probability that a randomly selected positive case
+will have a higher predicted probability than a randomly selected
+negative case.
+
+If AUC = 0.8, then 80\% of the time, a diseased person will have a
+higher biomarker value than a healthy person.
+
+\end{tcolorbox}
+
+\subsection{Comparing Multiple Tests}\label{comparing-multiple-tests}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Simulate three different biomarkers}
+\NormalTok{biomarker1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(n\_healthy, }\DecValTok{10}\NormalTok{, }\DecValTok{3}\NormalTok{), }\FunctionTok{rnorm}\NormalTok{(n\_diseased, }\DecValTok{15}\NormalTok{, }\DecValTok{3}\NormalTok{))  }\CommentTok{\# Good test}
+\NormalTok{biomarker2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(n\_healthy, }\DecValTok{12}\NormalTok{, }\DecValTok{4}\NormalTok{), }\FunctionTok{rnorm}\NormalTok{(n\_diseased, }\DecValTok{14}\NormalTok{, }\DecValTok{4}\NormalTok{))  }\CommentTok{\# Moderate test}
+\NormalTok{biomarker3 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(n\_healthy, }\DecValTok{11}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rnorm}\NormalTok{(n\_diseased, }\DecValTok{13}\NormalTok{, }\DecValTok{5}\NormalTok{))  }\CommentTok{\# Poor test}
+
+\CommentTok{\# Create ROC curves}
+\NormalTok{roc1 }\OtherTok{\textless{}{-}} \FunctionTok{roc}\NormalTok{(true\_status, biomarker1)}
+\NormalTok{roc2 }\OtherTok{\textless{}{-}} \FunctionTok{roc}\NormalTok{(true\_status, biomarker2)}
+\NormalTok{roc3 }\OtherTok{\textless{}{-}} \FunctionTok{roc}\NormalTok{(true\_status, biomarker3)}
+
+\CommentTok{\# Plot comparison}
+\FunctionTok{library}\NormalTok{(patchwork)}
+\NormalTok{p1 }\OtherTok{\textless{}{-}} \FunctionTok{ggroc}\NormalTok{(}\FunctionTok{list}\NormalTok{(}\StringTok{"Biomarker 1"} \OtherTok{=}\NormalTok{ roc1, }\StringTok{"Biomarker 2"} \OtherTok{=}\NormalTok{ roc2, }\StringTok{"Biomarker 3"} \OtherTok{=}\NormalTok{ roc3)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"blue"}\NormalTok{, }\StringTok{"green"}\NormalTok{, }\StringTok{"red"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{intercept =} \DecValTok{1}\NormalTok{, }\AttributeTok{slope =} \DecValTok{1}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Comparison of Three Biomarkers"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"False Positive Rate"}\NormalTok{, }\AttributeTok{y =} \StringTok{"True Positive Rate"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+
+\CommentTok{\# Print AUC values}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"AUC Values:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Biomarker 1:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{auc}\NormalTok{(roc1), }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Biomarker 2:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{auc}\NormalTok{(roc2), }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Biomarker 3:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{auc}\NormalTok{(roc3), }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+
+\FunctionTok{print}\NormalTok{(p1)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Optimal Threshold
+Selection}\label{optimal-threshold-selection}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Find optimal threshold using Youden\textquotesingle{}s J statistic}
+\NormalTok{coords\_all }\OtherTok{\textless{}{-}} \FunctionTok{coords}\NormalTok{(roc1, }\StringTok{"all"}\NormalTok{, }\AttributeTok{ret =} \FunctionTok{c}\NormalTok{(}\StringTok{"threshold"}\NormalTok{, }\StringTok{"sensitivity"}\NormalTok{, }\StringTok{"specificity"}\NormalTok{))}
+\NormalTok{coords\_all}\SpecialCharTok{$}\NormalTok{youden }\OtherTok{\textless{}{-}}\NormalTok{ coords\_all}\SpecialCharTok{$}\NormalTok{sensitivity }\SpecialCharTok{+}\NormalTok{ coords\_all}\SpecialCharTok{$}\NormalTok{specificity }\SpecialCharTok{{-}} \DecValTok{1}
+\NormalTok{optimal\_threshold }\OtherTok{\textless{}{-}}\NormalTok{ coords\_all[}\FunctionTok{which.max}\NormalTok{(coords\_all}\SpecialCharTok{$}\NormalTok{youden), ]}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Optimal Threshold Analysis:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Threshold:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(optimal\_threshold}\SpecialCharTok{$}\NormalTok{threshold, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Sensitivity:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(optimal\_threshold}\SpecialCharTok{$}\NormalTok{sensitivity, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Specificity:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(optimal\_threshold}\SpecialCharTok{$}\NormalTok{specificity, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Youden\textquotesingle{}s J:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(optimal\_threshold}\SpecialCharTok{$}\NormalTok{youden, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+
+\CommentTok{\# Plot threshold selection}
+\NormalTok{threshold\_plot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(coords\_all, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ threshold)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ sensitivity, }\AttributeTok{color =} \StringTok{"Sensitivity"}\NormalTok{), }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ specificity, }\AttributeTok{color =} \StringTok{"Specificity"}\NormalTok{), }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =}\NormalTok{ optimal\_threshold}\SpecialCharTok{$}\NormalTok{threshold, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"blue"}\NormalTok{, }\StringTok{"red"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Sensitivity and Specificity vs Threshold"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Biomarker Threshold"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Rate"}\NormalTok{, }\AttributeTok{color =} \StringTok{"Metric"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+
+\FunctionTok{print}\NormalTok{(threshold\_plot)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Practical Applications in
+Biostatistics}\label{practical-applications-in-biostatistics}
+
+\subsection{1. Biomarker Validation}\label{biomarker-validation}
+
+When developing diagnostic biomarkers: - Use ROC analysis to assess
+discriminative ability - Calculate AUC to compare different biomarkers -
+Determine optimal cutoff points balancing sensitivity and specificity
+
+\subsection{2. Risk Prediction Models}\label{risk-prediction-models}
+
+In clinical risk assessment: - Logistic regression to model disease
+probability - Confusion matrices to evaluate model performance - ROC
+curves to assess calibration across risk thresholds
+
+\subsection{3. Treatment Response
+Prediction}\label{treatment-response-prediction}
+
+For personalized medicine: - Classification models to predict treatment
+response - Performance metrics to validate model utility - Threshold
+optimization for clinical decision-making
+
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Key Takeaways}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Confusion matrices} provide a complete picture of
+  classification performance
+\item
+  \textbf{Sensitivity and specificity} are fundamental test
+  characteristics
+\item
+  \textbf{PPV and NPV} depend on disease prevalence in your population
+\item
+  \textbf{ROC curves} visualize the sensitivity-specificity trade-off
+\item
+  \textbf{AUC} provides a single metric for overall discriminative
+  ability
+\item
+  \textbf{Threshold selection} should consider clinical consequences of
+  false positives vs false negatives
+\end{enumerate}
+
+\end{tcolorbox}
+
+\section{Python Implementation}\label{python-implementation}
+
+For those preferring Python, here's equivalent code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\ImportTok{import}\NormalTok{ matplotlib.pyplot }\ImportTok{as}\NormalTok{ plt}
+\ImportTok{import}\NormalTok{ seaborn }\ImportTok{as}\NormalTok{ sns}
+\ImportTok{from}\NormalTok{ sklearn.metrics }\ImportTok{import}\NormalTok{ confusion\_matrix, roc\_curve, roc\_auc\_score, classification\_report}
+\ImportTok{from}\NormalTok{ sklearn.linear\_model }\ImportTok{import}\NormalTok{ LogisticRegression}
+
+\CommentTok{\# Simulate data}
+\NormalTok{np.random.seed(}\DecValTok{123}\NormalTok{)}
+\NormalTok{n }\OperatorTok{=} \DecValTok{1000}
+\NormalTok{age }\OperatorTok{=}\NormalTok{ np.random.normal(}\DecValTok{55}\NormalTok{, }\DecValTok{12}\NormalTok{, n)}
+\NormalTok{cholesterol }\OperatorTok{=}\NormalTok{ np.random.normal(}\DecValTok{200}\NormalTok{, }\DecValTok{40}\NormalTok{, n)}
+\NormalTok{smoking }\OperatorTok{=}\NormalTok{ np.random.binomial(}\DecValTok{1}\NormalTok{, }\FloatTok{0.3}\NormalTok{, n)}
+
+\CommentTok{\# Create outcome}
+\NormalTok{log\_odds }\OperatorTok{=} \OperatorTok{{-}}\DecValTok{5} \OperatorTok{+} \FloatTok{0.05}\OperatorTok{*}\NormalTok{age }\OperatorTok{+} \FloatTok{0.01}\OperatorTok{*}\NormalTok{cholesterol }\OperatorTok{+} \FloatTok{1.2}\OperatorTok{*}\NormalTok{smoking}
+\NormalTok{prob\_disease }\OperatorTok{=}\NormalTok{ np.exp(log\_odds)}\OperatorTok{/}\NormalTok{(}\DecValTok{1} \OperatorTok{+}\NormalTok{ np.exp(log\_odds))}
+\NormalTok{heart\_disease }\OperatorTok{=}\NormalTok{ np.random.binomial(}\DecValTok{1}\NormalTok{, prob\_disease, n)}
+
+\CommentTok{\# Fit logistic regression}
+\NormalTok{X }\OperatorTok{=}\NormalTok{ np.column\_stack([age, cholesterol, smoking])}
+\NormalTok{model }\OperatorTok{=}\NormalTok{ LogisticRegression()}
+\NormalTok{model.fit(X, heart\_disease)}
+
+\CommentTok{\# Predictions}
+\NormalTok{y\_pred\_proba }\OperatorTok{=}\NormalTok{ model.predict\_proba(X)[:, }\DecValTok{1}\NormalTok{]}
+\NormalTok{y\_pred }\OperatorTok{=}\NormalTok{ model.predict(X)}
+
+\CommentTok{\# Confusion matrix}
+\NormalTok{cm }\OperatorTok{=}\NormalTok{ confusion\_matrix(heart\_disease, y\_pred)}
+\NormalTok{plt.figure(figsize}\OperatorTok{=}\NormalTok{(}\DecValTok{8}\NormalTok{, }\DecValTok{6}\NormalTok{))}
+\NormalTok{sns.heatmap(cm, annot}\OperatorTok{=}\VariableTok{True}\NormalTok{, fmt}\OperatorTok{=}\StringTok{\textquotesingle{}d\textquotesingle{}}\NormalTok{, cmap}\OperatorTok{=}\StringTok{\textquotesingle{}Blues\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.title(}\StringTok{\textquotesingle{}Confusion Matrix\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.ylabel(}\StringTok{\textquotesingle{}Actual\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.xlabel(}\StringTok{\textquotesingle{}Predicted\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.show()}
+
+\CommentTok{\# ROC curve}
+\NormalTok{fpr, tpr, thresholds }\OperatorTok{=}\NormalTok{ roc\_curve(heart\_disease, y\_pred\_proba)}
+\NormalTok{auc\_score }\OperatorTok{=}\NormalTok{ roc\_auc\_score(heart\_disease, y\_pred\_proba)}
+
+\NormalTok{plt.figure(figsize}\OperatorTok{=}\NormalTok{(}\DecValTok{8}\NormalTok{, }\DecValTok{6}\NormalTok{))}
+\NormalTok{plt.plot(fpr, tpr, color}\OperatorTok{=}\StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{, label}\OperatorTok{=}\SpecialStringTok{f\textquotesingle{}ROC Curve (AUC = }\SpecialCharTok{\{}\NormalTok{auc\_score}\SpecialCharTok{:.3f\}}\SpecialStringTok{)\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.plot([}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{], [}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{], color}\OperatorTok{=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{, linestyle}\OperatorTok{=}\StringTok{\textquotesingle{}{-}{-}\textquotesingle{}}\NormalTok{, label}\OperatorTok{=}\StringTok{\textquotesingle{}Random\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.xlabel(}\StringTok{\textquotesingle{}False Positive Rate\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.ylabel(}\StringTok{\textquotesingle{}True Positive Rate\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.title(}\StringTok{\textquotesingle{}ROC Curve\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.legend()}
+\NormalTok{plt.show()}
+
+\CommentTok{\# Classification report}
+\BuiltInTok{print}\NormalTok{(classification\_report(heart\_disease, y\_pred))}
+\end{Highlighting}
+\end{Shaded}
 
 \bookmarksetup{startatroot}
 
@@ -1696,30 +2271,636 @@ Considerations}\label{design-power-considerations}
 Plan studies effectively by determining appropriate sample sizes and
 control error rates when testing multiple hypotheses.
 
-\emph{Note: This chapter appears to be incomplete in the source HTML
-file. Only the title and introduction were available. Additional content
-for design and power considerations would typically include:}
+\section{Introduction}\label{introduction-1}
 
-\begin{itemize}
+In biostatistics, proper study design and statistical power
+considerations are crucial for obtaining reliable and interpretable
+results. This chapter focuses on key concepts including sample size
+determination, statistical power, and critically important methods for
+controlling error rates when testing multiple hypotheses---a common
+scenario in modern biological research.
+
+\section{Statistical Power and Sample
+Size}\label{statistical-power-and-sample-size}
+
+\subsection{Understanding Statistical
+Power}\label{understanding-statistical-power}
+
+Statistical power is the probability of correctly rejecting a false null
+hypothesis (avoiding Type II error). In simple terms, it's the
+probability that your study will detect an effect if there really is
+one.
+
+\[\text{Power} = 1 - \beta = P(\text{reject } H_0 | H_0 \text{ is false})\]
+
+Where \(\beta\) is the probability of Type II error.
+
+\subsection{The Four Connected
+Elements}\label{the-four-connected-elements}
+
+For any statistical test, four elements are mathematically related: 1.
+\textbf{Effect size} (how big the difference/relationship is) 2.
+\textbf{Sample size} (how many observations) 3. \textbf{Significance
+level} (\(\alpha\), usually 0.05) 4. \textbf{Statistical power} (usually
+aim for 0.80 or 80\%)
+
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-tip-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Power Analysis Rule}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
+
+If you know any three of these elements, you can calculate the fourth.
+This is the foundation of power analysis and sample size planning.
+
+\end{tcolorbox}
+
+\subsection{Sample Size Calculation
+Example}\label{sample-size-calculation-example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sample size for comparing two means}
+\FunctionTok{library}\NormalTok{(pwr)}
+
+\CommentTok{\# Scenario: Compare blood pressure between two treatments}
+\CommentTok{\# We expect a difference of 5 mmHg (effect size)}
+\CommentTok{\# Pooled standard deviation is estimated at 12 mmHg}
+\NormalTok{effect\_size }\OtherTok{\textless{}{-}} \DecValTok{5} \SpecialCharTok{/} \DecValTok{12}  \CommentTok{\# Cohen\textquotesingle{}s d}
+
+\CommentTok{\# Calculate sample size needed}
+\NormalTok{power\_result }\OtherTok{\textless{}{-}} \FunctionTok{pwr.t.test}\NormalTok{(}
+  \AttributeTok{d =}\NormalTok{ effect\_size,           }\CommentTok{\# Effect size (Cohen\textquotesingle{}s d)}
+  \AttributeTok{sig.level =} \FloatTok{0.05}\NormalTok{,         }\CommentTok{\# Alpha level}
+  \AttributeTok{power =} \FloatTok{0.80}\NormalTok{,             }\CommentTok{\# Desired power}
+  \AttributeTok{type =} \StringTok{"two.sample"}       \CommentTok{\# Two{-}sample t{-}test}
+\NormalTok{)}
+
+\FunctionTok{print}\NormalTok{(power\_result)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Required sample size per group:"}\NormalTok{, }\FunctionTok{ceiling}\NormalTok{(power\_result}\SpecialCharTok{$}\NormalTok{n))}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Multiple Testing Problem}\label{multiple-testing-problem}
+
+\subsection{The Challenge}\label{the-challenge}
+
+When conducting multiple statistical tests, the probability of making at
+least one Type I error (false positive) increases dramatically. This is
+called the \textbf{multiple testing problem} or \textbf{multiple
+comparisons problem}.
+
+\textbf{Simple example}: - Single test with α = 0.05: 5\% chance of
+false positive - 10 independent tests: Probability of at least one false
+positive = \(1 - (0.95)^{10} = 0.401\) (40.1\%) - 100 tests: Probability
+= \(1 - (0.95)^{100} = 0.994\) (99.4\%)
+
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-warning-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{The Multiple Testing Crisis}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
+
+In genomics, researchers often test thousands or millions of hypotheses
+simultaneously (e.g., testing each gene for differential expression).
+Without proper correction, almost every study would report significant
+results, even if no true effects exist!
+
+\end{tcolorbox}
+
+\subsection{Family-Wise Error Rate
+(FWER)}\label{family-wise-error-rate-fwer}
+
+The \textbf{Family-Wise Error Rate} is the probability of making one or
+more Type I errors in a family of tests:
+
+\[\text{FWER} = P(\text{at least one Type I error})\]
+
+For \(m\) independent tests each with significance level \(\alpha\):
+
+\[\text{FWER} = 1 - (1-\alpha)^m\]
+
+\subsection{Bonferroni Correction}\label{bonferroni-correction}
+
+The \textbf{Bonferroni correction} is the simplest method to control
+FWER. Instead of using \(\alpha\) for each test, use \(\alpha/m\):
+
+\[\alpha_{\text{adjusted}} = \frac{\alpha}{m}\]
+
+\textbf{Example}: Testing 20 hypotheses with overall α = 0.05 -
+Bonferroni-adjusted α = 0.05/20 = 0.0025 - Reject \(H_0\) only if
+p-value ≤ 0.0025
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Example: Multiple t{-}tests with Bonferroni correction}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+
+\CommentTok{\# Simulate data for 20 different comparisons}
+\NormalTok{n\_tests }\OtherTok{\textless{}{-}} \DecValTok{20}
+\NormalTok{p\_values }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(n\_tests)}
+
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_tests) \{}
+  \CommentTok{\# Generate random data (no real differences)}
+\NormalTok{  group1 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{30}\NormalTok{, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =} \DecValTok{1}\NormalTok{)}
+\NormalTok{  group2 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{30}\NormalTok{, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =} \DecValTok{1}\NormalTok{)}
+
+  \CommentTok{\# Perform t{-}test}
+\NormalTok{  test\_result }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(group1, group2)}
+\NormalTok{  p\_values[i] }\OtherTok{\textless{}{-}}\NormalTok{ test\_result}\SpecialCharTok{$}\NormalTok{p.value}
+\NormalTok{\}}
+
+\CommentTok{\# Apply Bonferroni correction}
+\NormalTok{alpha }\OtherTok{\textless{}{-}} \FloatTok{0.05}
+\NormalTok{bonferroni\_alpha }\OtherTok{\textless{}{-}}\NormalTok{ alpha }\SpecialCharTok{/}\NormalTok{ n\_tests}
+\NormalTok{bonferroni\_adjusted }\OtherTok{\textless{}{-}} \FunctionTok{p.adjust}\NormalTok{(p\_values, }\AttributeTok{method =} \StringTok{"bonferroni"}\NormalTok{)}
+
+\CommentTok{\# Results}
+\NormalTok{results\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Test =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_tests,}
+  \AttributeTok{Raw\_P\_Value =} \FunctionTok{round}\NormalTok{(p\_values, }\DecValTok{4}\NormalTok{),}
+  \AttributeTok{Bonferroni\_Adjusted =} \FunctionTok{round}\NormalTok{(bonferroni\_adjusted, }\DecValTok{4}\NormalTok{),}
+  \AttributeTok{Raw\_Significant =}\NormalTok{ p\_values }\SpecialCharTok{\textless{}}\NormalTok{ alpha,}
+  \AttributeTok{Bonferroni\_Significant =}\NormalTok{ bonferroni\_adjusted }\SpecialCharTok{\textless{}}\NormalTok{ alpha}
+\NormalTok{)}
+
+\FunctionTok{print}\NormalTok{(results\_df)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Raw significant tests:"}\NormalTok{, }\FunctionTok{sum}\NormalTok{(results\_df}\SpecialCharTok{$}\NormalTok{Raw\_Significant), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Bonferroni significant tests:"}\NormalTok{, }\FunctionTok{sum}\NormalTok{(results\_df}\SpecialCharTok{$}\NormalTok{Bonferroni\_Significant), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{False Discovery Rate (FDR)}\label{false-discovery-rate-fdr}
+
+\subsection{What is FDR?}\label{what-is-fdr}
+
+While FWER controls the probability of any false positives, the
+\textbf{False Discovery Rate (FDR)} controls the expected proportion of
+false positives among the rejected hypotheses.
+
+\textbf{Simple explanation}: If you call 100 tests ``significant'' and
+set FDR = 0.05, you expect about 5 of those 100 to be false positives.
+
+\[\text{FDR} = E\left[\frac{\text{Number of false positives}}{\text{Number of rejected hypotheses}}\right]\]
+
+\subsection{Why FDR is Often Better Than
+FWER}\label{why-fdr-is-often-better-than-fwer}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Study design principles
+  \textbf{Less conservative}: Allows more discoveries while controlling
+  false discovery proportion
 \item
-  Sample size calculation methods
+  \textbf{More appropriate for exploratory research}: Especially in
+  genomics and high-throughput studies
 \item
-  Power analysis techniques
-\item
-  Multiple testing corrections (Bonferroni, FDR, etc.)
-\item
-  Type I and Type II error control
-\item
-  Interim analysis and stopping rules
-\item
-  Adaptive trial designs
-\end{itemize}
+  \textbf{Adaptive to data}: Better performance when many true effects
+  exist
+\end{enumerate}
 
-\emph{These topics would be covered in a complete version of this
-chapter.}
+\subsection{Benjamini-Hochberg (BH)
+Procedure}\label{benjamini-hochberg-bh-procedure}
+
+The most popular FDR control method:
+
+\textbf{Step-by-step algorithm}:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Order p-values: \(p_{(1)} \leq p_{(2)} \leq ... \leq p_{(m)}\)
+\item
+  For \(i = m, m-1, ..., 1\), find the largest \(i\) such that:
+  \[p_{(i)} \leq \frac{i}{m} \times \alpha\]
+\item
+  Reject all \(H_{(j)}\) for \(j = 1, 2, ..., i\)
+\end{enumerate}
+
+\textbf{Mathematical foundation}: The BH procedure controls FDR at level
+\(\alpha\) when tests are independent or have certain dependence
+structures.
+
+\subsection{FDR Example: Gene Expression
+Analysis}\label{fdr-example-gene-expression-analysis}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Simulate gene expression data}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{456}\NormalTok{)}
+\NormalTok{n\_genes }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{n\_samples\_per\_group }\OtherTok{\textless{}{-}} \DecValTok{20}
+
+\CommentTok{\# 950 genes with no difference (null hypotheses)}
+\CommentTok{\# 50 genes with real differences (alternative hypotheses)}
+\NormalTok{true\_effects }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{950}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{50}\NormalTok{))  }\CommentTok{\# Effect sizes}
+
+\NormalTok{p\_values }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(n\_genes)}
+
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_genes) \{}
+  \CommentTok{\# Control group}
+\NormalTok{  control }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n\_samples\_per\_group, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =} \DecValTok{1}\NormalTok{)}
+
+  \CommentTok{\# Treatment group (with potential effect)}
+\NormalTok{  treatment }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n\_samples\_per\_group, }\AttributeTok{mean =}\NormalTok{ true\_effects[i], }\AttributeTok{sd =} \DecValTok{1}\NormalTok{)}
+
+  \CommentTok{\# Perform t{-}test}
+\NormalTok{  test\_result }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(control, treatment)}
+\NormalTok{  p\_values[i] }\OtherTok{\textless{}{-}}\NormalTok{ test\_result}\SpecialCharTok{$}\NormalTok{p.value}
+\NormalTok{\}}
+
+\CommentTok{\# Apply different correction methods}
+\NormalTok{alpha }\OtherTok{\textless{}{-}} \FloatTok{0.05}
+\NormalTok{raw\_significant }\OtherTok{\textless{}{-}}\NormalTok{ p\_values }\SpecialCharTok{\textless{}}\NormalTok{ alpha}
+\NormalTok{bonferroni\_significant }\OtherTok{\textless{}{-}} \FunctionTok{p.adjust}\NormalTok{(p\_values, }\AttributeTok{method =} \StringTok{"bonferroni"}\NormalTok{) }\SpecialCharTok{\textless{}}\NormalTok{ alpha}
+\NormalTok{fdr\_significant }\OtherTok{\textless{}{-}} \FunctionTok{p.adjust}\NormalTok{(p\_values, }\AttributeTok{method =} \StringTok{"BH"}\NormalTok{) }\SpecialCharTok{\textless{}}\NormalTok{ alpha}
+
+\CommentTok{\# Calculate performance metrics}
+\NormalTok{true\_positives\_raw }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(raw\_significant }\SpecialCharTok{\&}\NormalTok{ true\_effects }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{)}
+\NormalTok{false\_positives\_raw }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(raw\_significant }\SpecialCharTok{\&}\NormalTok{ true\_effects }\SpecialCharTok{==} \DecValTok{0}\NormalTok{)}
+
+\NormalTok{true\_positives\_bonf }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(bonferroni\_significant }\SpecialCharTok{\&}\NormalTok{ true\_effects }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{)}
+\NormalTok{false\_positives\_bonf }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(bonferroni\_significant }\SpecialCharTok{\&}\NormalTok{ true\_effects }\SpecialCharTok{==} \DecValTok{0}\NormalTok{)}
+
+\NormalTok{true\_positives\_fdr }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(fdr\_significant }\SpecialCharTok{\&}\NormalTok{ true\_effects }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{)}
+\NormalTok{false\_positives\_fdr }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(fdr\_significant }\SpecialCharTok{\&}\NormalTok{ true\_effects }\SpecialCharTok{==} \DecValTok{0}\NormalTok{)}
+
+\CommentTok{\# Results summary}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Results Summary:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"================}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Raw p{-}values (α = 0.05):}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  Discoveries:"}\NormalTok{, }\FunctionTok{sum}\NormalTok{(raw\_significant), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  True positives:"}\NormalTok{, true\_positives\_raw, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  False positives:"}\NormalTok{, false\_positives\_raw, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  FDR:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(false\_positives\_raw }\SpecialCharTok{/} \FunctionTok{max}\NormalTok{(}\DecValTok{1}\NormalTok{, }\FunctionTok{sum}\NormalTok{(raw\_significant)), }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Bonferroni correction:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  Discoveries:"}\NormalTok{, }\FunctionTok{sum}\NormalTok{(bonferroni\_significant), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  True positives:"}\NormalTok{, true\_positives\_bonf, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  False positives:"}\NormalTok{, false\_positives\_bonf, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  FDR:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(false\_positives\_bonf }\SpecialCharTok{/} \FunctionTok{max}\NormalTok{(}\DecValTok{1}\NormalTok{, }\FunctionTok{sum}\NormalTok{(bonferroni\_significant)), }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"FDR (Benjamini{-}Hochberg):}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  Discoveries:"}\NormalTok{, }\FunctionTok{sum}\NormalTok{(fdr\_significant), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  True positives:"}\NormalTok{, true\_positives\_fdr, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  False positives:"}\NormalTok{, false\_positives\_fdr, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  FDR:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(false\_positives\_fdr }\SpecialCharTok{/} \FunctionTok{max}\NormalTok{(}\DecValTok{1}\NormalTok{, }\FunctionTok{sum}\NormalTok{(fdr\_significant)), }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Visualizing FDR vs FWER}\label{visualizing-fdr-vs-fwer}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\CommentTok{\# Create comparison data}
+\NormalTok{comparison\_data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Method =} \FunctionTok{c}\NormalTok{(}\StringTok{"Raw p{-}values"}\NormalTok{, }\StringTok{"Bonferroni"}\NormalTok{, }\StringTok{"FDR (BH)"}\NormalTok{),}
+  \AttributeTok{Discoveries =} \FunctionTok{c}\NormalTok{(}\FunctionTok{sum}\NormalTok{(raw\_significant), }\FunctionTok{sum}\NormalTok{(bonferroni\_significant), }\FunctionTok{sum}\NormalTok{(fdr\_significant)),}
+  \AttributeTok{True\_Positives =} \FunctionTok{c}\NormalTok{(true\_positives\_raw, true\_positives\_bonf, true\_positives\_fdr),}
+  \AttributeTok{False\_Positives =} \FunctionTok{c}\NormalTok{(false\_positives\_raw, false\_positives\_bonf, false\_positives\_fdr)}
+\NormalTok{)}
+
+\NormalTok{comparison\_data}\SpecialCharTok{$}\NormalTok{Power }\OtherTok{\textless{}{-}}\NormalTok{ comparison\_data}\SpecialCharTok{$}\NormalTok{True\_Positives }\SpecialCharTok{/} \DecValTok{50}  \CommentTok{\# 50 true effects}
+\NormalTok{comparison\_data}\SpecialCharTok{$}\NormalTok{FDR }\OtherTok{\textless{}{-}}\NormalTok{ comparison\_data}\SpecialCharTok{$}\NormalTok{False\_Positives }\SpecialCharTok{/} \FunctionTok{pmax}\NormalTok{(}\DecValTok{1}\NormalTok{, comparison\_data}\SpecialCharTok{$}\NormalTok{Discoveries)}
+
+\CommentTok{\# Plot results}
+\NormalTok{p1 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(comparison\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Method, }\AttributeTok{y =}\NormalTok{ Discoveries, }\AttributeTok{fill =}\NormalTok{ Method)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ Discoveries), }\AttributeTok{vjust =} \SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Number of Discoveries by Method"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Discoveries"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+
+\NormalTok{p2 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(comparison\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Method, }\AttributeTok{y =}\NormalTok{ Power, }\AttributeTok{fill =}\NormalTok{ Method)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =} \FunctionTok{round}\NormalTok{(Power, }\DecValTok{2}\NormalTok{)), }\AttributeTok{vjust =} \SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Statistical Power by Method"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Power (True Positive Rate)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylim}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+
+\FunctionTok{library}\NormalTok{(patchwork)}
+\FunctionTok{print}\NormalTok{(p1 }\SpecialCharTok{/}\NormalTok{ p2)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{q-values: A Modern Approach to
+FDR}\label{q-values-a-modern-approach-to-fdr}
+
+\subsection{What are q-values?}\label{what-are-q-values}
+
+A \textbf{q-value} is the minimum FDR at which a hypothesis would be
+rejected. It's analogous to how a p-value is the minimum significance
+level at which a hypothesis would be rejected.
+
+\textbf{Interpretation}: A q-value of 0.05 means that 5\% of tests with
+q-values ≤ 0.05 are expected to be false positives.
+
+\subsection{Calculating q-values}\label{calculating-q-values}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate q{-}values using the qvalue package}
+\CommentTok{\# Note: You may need to install from Bioconductor}
+\CommentTok{\# if (!requireNamespace("BiocManager", quietly = TRUE))}
+\CommentTok{\#     install.packages("BiocManager")}
+\CommentTok{\# BiocManager::install("qvalue")}
+
+\FunctionTok{library}\NormalTok{(qvalue)}
+
+\CommentTok{\# Calculate q{-}values from our p{-}values}
+\NormalTok{q\_values }\OtherTok{\textless{}{-}} \FunctionTok{qvalue}\NormalTok{(p\_values)}
+
+\CommentTok{\# Plot q{-}value object}
+\FunctionTok{plot}\NormalTok{(q\_values)}
+
+\CommentTok{\# Summary of q{-}values}
+\FunctionTok{summary}\NormalTok{(q\_values)}
+
+\CommentTok{\# Number of significant findings at different FDR levels}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Significant findings:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"FDR \textless{} 0.01:"}\NormalTok{, }\FunctionTok{sum}\NormalTok{(q\_values}\SpecialCharTok{$}\NormalTok{qvalues }\SpecialCharTok{\textless{}} \FloatTok{0.01}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"FDR \textless{} 0.05:"}\NormalTok{, }\FunctionTok{sum}\NormalTok{(q\_values}\SpecialCharTok{$}\NormalTok{qvalues }\SpecialCharTok{\textless{}} \FloatTok{0.05}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"FDR \textless{} 0.10:"}\NormalTok{, }\FunctionTok{sum}\NormalTok{(q\_values}\SpecialCharTok{$}\NormalTok{qvalues }\SpecialCharTok{\textless{}} \FloatTok{0.10}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Practical Guidelines for Multiple
+Testing}\label{practical-guidelines-for-multiple-testing}
+
+\subsection{When to Use Which Method}\label{when-to-use-which-method}
+
+\textbf{Use Bonferroni (FWER control) when}: - Small number of tests
+(\textless{} 20) - Each test is critically important - Any false
+positive would be seriously problematic - Confirmatory studies
+
+\textbf{Use FDR control when}: - Large number of tests (hundreds to
+millions) - Exploratory research - Discovery-oriented studies -
+Follow-up validation will be performed
+
+\subsection{Best Practices}\label{best-practices}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Plan your analysis}: Decide on multiple testing correction
+  before seeing the data
+\item
+  \textbf{Consider the biological context}: Balance statistical rigor
+  with biological interpretation
+\item
+  \textbf{Report both raw and adjusted p-values}: Transparency in
+  reporting
+\item
+  \textbf{Use appropriate FDR level}: Common choices are 0.05, 0.10, or
+  0.20 depending on context
+\end{enumerate}
+
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, left=2mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, leftrule=.75mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Key Concepts Summary}, bottomtitle=1mm, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, breakable, opacityback=0, colback=white]
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Multiple testing increases false positive rates} exponentially
+\item
+  \textbf{FWER control} (Bonferroni): Controls probability of any false
+  positive
+\item
+  \textbf{FDR control} (Benjamini-Hochberg): Controls proportion of
+  false positives among discoveries
+\item
+  \textbf{q-values} provide interpretable measure of false discovery
+  rate
+\item
+  \textbf{Method choice} depends on study goals, number of tests, and
+  consequences of false positives
+\end{enumerate}
+
+\end{tcolorbox}
+
+\section{Real-World Example: COVID-19 Biomarker
+Discovery}\label{real-world-example-covid-19-biomarker-discovery}
+
+Let's apply these concepts to a realistic scenario:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Simulate COVID{-}19 biomarker study}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{789}\NormalTok{)}
+
+\CommentTok{\# Study parameters}
+\NormalTok{n\_biomarkers }\OtherTok{\textless{}{-}} \DecValTok{500}  \CommentTok{\# Testing 500 potential biomarkers}
+\NormalTok{n\_covid }\OtherTok{\textless{}{-}} \DecValTok{100}       \CommentTok{\# 100 COVID{-}19 patients}
+\NormalTok{n\_control }\OtherTok{\textless{}{-}} \DecValTok{100}     \CommentTok{\# 100 healthy controls}
+
+\CommentTok{\# Simulate biomarker data}
+\CommentTok{\# 475 biomarkers: no real difference}
+\CommentTok{\# 25 biomarkers: real differences (effect size = 1)}
+\NormalTok{true\_biomarkers }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{, }\DecValTok{475}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\DecValTok{25}\NormalTok{))}
+
+\NormalTok{biomarker\_pvalues }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(n\_biomarkers)}
+
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_biomarkers) \{}
+  \CommentTok{\# Control group}
+\NormalTok{  control\_values }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n\_control, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =} \DecValTok{1}\NormalTok{)}
+
+  \CommentTok{\# COVID group (with potential elevation)}
+\NormalTok{  covid\_mean }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(true\_biomarkers[i], }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\NormalTok{  covid\_values }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n\_covid, }\AttributeTok{mean =}\NormalTok{ covid\_mean, }\AttributeTok{sd =} \DecValTok{1}\NormalTok{)}
+
+  \CommentTok{\# Statistical test}
+\NormalTok{  test\_result }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(covid\_values, control\_values)}
+\NormalTok{  biomarker\_pvalues[i] }\OtherTok{\textless{}{-}}\NormalTok{ test\_result}\SpecialCharTok{$}\NormalTok{p.value}
+\NormalTok{\}}
+
+\CommentTok{\# Apply corrections}
+\NormalTok{alpha }\OtherTok{\textless{}{-}} \FloatTok{0.05}
+\NormalTok{bonferroni\_results }\OtherTok{\textless{}{-}} \FunctionTok{p.adjust}\NormalTok{(biomarker\_pvalues, }\AttributeTok{method =} \StringTok{"bonferroni"}\NormalTok{)}
+\NormalTok{fdr\_results }\OtherTok{\textless{}{-}} \FunctionTok{p.adjust}\NormalTok{(biomarker\_pvalues, }\AttributeTok{method =} \StringTok{"BH"}\NormalTok{)}
+
+\CommentTok{\# Create results dataframe}
+\NormalTok{covid\_results }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Biomarker =} \FunctionTok{paste0}\NormalTok{(}\StringTok{"Biomarker\_"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_biomarkers),}
+  \AttributeTok{True\_Effect =}\NormalTok{ true\_biomarkers,}
+  \AttributeTok{Raw\_P =}\NormalTok{ biomarker\_pvalues,}
+  \AttributeTok{Bonferroni\_P =}\NormalTok{ bonferroni\_results,}
+  \AttributeTok{FDR\_Q =}\NormalTok{ fdr\_results,}
+  \AttributeTok{Raw\_Sig =}\NormalTok{ biomarker\_pvalues }\SpecialCharTok{\textless{}}\NormalTok{ alpha,}
+  \AttributeTok{Bonferroni\_Sig =}\NormalTok{ bonferroni\_results }\SpecialCharTok{\textless{}}\NormalTok{ alpha,}
+  \AttributeTok{FDR\_Sig =}\NormalTok{ fdr\_results }\SpecialCharTok{\textless{}}\NormalTok{ alpha}
+\NormalTok{)}
+
+\CommentTok{\# Performance summary}
+\NormalTok{performance\_summary }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Method =} \FunctionTok{c}\NormalTok{(}\StringTok{"Raw P{-}values"}\NormalTok{, }\StringTok{"Bonferroni"}\NormalTok{, }\StringTok{"FDR"}\NormalTok{),}
+  \AttributeTok{Total\_Discoveries =} \FunctionTok{c}\NormalTok{(}
+    \FunctionTok{sum}\NormalTok{(covid\_results}\SpecialCharTok{$}\NormalTok{Raw\_Sig),}
+    \FunctionTok{sum}\NormalTok{(covid\_results}\SpecialCharTok{$}\NormalTok{Bonferroni\_Sig),}
+    \FunctionTok{sum}\NormalTok{(covid\_results}\SpecialCharTok{$}\NormalTok{FDR\_Sig)}
+\NormalTok{  ),}
+  \AttributeTok{True\_Discoveries =} \FunctionTok{c}\NormalTok{(}
+    \FunctionTok{sum}\NormalTok{(covid\_results}\SpecialCharTok{$}\NormalTok{Raw\_Sig }\SpecialCharTok{\&}\NormalTok{ covid\_results}\SpecialCharTok{$}\NormalTok{True\_Effect),}
+    \FunctionTok{sum}\NormalTok{(covid\_results}\SpecialCharTok{$}\NormalTok{Bonferroni\_Sig }\SpecialCharTok{\&}\NormalTok{ covid\_results}\SpecialCharTok{$}\NormalTok{True\_Effect),}
+    \FunctionTok{sum}\NormalTok{(covid\_results}\SpecialCharTok{$}\NormalTok{FDR\_Sig }\SpecialCharTok{\&}\NormalTok{ covid\_results}\SpecialCharTok{$}\NormalTok{True\_Effect)}
+\NormalTok{  ),}
+  \AttributeTok{False\_Discoveries =} \FunctionTok{c}\NormalTok{(}
+    \FunctionTok{sum}\NormalTok{(covid\_results}\SpecialCharTok{$}\NormalTok{Raw\_Sig }\SpecialCharTok{\&} \SpecialCharTok{!}\NormalTok{covid\_results}\SpecialCharTok{$}\NormalTok{True\_Effect),}
+    \FunctionTok{sum}\NormalTok{(covid\_results}\SpecialCharTok{$}\NormalTok{Bonferroni\_Sig }\SpecialCharTok{\&} \SpecialCharTok{!}\NormalTok{covid\_results}\SpecialCharTok{$}\NormalTok{True\_Effect),}
+    \FunctionTok{sum}\NormalTok{(covid\_results}\SpecialCharTok{$}\NormalTok{FDR\_Sig }\SpecialCharTok{\&} \SpecialCharTok{!}\NormalTok{covid\_results}\SpecialCharTok{$}\NormalTok{True\_Effect)}
+\NormalTok{  )}
+\NormalTok{)}
+
+\NormalTok{performance\_summary}\SpecialCharTok{$}\NormalTok{Sensitivity }\OtherTok{\textless{}{-}}\NormalTok{ performance\_summary}\SpecialCharTok{$}\NormalTok{True\_Discoveries }\SpecialCharTok{/} \DecValTok{25}
+\NormalTok{performance\_summary}\SpecialCharTok{$}\NormalTok{FDR\_Actual }\OtherTok{\textless{}{-}}\NormalTok{ performance\_summary}\SpecialCharTok{$}\NormalTok{False\_Discoveries }\SpecialCharTok{/}
+  \FunctionTok{pmax}\NormalTok{(}\DecValTok{1}\NormalTok{, performance\_summary}\SpecialCharTok{$}\NormalTok{Total\_Discoveries)}
+
+\FunctionTok{print}\NormalTok{(performance\_summary)}
+
+\CommentTok{\# Visualization}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\NormalTok{volcano\_data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Log\_P =} \SpecialCharTok{{-}}\FunctionTok{log10}\NormalTok{(covid\_results}\SpecialCharTok{$}\NormalTok{Raw\_P),}
+  \AttributeTok{Effect\_Size =} \FunctionTok{ifelse}\NormalTok{(covid\_results}\SpecialCharTok{$}\NormalTok{True\_Effect, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(n\_biomarkers, }\DecValTok{0}\NormalTok{, }\FloatTok{0.1}\NormalTok{),}
+  \AttributeTok{Significant =}\NormalTok{ covid\_results}\SpecialCharTok{$}\NormalTok{FDR\_Sig,}
+  \AttributeTok{True\_Effect =}\NormalTok{ covid\_results}\SpecialCharTok{$}\NormalTok{True\_Effect}
+\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(volcano\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Effect\_Size, }\AttributeTok{y =}\NormalTok{ Log\_P)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color =} \FunctionTok{interaction}\NormalTok{(Significant, True\_Effect)), }\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}
+    \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"TRUE.FALSE"} \OtherTok{=} \StringTok{"red"}\NormalTok{, }\StringTok{"FALSE.FALSE"} \OtherTok{=} \StringTok{"gray"}\NormalTok{,}
+               \StringTok{"TRUE.TRUE"} \OtherTok{=} \StringTok{"blue"}\NormalTok{, }\StringTok{"FALSE.TRUE"} \OtherTok{=} \StringTok{"orange"}\NormalTok{),}
+    \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"FDR Sig + True Effect"}\NormalTok{, }\StringTok{"Not Significant"}\NormalTok{,}
+               \StringTok{"FDR Sig + No True Effect"}\NormalTok{, }\StringTok{"Not Sig + True Effect"}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \SpecialCharTok{{-}}\FunctionTok{log10}\NormalTok{(}\FloatTok{0.05}\NormalTok{), }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"COVID{-}19 Biomarker Discovery Results"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Effect Size"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"{-}log10(p{-}value)"}\NormalTok{,}
+    \AttributeTok{color =} \StringTok{"Classification"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Python Implementation}\label{python-implementation-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\ImportTok{import}\NormalTok{ matplotlib.pyplot }\ImportTok{as}\NormalTok{ plt}
+\ImportTok{import}\NormalTok{ seaborn }\ImportTok{as}\NormalTok{ sns}
+\ImportTok{from}\NormalTok{ scipy }\ImportTok{import}\NormalTok{ stats}
+\ImportTok{from}\NormalTok{ statsmodels.stats.multitest }\ImportTok{import}\NormalTok{ multipletests}
+
+\CommentTok{\# Simulate multiple testing scenario}
+\NormalTok{np.random.seed(}\DecValTok{123}\NormalTok{)}
+\NormalTok{n\_tests }\OperatorTok{=} \DecValTok{1000}
+\NormalTok{n\_true\_effects }\OperatorTok{=} \DecValTok{50}
+
+\CommentTok{\# Generate p{-}values}
+\NormalTok{p\_values }\OperatorTok{=}\NormalTok{ []}
+\NormalTok{true\_effects }\OperatorTok{=}\NormalTok{ np.array([}\VariableTok{False}\NormalTok{] }\OperatorTok{*}\NormalTok{ (n\_tests }\OperatorTok{{-}}\NormalTok{ n\_true\_effects) }\OperatorTok{+}\NormalTok{ [}\VariableTok{True}\NormalTok{] }\OperatorTok{*}\NormalTok{ n\_true\_effects)}
+
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(n\_tests):}
+    \CommentTok{\# Generate data}
+    \ControlFlowTok{if}\NormalTok{ true\_effects[i]:}
+        \CommentTok{\# True effect: different means}
+\NormalTok{        group1 }\OperatorTok{=}\NormalTok{ np.random.normal(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{30}\NormalTok{)}
+\NormalTok{        group2 }\OperatorTok{=}\NormalTok{ np.random.normal(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{30}\NormalTok{)  }\CommentTok{\# Effect size = 1}
+    \ControlFlowTok{else}\NormalTok{:}
+        \CommentTok{\# No effect: same means}
+\NormalTok{        group1 }\OperatorTok{=}\NormalTok{ np.random.normal(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{30}\NormalTok{)}
+\NormalTok{        group2 }\OperatorTok{=}\NormalTok{ np.random.normal(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{30}\NormalTok{)}
+
+    \CommentTok{\# Perform t{-}test}
+\NormalTok{    \_, p\_val }\OperatorTok{=}\NormalTok{ stats.ttest\_ind(group1, group2)}
+\NormalTok{    p\_values.append(p\_val)}
+
+\NormalTok{p\_values }\OperatorTok{=}\NormalTok{ np.array(p\_values)}
+
+\CommentTok{\# Apply multiple testing corrections}
+\NormalTok{rejected\_bonf, p\_adj\_bonf, \_, \_ }\OperatorTok{=}\NormalTok{ multipletests(p\_values, method}\OperatorTok{=}\StringTok{\textquotesingle{}bonferroni\textquotesingle{}}\NormalTok{)}
+\NormalTok{rejected\_bh, p\_adj\_bh, \_, \_ }\OperatorTok{=}\NormalTok{ multipletests(p\_values, method}\OperatorTok{=}\StringTok{\textquotesingle{}fdr\_bh\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# Create results dataframe}
+\NormalTok{results }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}
+    \StringTok{\textquotesingle{}p\_value\textquotesingle{}}\NormalTok{: p\_values,}
+    \StringTok{\textquotesingle{}true\_effect\textquotesingle{}}\NormalTok{: true\_effects,}
+    \StringTok{\textquotesingle{}bonferroni\_adj\textquotesingle{}}\NormalTok{: p\_adj\_bonf,}
+    \StringTok{\textquotesingle{}fdr\_adj\textquotesingle{}}\NormalTok{: p\_adj\_bh,}
+    \StringTok{\textquotesingle{}bonferroni\_sig\textquotesingle{}}\NormalTok{: rejected\_bonf,}
+    \StringTok{\textquotesingle{}fdr\_sig\textquotesingle{}}\NormalTok{: rejected\_bh}
+\NormalTok{\})}
+
+\CommentTok{\# Calculate performance metrics}
+\KeywordTok{def}\NormalTok{ calculate\_performance(significant, true\_effects):}
+\NormalTok{    tp }\OperatorTok{=}\NormalTok{ np.}\BuiltInTok{sum}\NormalTok{(significant }\OperatorTok{\&}\NormalTok{ true\_effects)}
+\NormalTok{    fp }\OperatorTok{=}\NormalTok{ np.}\BuiltInTok{sum}\NormalTok{(significant }\OperatorTok{\&} \OperatorTok{\textasciitilde{}}\NormalTok{true\_effects)}
+\NormalTok{    fn }\OperatorTok{=}\NormalTok{ np.}\BuiltInTok{sum}\NormalTok{(}\OperatorTok{\textasciitilde{}}\NormalTok{significant }\OperatorTok{\&}\NormalTok{ true\_effects)}
+\NormalTok{    tn }\OperatorTok{=}\NormalTok{ np.}\BuiltInTok{sum}\NormalTok{(}\OperatorTok{\textasciitilde{}}\NormalTok{significant }\OperatorTok{\&} \OperatorTok{\textasciitilde{}}\NormalTok{true\_effects)}
+
+\NormalTok{    sensitivity }\OperatorTok{=}\NormalTok{ tp }\OperatorTok{/}\NormalTok{ (tp }\OperatorTok{+}\NormalTok{ fn) }\ControlFlowTok{if}\NormalTok{ (tp }\OperatorTok{+}\NormalTok{ fn) }\OperatorTok{\textgreater{}} \DecValTok{0} \ControlFlowTok{else} \DecValTok{0}
+\NormalTok{    fdr }\OperatorTok{=}\NormalTok{ fp }\OperatorTok{/}\NormalTok{ (tp }\OperatorTok{+}\NormalTok{ fp) }\ControlFlowTok{if}\NormalTok{ (tp }\OperatorTok{+}\NormalTok{ fp) }\OperatorTok{\textgreater{}} \DecValTok{0} \ControlFlowTok{else} \DecValTok{0}
+
+    \ControlFlowTok{return}\NormalTok{ \{}
+        \StringTok{\textquotesingle{}discoveries\textquotesingle{}}\NormalTok{: tp }\OperatorTok{+}\NormalTok{ fp,}
+        \StringTok{\textquotesingle{}true\_positives\textquotesingle{}}\NormalTok{: tp,}
+        \StringTok{\textquotesingle{}false\_positives\textquotesingle{}}\NormalTok{: fp,}
+        \StringTok{\textquotesingle{}sensitivity\textquotesingle{}}\NormalTok{: sensitivity,}
+        \StringTok{\textquotesingle{}fdr\textquotesingle{}}\NormalTok{: fdr}
+\NormalTok{    \}}
+
+\CommentTok{\# Performance comparison}
+\NormalTok{raw\_sig }\OperatorTok{=}\NormalTok{ p\_values }\OperatorTok{\textless{}} \FloatTok{0.05}
+\NormalTok{perf\_raw }\OperatorTok{=}\NormalTok{ calculate\_performance(raw\_sig, true\_effects)}
+\NormalTok{perf\_bonf }\OperatorTok{=}\NormalTok{ calculate\_performance(rejected\_bonf, true\_effects)}
+\NormalTok{perf\_fdr }\OperatorTok{=}\NormalTok{ calculate\_performance(rejected\_bh, true\_effects)}
+
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Performance Comparison:"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"======================="}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ method, perf }\KeywordTok{in}\NormalTok{ [(}\StringTok{"Raw"}\NormalTok{, perf\_raw), (}\StringTok{"Bonferroni"}\NormalTok{, perf\_bonf), (}\StringTok{"FDR"}\NormalTok{, perf\_fdr)]:}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{method}\SpecialCharTok{\}}\SpecialStringTok{:"}\NormalTok{)}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"  Discoveries: }\SpecialCharTok{\{}\NormalTok{perf[}\StringTok{\textquotesingle{}discoveries\textquotesingle{}}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"  Sensitivity: }\SpecialCharTok{\{}\NormalTok{perf[}\StringTok{\textquotesingle{}sensitivity\textquotesingle{}}\NormalTok{]}\SpecialCharTok{:.3f\}}\SpecialStringTok{"}\NormalTok{)}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"  FDR: }\SpecialCharTok{\{}\NormalTok{perf[}\StringTok{\textquotesingle{}fdr\textquotesingle{}}\NormalTok{]}\SpecialCharTok{:.3f\}}\SpecialStringTok{"}\NormalTok{)}
+    \BuiltInTok{print}\NormalTok{()}
+
+\CommentTok{\# Visualization}
+\NormalTok{fig, (ax1, ax2) }\OperatorTok{=}\NormalTok{ plt.subplots(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, figsize}\OperatorTok{=}\NormalTok{(}\DecValTok{15}\NormalTok{, }\DecValTok{6}\NormalTok{))}
+
+\CommentTok{\# Histogram of p{-}values}
+\NormalTok{ax1.hist(p\_values[}\OperatorTok{\textasciitilde{}}\NormalTok{true\_effects], bins}\OperatorTok{=}\DecValTok{50}\NormalTok{, alpha}\OperatorTok{=}\FloatTok{0.7}\NormalTok{, label}\OperatorTok{=}\StringTok{\textquotesingle{}Null hypotheses\textquotesingle{}}\NormalTok{, density}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\NormalTok{ax1.hist(p\_values[true\_effects], bins}\OperatorTok{=}\DecValTok{50}\NormalTok{, alpha}\OperatorTok{=}\FloatTok{0.7}\NormalTok{, label}\OperatorTok{=}\StringTok{\textquotesingle{}Alternative hypotheses\textquotesingle{}}\NormalTok{, density}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\NormalTok{ax1.axhline(y}\OperatorTok{=}\DecValTok{1}\NormalTok{, color}\OperatorTok{=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{, linestyle}\OperatorTok{=}\StringTok{\textquotesingle{}{-}{-}\textquotesingle{}}\NormalTok{, label}\OperatorTok{=}\StringTok{\textquotesingle{}Uniform (null)\textquotesingle{}}\NormalTok{)}
+\NormalTok{ax1.set\_xlabel(}\StringTok{\textquotesingle{}P{-}value\textquotesingle{}}\NormalTok{)}
+\NormalTok{ax1.set\_ylabel(}\StringTok{\textquotesingle{}Density\textquotesingle{}}\NormalTok{)}
+\NormalTok{ax1.set\_title(}\StringTok{\textquotesingle{}Distribution of P{-}values\textquotesingle{}}\NormalTok{)}
+\NormalTok{ax1.legend()}
+
+\CommentTok{\# Comparison of methods}
+\NormalTok{methods }\OperatorTok{=}\NormalTok{ [}\StringTok{\textquotesingle{}Raw\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Bonferroni\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}FDR\textquotesingle{}}\NormalTok{]}
+\NormalTok{discoveries }\OperatorTok{=}\NormalTok{ [perf\_raw[}\StringTok{\textquotesingle{}discoveries\textquotesingle{}}\NormalTok{], perf\_bonf[}\StringTok{\textquotesingle{}discoveries\textquotesingle{}}\NormalTok{], perf\_fdr[}\StringTok{\textquotesingle{}discoveries\textquotesingle{}}\NormalTok{]]}
+\NormalTok{true\_pos }\OperatorTok{=}\NormalTok{ [perf\_raw[}\StringTok{\textquotesingle{}true\_positives\textquotesingle{}}\NormalTok{], perf\_bonf[}\StringTok{\textquotesingle{}true\_positives\textquotesingle{}}\NormalTok{], perf\_fdr[}\StringTok{\textquotesingle{}true\_positives\textquotesingle{}}\NormalTok{]]}
+\NormalTok{false\_pos }\OperatorTok{=}\NormalTok{ [perf\_raw[}\StringTok{\textquotesingle{}false\_positives\textquotesingle{}}\NormalTok{], perf\_bonf[}\StringTok{\textquotesingle{}false\_positives\textquotesingle{}}\NormalTok{], perf\_fdr[}\StringTok{\textquotesingle{}false\_positives\textquotesingle{}}\NormalTok{]]}
+
+\NormalTok{x }\OperatorTok{=}\NormalTok{ np.arange(}\BuiltInTok{len}\NormalTok{(methods))}
+\NormalTok{width }\OperatorTok{=} \FloatTok{0.35}
+
+\NormalTok{ax2.bar(x }\OperatorTok{{-}}\NormalTok{ width}\OperatorTok{/}\DecValTok{2}\NormalTok{, true\_pos, width, label}\OperatorTok{=}\StringTok{\textquotesingle{}True Positives\textquotesingle{}}\NormalTok{, color}\OperatorTok{=}\StringTok{\textquotesingle{}green\textquotesingle{}}\NormalTok{, alpha}\OperatorTok{=}\FloatTok{0.7}\NormalTok{)}
+\NormalTok{ax2.bar(x }\OperatorTok{+}\NormalTok{ width}\OperatorTok{/}\DecValTok{2}\NormalTok{, false\_pos, width, label}\OperatorTok{=}\StringTok{\textquotesingle{}False Positives\textquotesingle{}}\NormalTok{, color}\OperatorTok{=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{, alpha}\OperatorTok{=}\FloatTok{0.7}\NormalTok{)}
+\NormalTok{ax2.set\_xlabel(}\StringTok{\textquotesingle{}Method\textquotesingle{}}\NormalTok{)}
+\NormalTok{ax2.set\_ylabel(}\StringTok{\textquotesingle{}Count\textquotesingle{}}\NormalTok{)}
+\NormalTok{ax2.set\_title(}\StringTok{\textquotesingle{}True vs False Positives by Method\textquotesingle{}}\NormalTok{)}
+\NormalTok{ax2.set\_xticks(x)}
+\NormalTok{ax2.set\_xticklabels(methods)}
+\NormalTok{ax2.legend()}
+
+\NormalTok{plt.tight\_layout()}
+\NormalTok{plt.show()}
+\end{Highlighting}
+\end{Shaded}
 
 \bookmarksetup{startatroot}
 

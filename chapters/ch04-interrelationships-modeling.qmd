@@ -2,13 +2,494 @@
 
 Move beyond simple group comparisons to understand relationships between variables and build predictive models.
 
-*Note: This chapter appears to be incomplete in the source HTML file. Only the title and introduction were available. Additional content for interrelationships and modeling methods would typically include:*
+## Introduction
 
-- Correlation analysis
-- Simple and multiple linear regression
-- Logistic regression
-- Model diagnostics and assumptions
-- Variable selection techniques
-- Model interpretation and inference
+In biostatistics, we often need to understand relationships between variables and make predictions. This chapter covers fundamental techniques for exploring associations, building predictive models, and evaluating their performance in medical and biological contexts.
 
-*These topics would be covered in a complete version of this chapter.*
+## Correlation Analysis
+
+### Understanding Correlation
+
+Correlation measures the strength and direction of a linear relationship between two continuous variables. In biostatistics, we might examine correlations between:
+
+- Blood pressure and age
+- BMI and cholesterol levels
+- Gene expression levels between related genes
+
+### Pearson Correlation Coefficient
+
+The Pearson correlation coefficient ($r$) ranges from -1 to +1:
+
+$$r = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2 \sum_{i=1}^{n}(y_i - \bar{y})^2}}$$
+
+Where:
+- $r = 1$: Perfect positive linear relationship
+- $r = 0$: No linear relationship
+- $r = -1$: Perfect negative linear relationship
+
+::: {.callout-tip}
+## Interpreting Correlation Strength
+- |r| < 0.3: Weak correlation
+- 0.3 ≤ |r| < 0.7: Moderate correlation
+- |r| ≥ 0.7: Strong correlation
+:::
+
+```{r}
+#| echo: true
+#| eval: false
+# Example: Correlation between age and blood pressure
+library(ggplot2)
+
+# Simulate data
+set.seed(123)
+n <- 100
+age <- rnorm(n, mean = 45, sd = 15)
+bp_systolic <- 90 + 0.8 * age + rnorm(n, sd = 10)
+
+# Calculate correlation
+cor_result <- cor.test(age, bp_systolic)
+print(paste("Correlation:", round(cor_result$estimate, 3)))
+print(paste("P-value:", round(cor_result$p.value, 4)))
+
+# Visualize
+ggplot(data.frame(age, bp_systolic), aes(x = age, y = bp_systolic)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", color = "red") +
+  labs(title = "Age vs Systolic Blood Pressure",
+       x = "Age (years)", y = "Systolic BP (mmHg)") +
+  theme_minimal()
+```
+
+## Simple Linear Regression
+
+### The Linear Model
+
+Simple linear regression models the relationship between a predictor variable (X) and an outcome variable (Y):
+
+$$Y_i = \beta_0 + \beta_1 X_i + \epsilon_i$$
+
+Where:
+- $\beta_0$: Intercept (value of Y when X = 0)
+- $\beta_1$: Slope (change in Y per unit change in X)
+- $\epsilon_i$: Random error term
+
+### Example: Predicting Blood Pressure from Age
+
+```{r}
+#| echo: true
+#| eval: false
+# Fit linear regression model
+model <- lm(bp_systolic ~ age)
+summary(model)
+
+# The model: bp_systolic = β₀ + β₁ × age
+# Interpretation: For each additional year of age,
+# systolic BP increases by β₁ mmHg on average
+```
+
+## Logistic Regression
+
+### When to Use Logistic Regression
+
+When your outcome variable is binary (diseased/healthy, survived/died, positive/negative test), logistic regression is the appropriate method.
+
+### The Logistic Model
+
+Instead of predicting the outcome directly, logistic regression predicts the log-odds:
+
+$$\text{logit}(p) = \ln\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_k X_k$$
+
+Where $p$ is the probability of the event occurring.
+
+The probability is then:
+
+$$p = \frac{e^{\beta_0 + \beta_1 X_1 + ... + \beta_k X_k}}{1 + e^{\beta_0 + \beta_1 X_1 + ... + \beta_k X_k}}$$
+
+### Example: Predicting Heart Disease Risk
+
+```{r}
+#| echo: true
+#| eval: false
+# Simulate heart disease data
+set.seed(456)
+n <- 500
+age <- rnorm(n, 55, 12)
+cholesterol <- rnorm(n, 200, 40)
+smoking <- rbinom(n, 1, 0.3)
+
+# Create log-odds for heart disease
+log_odds <- -5 + 0.05*age + 0.01*cholesterol + 1.2*smoking
+prob_disease <- exp(log_odds)/(1 + exp(log_odds))
+heart_disease <- rbinom(n, 1, prob_disease)
+
+# Fit logistic regression
+logit_model <- glm(heart_disease ~ age + cholesterol + smoking,
+                   family = binomial)
+summary(logit_model)
+
+# Interpretation: exp(coefficient) gives the odds ratio
+exp(coef(logit_model))
+```
+
+## Model Evaluation for Classification
+
+### The Confusion Matrix
+
+A confusion matrix is a table that shows how well our classification model performs. It's like a report card for prediction models.
+
+::: {.callout-note}
+## Think of it this way
+Imagine you're a doctor using a test to diagnose disease. The confusion matrix shows:
+- How many sick patients you correctly identified (True Positives)
+- How many healthy patients you correctly identified (True Negatives)
+- How many times you missed the disease (False Negatives)
+- How many times you incorrectly diagnosed disease (False Positives)
+:::
+
+### 2×2 Confusion Matrix
+
+|                | **Predicted** |           |
+|----------------|:-------------:|:---------:|
+| **Actual**     | **Positive**  | **Negative** |
+| **Positive**   | TP            | FN        |
+| **Negative**   | FP            | TN        |
+
+Where:
+- **TP (True Positives)**: Correctly predicted positive cases
+- **TN (True Negatives)**: Correctly predicted negative cases
+- **FP (False Positives)**: Incorrectly predicted positive (Type I error)
+- **FN (False Negatives)**: Incorrectly predicted negative (Type II error)
+
+### Example: COVID-19 Test Evaluation
+
+Let's say we have a COVID-19 test and we tested 1000 people:
+
+```{r}
+#| echo: true
+#| eval: false
+# Create confusion matrix data
+library(caret)
+
+# Simulate COVID test results
+set.seed(789)
+n <- 1000
+true_status <- c(rep("Positive", 100), rep("Negative", 900))  # 10% prevalence
+test_sensitivity <- 0.95  # 95% of positive cases detected
+test_specificity <- 0.98  # 98% of negative cases correctly identified
+
+predicted_status <- ifelse(
+  true_status == "Positive",
+  ifelse(runif(sum(true_status == "Positive")) < test_sensitivity, "Positive", "Negative"),
+  ifelse(runif(sum(true_status == "Negative")) < test_specificity, "Negative", "Positive")
+)
+
+# Create confusion matrix
+cm <- confusionMatrix(as.factor(predicted_status), as.factor(true_status), positive = "Positive")
+print(cm)
+
+# Visualize confusion matrix
+library(ggplot2)
+cm_table <- as.data.frame(cm$table)
+ggplot(cm_table, aes(x = Reference, y = Prediction, fill = Freq)) +
+  geom_tile(color = "white") +
+  geom_text(aes(label = Freq), size = 12, color = "white") +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") +
+  labs(title = "COVID-19 Test Confusion Matrix",
+       x = "Actual Status", y = "Predicted Status") +
+  theme_minimal() +
+  theme(text = element_text(size = 12))
+```
+
+## Diagnostic Test Performance Metrics
+
+From the confusion matrix, we can calculate several important metrics:
+
+### Sensitivity (True Positive Rate)
+
+**What it means**: Of all the people who actually have the disease, what percentage does our test catch?
+
+$$\text{Sensitivity} = \frac{TP}{TP + FN}$$
+
+**Example**: If sensitivity = 0.95, then our test catches 95% of COVID-positive patients.
+
+### Specificity (True Negative Rate)
+
+**What it means**: Of all the people who don't have the disease, what percentage does our test correctly identify as negative?
+
+$$\text{Specificity} = \frac{TN}{TN + FP}$$
+
+**Example**: If specificity = 0.98, then our test correctly identifies 98% of COVID-negative patients.
+
+### Positive Predictive Value (PPV)
+
+**What it means**: If the test is positive, what's the probability the person actually has the disease?
+
+$$\text{PPV} = \frac{TP}{TP + FP}$$
+
+### Negative Predictive Value (NPV)
+
+**What it means**: If the test is negative, what's the probability the person actually doesn't have the disease?
+
+$$\text{NPV} = \frac{TN}{TN + FN}$$
+
+::: {.callout-warning}
+## Important: PPV and NPV depend on disease prevalence!
+In a population where disease is rare, even a good test will have many false positives, lowering PPV. In a high-prevalence population, the same test will have better PPV.
+:::
+
+```{r}
+#| echo: true
+#| eval: false
+# Calculate metrics manually
+calculate_metrics <- function(tp, tn, fp, fn) {
+  sensitivity <- tp / (tp + fn)
+  specificity <- tn / (tn + fp)
+  ppv <- tp / (tp + fp)
+  npv <- tn / (tn + fn)
+  accuracy <- (tp + tn) / (tp + tn + fp + fn)
+
+  return(list(
+    Sensitivity = sensitivity,
+    Specificity = specificity,
+    PPV = ppv,
+    NPV = npv,
+    Accuracy = accuracy
+  ))
+}
+
+# Example with our COVID data
+metrics <- calculate_metrics(tp = 95, tn = 882, fp = 18, fn = 5)
+print(metrics)
+```
+
+## ROC Curves and AUC
+
+### What is an ROC Curve?
+
+ROC stands for "Receiver Operating Characteristic." Think of it as a way to visualize the trade-off between catching true cases (sensitivity) and avoiding false alarms (1 - specificity).
+
+**Real-world analogy**: Imagine you're a security guard with a metal detector. You can adjust the sensitivity:
+- High sensitivity: Catches all weapons but sets off many false alarms
+- Low sensitivity: Fewer false alarms but might miss some weapons
+
+The ROC curve shows this trade-off at different threshold settings.
+
+### Mathematical Definition
+
+The ROC curve plots:
+- **Y-axis**: True Positive Rate (Sensitivity) = $\frac{TP}{TP + FN}$
+- **X-axis**: False Positive Rate (1 - Specificity) = $\frac{FP}{FP + TN}$
+
+### Creating ROC Curves
+
+```{r}
+#| echo: true
+#| eval: false
+library(pROC)
+library(ggplot2)
+
+# Simulate biomarker data for disease diagnosis
+set.seed(101)
+n_healthy <- 500
+n_diseased <- 200
+
+# Healthy individuals: lower biomarker levels
+healthy_biomarker <- rnorm(n_healthy, mean = 10, sd = 3)
+
+# Diseased individuals: higher biomarker levels
+diseased_biomarker <- rnorm(n_diseased, mean = 15, sd = 3)
+
+# Combine data
+biomarker_values <- c(healthy_biomarker, diseased_biomarker)
+true_status <- c(rep(0, n_healthy), rep(1, n_diseased))
+
+# Create ROC curve
+roc_obj <- roc(true_status, biomarker_values)
+
+# Plot ROC curve
+ggroc(roc_obj, color = "blue", size = 1) +
+  geom_abline(intercept = 1, slope = 1, linetype = "dashed", color = "red") +
+  labs(title = "ROC Curve for Biomarker Test",
+       x = "False Positive Rate (1 - Specificity)",
+       y = "True Positive Rate (Sensitivity)") +
+  theme_minimal() +
+  annotate("text", x = 0.7, y = 0.3,
+           label = paste("AUC =", round(auc(roc_obj), 3)), size = 5)
+```
+
+### Understanding AUC (Area Under the Curve)
+
+The AUC summarizes the ROC curve into a single number between 0 and 1:
+
+$$\text{AUC} = \int_0^1 \text{TPR}(t) \, d(\text{FPR}(t))$$
+
+**Interpretation**:
+- **AUC = 0.5**: Random guessing (coin flip)
+- **AUC = 0.7**: Acceptable discrimination
+- **AUC = 0.8**: Excellent discrimination
+- **AUC = 0.9**: Outstanding discrimination
+- **AUC = 1.0**: Perfect discrimination
+
+::: {.callout-tip}
+## Intuitive AUC Interpretation
+AUC represents the probability that a randomly selected positive case will have a higher predicted probability than a randomly selected negative case.
+
+If AUC = 0.8, then 80% of the time, a diseased person will have a higher biomarker value than a healthy person.
+:::
+
+### Comparing Multiple Tests
+
+```{r}
+#| echo: true
+#| eval: false
+# Simulate three different biomarkers
+biomarker1 <- c(rnorm(n_healthy, 10, 3), rnorm(n_diseased, 15, 3))  # Good test
+biomarker2 <- c(rnorm(n_healthy, 12, 4), rnorm(n_diseased, 14, 4))  # Moderate test
+biomarker3 <- c(rnorm(n_healthy, 11, 5), rnorm(n_diseased, 13, 5))  # Poor test
+
+# Create ROC curves
+roc1 <- roc(true_status, biomarker1)
+roc2 <- roc(true_status, biomarker2)
+roc3 <- roc(true_status, biomarker3)
+
+# Plot comparison
+library(patchwork)
+p1 <- ggroc(list("Biomarker 1" = roc1, "Biomarker 2" = roc2, "Biomarker 3" = roc3)) +
+  scale_color_manual(values = c("blue", "green", "red")) +
+  geom_abline(intercept = 1, slope = 1, linetype = "dashed", color = "black") +
+  labs(title = "Comparison of Three Biomarkers",
+       x = "False Positive Rate", y = "True Positive Rate") +
+  theme_minimal()
+
+# Print AUC values
+cat("AUC Values:\n")
+cat("Biomarker 1:", round(auc(roc1), 3), "\n")
+cat("Biomarker 2:", round(auc(roc2), 3), "\n")
+cat("Biomarker 3:", round(auc(roc3), 3), "\n")
+
+print(p1)
+```
+
+### Optimal Threshold Selection
+
+```{r}
+#| echo: true
+#| eval: false
+# Find optimal threshold using Youden's J statistic
+coords_all <- coords(roc1, "all", ret = c("threshold", "sensitivity", "specificity"))
+coords_all$youden <- coords_all$sensitivity + coords_all$specificity - 1
+optimal_threshold <- coords_all[which.max(coords_all$youden), ]
+
+cat("Optimal Threshold Analysis:\n")
+cat("Threshold:", round(optimal_threshold$threshold, 2), "\n")
+cat("Sensitivity:", round(optimal_threshold$sensitivity, 3), "\n")
+cat("Specificity:", round(optimal_threshold$specificity, 3), "\n")
+cat("Youden's J:", round(optimal_threshold$youden, 3), "\n")
+
+# Plot threshold selection
+threshold_plot <- ggplot(coords_all, aes(x = threshold)) +
+  geom_line(aes(y = sensitivity, color = "Sensitivity"), size = 1) +
+  geom_line(aes(y = specificity, color = "Specificity"), size = 1) +
+  geom_vline(xintercept = optimal_threshold$threshold, linetype = "dashed") +
+  scale_color_manual(values = c("blue", "red")) +
+  labs(title = "Sensitivity and Specificity vs Threshold",
+       x = "Biomarker Threshold", y = "Rate", color = "Metric") +
+  theme_minimal()
+
+print(threshold_plot)
+```
+
+## Practical Applications in Biostatistics
+
+### 1. Biomarker Validation
+
+When developing diagnostic biomarkers:
+- Use ROC analysis to assess discriminative ability
+- Calculate AUC to compare different biomarkers
+- Determine optimal cutoff points balancing sensitivity and specificity
+
+### 2. Risk Prediction Models
+
+In clinical risk assessment:
+- Logistic regression to model disease probability
+- Confusion matrices to evaluate model performance
+- ROC curves to assess calibration across risk thresholds
+
+### 3. Treatment Response Prediction
+
+For personalized medicine:
+- Classification models to predict treatment response
+- Performance metrics to validate model utility
+- Threshold optimization for clinical decision-making
+
+::: {.callout-note}
+## Key Takeaways
+
+1. **Confusion matrices** provide a complete picture of classification performance
+2. **Sensitivity and specificity** are fundamental test characteristics
+3. **PPV and NPV** depend on disease prevalence in your population
+4. **ROC curves** visualize the sensitivity-specificity trade-off
+5. **AUC** provides a single metric for overall discriminative ability
+6. **Threshold selection** should consider clinical consequences of false positives vs false negatives
+:::
+
+## Python Implementation
+
+For those preferring Python, here's equivalent code:
+
+```{python}
+#| echo: true
+#| eval: false
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import confusion_matrix, roc_curve, roc_auc_score, classification_report
+from sklearn.linear_model import LogisticRegression
+
+# Simulate data
+np.random.seed(123)
+n = 1000
+age = np.random.normal(55, 12, n)
+cholesterol = np.random.normal(200, 40, n)
+smoking = np.random.binomial(1, 0.3, n)
+
+# Create outcome
+log_odds = -5 + 0.05*age + 0.01*cholesterol + 1.2*smoking
+prob_disease = np.exp(log_odds)/(1 + np.exp(log_odds))
+heart_disease = np.random.binomial(1, prob_disease, n)
+
+# Fit logistic regression
+X = np.column_stack([age, cholesterol, smoking])
+model = LogisticRegression()
+model.fit(X, heart_disease)
+
+# Predictions
+y_pred_proba = model.predict_proba(X)[:, 1]
+y_pred = model.predict(X)
+
+# Confusion matrix
+cm = confusion_matrix(heart_disease, y_pred)
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+plt.title('Confusion Matrix')
+plt.ylabel('Actual')
+plt.xlabel('Predicted')
+plt.show()
+
+# ROC curve
+fpr, tpr, thresholds = roc_curve(heart_disease, y_pred_proba)
+auc_score = roc_auc_score(heart_disease, y_pred_proba)
+
+plt.figure(figsize=(8, 6))
+plt.plot(fpr, tpr, color='blue', label=f'ROC Curve (AUC = {auc_score:.3f})')
+plt.plot([0, 1], [0, 1], color='red', linestyle='--', label='Random')
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC Curve')
+plt.legend()
+plt.show()
+
+# Classification report
+print(classification_report(heart_disease, y_pred))
+```

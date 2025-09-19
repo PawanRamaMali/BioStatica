@@ -2,14 +2,558 @@
 
 Plan studies effectively by determining appropriate sample sizes and control error rates when testing multiple hypotheses.
 
-*Note: This chapter appears to be incomplete in the source HTML file. Only the title and introduction were available. Additional content for design and power considerations would typically include:*
+## Introduction
 
-- Study design principles
-- Sample size calculation methods
-- Power analysis techniques
-- Multiple testing corrections (Bonferroni, FDR, etc.)
-- Type I and Type II error control
-- Interim analysis and stopping rules
-- Adaptive trial designs
+In biostatistics, proper study design and statistical power considerations are crucial for obtaining reliable and interpretable results. This chapter focuses on key concepts including sample size determination, statistical power, and critically important methods for controlling error rates when testing multiple hypotheses—a common scenario in modern biological research.
 
-*These topics would be covered in a complete version of this chapter.*
+## Statistical Power and Sample Size
+
+### Understanding Statistical Power
+
+Statistical power is the probability of correctly rejecting a false null hypothesis (avoiding Type II error). In simple terms, it's the probability that your study will detect an effect if there really is one.
+
+$$\text{Power} = 1 - \beta = P(\text{reject } H_0 | H_0 \text{ is false})$$
+
+Where $\beta$ is the probability of Type II error.
+
+### The Four Connected Elements
+
+For any statistical test, four elements are mathematically related:
+1. **Effect size** (how big the difference/relationship is)
+2. **Sample size** (how many observations)
+3. **Significance level** ($\alpha$, usually 0.05)
+4. **Statistical power** (usually aim for 0.80 or 80%)
+
+::: {.callout-tip}
+## Power Analysis Rule
+If you know any three of these elements, you can calculate the fourth. This is the foundation of power analysis and sample size planning.
+:::
+
+### Sample Size Calculation Example
+
+```{r}
+#| echo: true
+#| eval: false
+# Sample size for comparing two means
+library(pwr)
+
+# Scenario: Compare blood pressure between two treatments
+# We expect a difference of 5 mmHg (effect size)
+# Pooled standard deviation is estimated at 12 mmHg
+effect_size <- 5 / 12  # Cohen's d
+
+# Calculate sample size needed
+power_result <- pwr.t.test(
+  d = effect_size,           # Effect size (Cohen's d)
+  sig.level = 0.05,         # Alpha level
+  power = 0.80,             # Desired power
+  type = "two.sample"       # Two-sample t-test
+)
+
+print(power_result)
+cat("Required sample size per group:", ceiling(power_result$n))
+```
+
+## Multiple Testing Problem
+
+### The Challenge
+
+When conducting multiple statistical tests, the probability of making at least one Type I error (false positive) increases dramatically. This is called the **multiple testing problem** or **multiple comparisons problem**.
+
+**Simple example**:
+- Single test with α = 0.05: 5% chance of false positive
+- 10 independent tests: Probability of at least one false positive = $1 - (0.95)^{10} = 0.401$ (40.1%)
+- 100 tests: Probability = $1 - (0.95)^{100} = 0.994$ (99.4%)
+
+::: {.callout-warning}
+## The Multiple Testing Crisis
+In genomics, researchers often test thousands or millions of hypotheses simultaneously (e.g., testing each gene for differential expression). Without proper correction, almost every study would report significant results, even if no true effects exist!
+:::
+
+### Family-Wise Error Rate (FWER)
+
+The **Family-Wise Error Rate** is the probability of making one or more Type I errors in a family of tests:
+
+$$\text{FWER} = P(\text{at least one Type I error})$$
+
+For $m$ independent tests each with significance level $\alpha$:
+
+$$\text{FWER} = 1 - (1-\alpha)^m$$
+
+### Bonferroni Correction
+
+The **Bonferroni correction** is the simplest method to control FWER. Instead of using $\alpha$ for each test, use $\alpha/m$:
+
+$$\alpha_{\text{adjusted}} = \frac{\alpha}{m}$$
+
+**Example**: Testing 20 hypotheses with overall α = 0.05
+- Bonferroni-adjusted α = 0.05/20 = 0.0025
+- Reject $H_0$ only if p-value ≤ 0.0025
+
+```{r}
+#| echo: true
+#| eval: false
+# Example: Multiple t-tests with Bonferroni correction
+set.seed(123)
+
+# Simulate data for 20 different comparisons
+n_tests <- 20
+p_values <- numeric(n_tests)
+
+for(i in 1:n_tests) {
+  # Generate random data (no real differences)
+  group1 <- rnorm(30, mean = 0, sd = 1)
+  group2 <- rnorm(30, mean = 0, sd = 1)
+
+  # Perform t-test
+  test_result <- t.test(group1, group2)
+  p_values[i] <- test_result$p.value
+}
+
+# Apply Bonferroni correction
+alpha <- 0.05
+bonferroni_alpha <- alpha / n_tests
+bonferroni_adjusted <- p.adjust(p_values, method = "bonferroni")
+
+# Results
+results_df <- data.frame(
+  Test = 1:n_tests,
+  Raw_P_Value = round(p_values, 4),
+  Bonferroni_Adjusted = round(bonferroni_adjusted, 4),
+  Raw_Significant = p_values < alpha,
+  Bonferroni_Significant = bonferroni_adjusted < alpha
+)
+
+print(results_df)
+cat("Raw significant tests:", sum(results_df$Raw_Significant), "\n")
+cat("Bonferroni significant tests:", sum(results_df$Bonferroni_Significant), "\n")
+```
+
+## False Discovery Rate (FDR)
+
+### What is FDR?
+
+While FWER controls the probability of any false positives, the **False Discovery Rate (FDR)** controls the expected proportion of false positives among the rejected hypotheses.
+
+**Simple explanation**: If you call 100 tests "significant" and set FDR = 0.05, you expect about 5 of those 100 to be false positives.
+
+$$\text{FDR} = E\left[\frac{\text{Number of false positives}}{\text{Number of rejected hypotheses}}\right]$$
+
+### Why FDR is Often Better Than FWER
+
+1. **Less conservative**: Allows more discoveries while controlling false discovery proportion
+2. **More appropriate for exploratory research**: Especially in genomics and high-throughput studies
+3. **Adaptive to data**: Better performance when many true effects exist
+
+### Benjamini-Hochberg (BH) Procedure
+
+The most popular FDR control method:
+
+**Step-by-step algorithm**:
+
+1. Order p-values: $p_{(1)} \leq p_{(2)} \leq ... \leq p_{(m)}$
+2. For $i = m, m-1, ..., 1$, find the largest $i$ such that:
+   $$p_{(i)} \leq \frac{i}{m} \times \alpha$$
+3. Reject all $H_{(j)}$ for $j = 1, 2, ..., i$
+
+**Mathematical foundation**:
+The BH procedure controls FDR at level $\alpha$ when tests are independent or have certain dependence structures.
+
+### FDR Example: Gene Expression Analysis
+
+```{r}
+#| echo: true
+#| eval: false
+# Simulate gene expression data
+set.seed(456)
+n_genes <- 1000
+n_samples_per_group <- 20
+
+# 950 genes with no difference (null hypotheses)
+# 50 genes with real differences (alternative hypotheses)
+true_effects <- c(rep(0, 950), rep(2, 50))  # Effect sizes
+
+p_values <- numeric(n_genes)
+
+for(i in 1:n_genes) {
+  # Control group
+  control <- rnorm(n_samples_per_group, mean = 0, sd = 1)
+
+  # Treatment group (with potential effect)
+  treatment <- rnorm(n_samples_per_group, mean = true_effects[i], sd = 1)
+
+  # Perform t-test
+  test_result <- t.test(control, treatment)
+  p_values[i] <- test_result$p.value
+}
+
+# Apply different correction methods
+alpha <- 0.05
+raw_significant <- p_values < alpha
+bonferroni_significant <- p.adjust(p_values, method = "bonferroni") < alpha
+fdr_significant <- p.adjust(p_values, method = "BH") < alpha
+
+# Calculate performance metrics
+true_positives_raw <- sum(raw_significant & true_effects > 0)
+false_positives_raw <- sum(raw_significant & true_effects == 0)
+
+true_positives_bonf <- sum(bonferroni_significant & true_effects > 0)
+false_positives_bonf <- sum(bonferroni_significant & true_effects == 0)
+
+true_positives_fdr <- sum(fdr_significant & true_effects > 0)
+false_positives_fdr <- sum(fdr_significant & true_effects == 0)
+
+# Results summary
+cat("Results Summary:\n")
+cat("================\n")
+cat("Raw p-values (α = 0.05):\n")
+cat("  Discoveries:", sum(raw_significant), "\n")
+cat("  True positives:", true_positives_raw, "\n")
+cat("  False positives:", false_positives_raw, "\n")
+cat("  FDR:", round(false_positives_raw / max(1, sum(raw_significant)), 3), "\n\n")
+
+cat("Bonferroni correction:\n")
+cat("  Discoveries:", sum(bonferroni_significant), "\n")
+cat("  True positives:", true_positives_bonf, "\n")
+cat("  False positives:", false_positives_bonf, "\n")
+cat("  FDR:", round(false_positives_bonf / max(1, sum(bonferroni_significant)), 3), "\n\n")
+
+cat("FDR (Benjamini-Hochberg):\n")
+cat("  Discoveries:", sum(fdr_significant), "\n")
+cat("  True positives:", true_positives_fdr, "\n")
+cat("  False positives:", false_positives_fdr, "\n")
+cat("  FDR:", round(false_positives_fdr / max(1, sum(fdr_significant)), 3), "\n")
+```
+
+### Visualizing FDR vs FWER
+
+```{r}
+#| echo: true
+#| eval: false
+library(ggplot2)
+library(dplyr)
+
+# Create comparison data
+comparison_data <- data.frame(
+  Method = c("Raw p-values", "Bonferroni", "FDR (BH)"),
+  Discoveries = c(sum(raw_significant), sum(bonferroni_significant), sum(fdr_significant)),
+  True_Positives = c(true_positives_raw, true_positives_bonf, true_positives_fdr),
+  False_Positives = c(false_positives_raw, false_positives_bonf, false_positives_fdr)
+)
+
+comparison_data$Power <- comparison_data$True_Positives / 50  # 50 true effects
+comparison_data$FDR <- comparison_data$False_Positives / pmax(1, comparison_data$Discoveries)
+
+# Plot results
+p1 <- ggplot(comparison_data, aes(x = Method, y = Discoveries, fill = Method)) +
+  geom_col() +
+  geom_text(aes(label = Discoveries), vjust = -0.5) +
+  labs(title = "Number of Discoveries by Method", y = "Discoveries") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+p2 <- ggplot(comparison_data, aes(x = Method, y = Power, fill = Method)) +
+  geom_col() +
+  geom_text(aes(label = round(Power, 2)), vjust = -0.5) +
+  labs(title = "Statistical Power by Method", y = "Power (True Positive Rate)") +
+  ylim(0, 1) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+library(patchwork)
+print(p1 / p2)
+```
+
+## q-values: A Modern Approach to FDR
+
+### What are q-values?
+
+A **q-value** is the minimum FDR at which a hypothesis would be rejected. It's analogous to how a p-value is the minimum significance level at which a hypothesis would be rejected.
+
+**Interpretation**: A q-value of 0.05 means that 5% of tests with q-values ≤ 0.05 are expected to be false positives.
+
+### Calculating q-values
+
+```{r}
+#| echo: true
+#| eval: false
+# Calculate q-values using the qvalue package
+# Note: You may need to install from Bioconductor
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# BiocManager::install("qvalue")
+
+library(qvalue)
+
+# Calculate q-values from our p-values
+q_values <- qvalue(p_values)
+
+# Plot q-value object
+plot(q_values)
+
+# Summary of q-values
+summary(q_values)
+
+# Number of significant findings at different FDR levels
+cat("Significant findings:\n")
+cat("FDR < 0.01:", sum(q_values$qvalues < 0.01), "\n")
+cat("FDR < 0.05:", sum(q_values$qvalues < 0.05), "\n")
+cat("FDR < 0.10:", sum(q_values$qvalues < 0.10), "\n")
+```
+
+## Practical Guidelines for Multiple Testing
+
+### When to Use Which Method
+
+**Use Bonferroni (FWER control) when**:
+- Small number of tests (< 20)
+- Each test is critically important
+- Any false positive would be seriously problematic
+- Confirmatory studies
+
+**Use FDR control when**:
+- Large number of tests (hundreds to millions)
+- Exploratory research
+- Discovery-oriented studies
+- Follow-up validation will be performed
+
+### Best Practices
+
+1. **Plan your analysis**: Decide on multiple testing correction before seeing the data
+2. **Consider the biological context**: Balance statistical rigor with biological interpretation
+3. **Report both raw and adjusted p-values**: Transparency in reporting
+4. **Use appropriate FDR level**: Common choices are 0.05, 0.10, or 0.20 depending on context
+
+::: {.callout-note}
+## Key Concepts Summary
+
+1. **Multiple testing increases false positive rates** exponentially
+2. **FWER control** (Bonferroni): Controls probability of any false positive
+3. **FDR control** (Benjamini-Hochberg): Controls proportion of false positives among discoveries
+4. **q-values** provide interpretable measure of false discovery rate
+5. **Method choice** depends on study goals, number of tests, and consequences of false positives
+:::
+
+## Real-World Example: COVID-19 Biomarker Discovery
+
+Let's apply these concepts to a realistic scenario:
+
+```{r}
+#| echo: true
+#| eval: false
+# Simulate COVID-19 biomarker study
+set.seed(789)
+
+# Study parameters
+n_biomarkers <- 500  # Testing 500 potential biomarkers
+n_covid <- 100       # 100 COVID-19 patients
+n_control <- 100     # 100 healthy controls
+
+# Simulate biomarker data
+# 475 biomarkers: no real difference
+# 25 biomarkers: real differences (effect size = 1)
+true_biomarkers <- c(rep(FALSE, 475), rep(TRUE, 25))
+
+biomarker_pvalues <- numeric(n_biomarkers)
+
+for(i in 1:n_biomarkers) {
+  # Control group
+  control_values <- rnorm(n_control, mean = 0, sd = 1)
+
+  # COVID group (with potential elevation)
+  covid_mean <- ifelse(true_biomarkers[i], 1, 0)
+  covid_values <- rnorm(n_covid, mean = covid_mean, sd = 1)
+
+  # Statistical test
+  test_result <- t.test(covid_values, control_values)
+  biomarker_pvalues[i] <- test_result$p.value
+}
+
+# Apply corrections
+alpha <- 0.05
+bonferroni_results <- p.adjust(biomarker_pvalues, method = "bonferroni")
+fdr_results <- p.adjust(biomarker_pvalues, method = "BH")
+
+# Create results dataframe
+covid_results <- data.frame(
+  Biomarker = paste0("Biomarker_", 1:n_biomarkers),
+  True_Effect = true_biomarkers,
+  Raw_P = biomarker_pvalues,
+  Bonferroni_P = bonferroni_results,
+  FDR_Q = fdr_results,
+  Raw_Sig = biomarker_pvalues < alpha,
+  Bonferroni_Sig = bonferroni_results < alpha,
+  FDR_Sig = fdr_results < alpha
+)
+
+# Performance summary
+performance_summary <- data.frame(
+  Method = c("Raw P-values", "Bonferroni", "FDR"),
+  Total_Discoveries = c(
+    sum(covid_results$Raw_Sig),
+    sum(covid_results$Bonferroni_Sig),
+    sum(covid_results$FDR_Sig)
+  ),
+  True_Discoveries = c(
+    sum(covid_results$Raw_Sig & covid_results$True_Effect),
+    sum(covid_results$Bonferroni_Sig & covid_results$True_Effect),
+    sum(covid_results$FDR_Sig & covid_results$True_Effect)
+  ),
+  False_Discoveries = c(
+    sum(covid_results$Raw_Sig & !covid_results$True_Effect),
+    sum(covid_results$Bonferroni_Sig & !covid_results$True_Effect),
+    sum(covid_results$FDR_Sig & !covid_results$True_Effect)
+  )
+)
+
+performance_summary$Sensitivity <- performance_summary$True_Discoveries / 25
+performance_summary$FDR_Actual <- performance_summary$False_Discoveries /
+  pmax(1, performance_summary$Total_Discoveries)
+
+print(performance_summary)
+
+# Visualization
+library(ggplot2)
+volcano_data <- data.frame(
+  Log_P = -log10(covid_results$Raw_P),
+  Effect_Size = ifelse(covid_results$True_Effect, 1, 0) + rnorm(n_biomarkers, 0, 0.1),
+  Significant = covid_results$FDR_Sig,
+  True_Effect = covid_results$True_Effect
+)
+
+ggplot(volcano_data, aes(x = Effect_Size, y = Log_P)) +
+  geom_point(aes(color = interaction(Significant, True_Effect)), alpha = 0.6) +
+  scale_color_manual(
+    values = c("TRUE.FALSE" = "red", "FALSE.FALSE" = "gray",
+               "TRUE.TRUE" = "blue", "FALSE.TRUE" = "orange"),
+    labels = c("FDR Sig + True Effect", "Not Significant",
+               "FDR Sig + No True Effect", "Not Sig + True Effect")
+  ) +
+  geom_hline(yintercept = -log10(0.05), linetype = "dashed", color = "red") +
+  labs(
+    title = "COVID-19 Biomarker Discovery Results",
+    x = "Effect Size",
+    y = "-log10(p-value)",
+    color = "Classification"
+  ) +
+  theme_minimal()
+```
+
+## Python Implementation
+
+```{python}
+#| echo: true
+#| eval: false
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+from statsmodels.stats.multitest import multipletests
+
+# Simulate multiple testing scenario
+np.random.seed(123)
+n_tests = 1000
+n_true_effects = 50
+
+# Generate p-values
+p_values = []
+true_effects = np.array([False] * (n_tests - n_true_effects) + [True] * n_true_effects)
+
+for i in range(n_tests):
+    # Generate data
+    if true_effects[i]:
+        # True effect: different means
+        group1 = np.random.normal(0, 1, 30)
+        group2 = np.random.normal(1, 1, 30)  # Effect size = 1
+    else:
+        # No effect: same means
+        group1 = np.random.normal(0, 1, 30)
+        group2 = np.random.normal(0, 1, 30)
+
+    # Perform t-test
+    _, p_val = stats.ttest_ind(group1, group2)
+    p_values.append(p_val)
+
+p_values = np.array(p_values)
+
+# Apply multiple testing corrections
+rejected_bonf, p_adj_bonf, _, _ = multipletests(p_values, method='bonferroni')
+rejected_bh, p_adj_bh, _, _ = multipletests(p_values, method='fdr_bh')
+
+# Create results dataframe
+results = pd.DataFrame({
+    'p_value': p_values,
+    'true_effect': true_effects,
+    'bonferroni_adj': p_adj_bonf,
+    'fdr_adj': p_adj_bh,
+    'bonferroni_sig': rejected_bonf,
+    'fdr_sig': rejected_bh
+})
+
+# Calculate performance metrics
+def calculate_performance(significant, true_effects):
+    tp = np.sum(significant & true_effects)
+    fp = np.sum(significant & ~true_effects)
+    fn = np.sum(~significant & true_effects)
+    tn = np.sum(~significant & ~true_effects)
+
+    sensitivity = tp / (tp + fn) if (tp + fn) > 0 else 0
+    fdr = fp / (tp + fp) if (tp + fp) > 0 else 0
+
+    return {
+        'discoveries': tp + fp,
+        'true_positives': tp,
+        'false_positives': fp,
+        'sensitivity': sensitivity,
+        'fdr': fdr
+    }
+
+# Performance comparison
+raw_sig = p_values < 0.05
+perf_raw = calculate_performance(raw_sig, true_effects)
+perf_bonf = calculate_performance(rejected_bonf, true_effects)
+perf_fdr = calculate_performance(rejected_bh, true_effects)
+
+print("Performance Comparison:")
+print("=======================")
+for method, perf in [("Raw", perf_raw), ("Bonferroni", perf_bonf), ("FDR", perf_fdr)]:
+    print(f"{method}:")
+    print(f"  Discoveries: {perf['discoveries']}")
+    print(f"  Sensitivity: {perf['sensitivity']:.3f}")
+    print(f"  FDR: {perf['fdr']:.3f}")
+    print()
+
+# Visualization
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
+
+# Histogram of p-values
+ax1.hist(p_values[~true_effects], bins=50, alpha=0.7, label='Null hypotheses', density=True)
+ax1.hist(p_values[true_effects], bins=50, alpha=0.7, label='Alternative hypotheses', density=True)
+ax1.axhline(y=1, color='red', linestyle='--', label='Uniform (null)')
+ax1.set_xlabel('P-value')
+ax1.set_ylabel('Density')
+ax1.set_title('Distribution of P-values')
+ax1.legend()
+
+# Comparison of methods
+methods = ['Raw', 'Bonferroni', 'FDR']
+discoveries = [perf_raw['discoveries'], perf_bonf['discoveries'], perf_fdr['discoveries']]
+true_pos = [perf_raw['true_positives'], perf_bonf['true_positives'], perf_fdr['true_positives']]
+false_pos = [perf_raw['false_positives'], perf_bonf['false_positives'], perf_fdr['false_positives']]
+
+x = np.arange(len(methods))
+width = 0.35
+
+ax2.bar(x - width/2, true_pos, width, label='True Positives', color='green', alpha=0.7)
+ax2.bar(x + width/2, false_pos, width, label='False Positives', color='red', alpha=0.7)
+ax2.set_xlabel('Method')
+ax2.set_ylabel('Count')
+ax2.set_title('True vs False Positives by Method')
+ax2.set_xticks(x)
+ax2.set_xticklabels(methods)
+ax2.legend()
+
+plt.tight_layout()
+plt.show()
+```
