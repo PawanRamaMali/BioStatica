@@ -1,6 +1,11 @@
-# Specialized & Modern Methods
+# Specialized & Modern Methods {#sec-specialized-methods}
 
 Advanced techniques for complex data scenarios, from time-to-event analysis to modern computational approaches in the era of big data.
+
+::: {.callout-tip}
+## Chapter Overview
+This chapter covers advanced statistical methods that build upon all previous concepts. From the foundations in @sec-foundational-concepts through the modeling techniques in @sec-modeling-relationships, you're now ready to explore specialized approaches for complex biological data.
+:::
 
 *Note: This chapter appears to be incomplete in the source HTML file. Only the title and introduction were available. Additional content for specialized and modern methods would typically include:*
 

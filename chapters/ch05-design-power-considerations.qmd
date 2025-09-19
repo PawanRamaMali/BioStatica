@@ -33,7 +33,7 @@ If you know any three of these elements, you can calculate the fourth. This is t
 
 ```{r}
 #| echo: true
-#| eval: false
+#| eval: true
 # Sample size for comparing two means
 library(pwr)
 
@@ -92,7 +92,7 @@ $$\alpha_{\text{adjusted}} = \frac{\alpha}{m}$$
 
 ```{r}
 #| echo: true
-#| eval: false
+#| eval: true
 # Example: Multiple t-tests with Bonferroni correction
 set.seed(123)
 
@@ -163,7 +163,7 @@ The BH procedure controls FDR at level $\alpha$ when tests are independent or ha
 
 ```{r}
 #| echo: true
-#| eval: false
+#| eval: true
 # Simulate gene expression data
 set.seed(456)
 n_genes <- 1000
@@ -229,7 +229,7 @@ cat("  FDR:", round(false_positives_fdr / max(1, sum(fdr_significant)), 3), "\n"
 
 ```{r}
 #| echo: true
-#| eval: false
+#| eval: true
 library(ggplot2)
 library(dplyr)
 
@@ -276,7 +276,7 @@ A **q-value** is the minimum FDR at which a hypothesis would be rejected. It's a
 
 ```{r}
 #| echo: true
-#| eval: false
+#| eval: true
 # Calculate q-values using the qvalue package
 # Note: You may need to install from Bioconductor
 # if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -340,7 +340,7 @@ Let's apply these concepts to a realistic scenario:
 
 ```{r}
 #| echo: true
-#| eval: false
+#| eval: true
 # Simulate COVID-19 biomarker study
 set.seed(789)
 
@@ -443,7 +443,7 @@ ggplot(volcano_data, aes(x = Effect_Size, y = Log_P)) +
 
 ```{python}
 #| echo: true
-#| eval: false
+#| eval: true
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt

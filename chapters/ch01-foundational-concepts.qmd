@@ -1,6 +1,11 @@
-# Foundational Concepts
+# Foundational Concepts {#sec-foundational-concepts}
 
 Master the essential building blocks of statistical thinking that form the foundation for all biostatistical analysis.
+
+::: {.callout-tip}
+## Chapter Overview
+This chapter covers fundamental statistical concepts that you'll use throughout the book. These concepts are essential for understanding more advanced topics in @sec-comparative-inference and @sec-modeling-relationships.
+:::
 
 ## Descriptive Statistics & Visualization
 

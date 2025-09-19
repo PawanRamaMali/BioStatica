@@ -1,6 +1,11 @@
-# Comparative Inference
+# Comparative Inference {#sec-comparative-inference}
 
 Advanced techniques for comparing groups when traditional assumptions don't hold, ensuring robust statistical inference across diverse research scenarios.
+
+::: {.callout-tip}
+## Chapter Overview
+Building on the foundational concepts from @sec-foundational-concepts, this chapter explores methods for comparing groups and testing hypotheses. These techniques prepare you for the advanced modeling approaches covered in @sec-modeling-relationships.
+:::
 
 ## Welch's t-Test & Paired t-Test
 
