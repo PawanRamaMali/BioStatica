@@ -10,88 +10,864 @@ In biostatistics, we often need to understand relationships between variables an
 
 ### Understanding Correlation
 
-Correlation measures the strength and direction of a linear relationship between two continuous variables. In biostatistics, we might examine correlations between:
+Correlation measures the strength and direction of a linear relationship between two continuous variables. In biostatistics and molecular biology, correlation analysis is fundamental for understanding biological relationships:
 
-- Blood pressure and age
-- BMI and cholesterol levels
-- Gene expression levels between related genes
+**Common biological correlations:**
+- Gene expression levels between co-regulated genes
+- Protein abundance and mRNA expression
+- Tumor size and metastatic potential
+- Drug concentration and treatment response
+- Metabolite levels in biochemical pathways
 
-### Pearson Correlation Coefficient
+### Types of Correlation
 
-The Pearson correlation coefficient ($r$) ranges from -1 to +1:
+#### Pearson Correlation Coefficient
+
+The **Pearson correlation coefficient** ($r$) measures linear relationships and ranges from -1 to +1:
 
 $$r = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2 \sum_{i=1}^{n}(y_i - \bar{y})^2}}$$
 
-Where:
+**Interpretation:**
 - $r = 1$: Perfect positive linear relationship
 - $r = 0$: No linear relationship
 - $r = -1$: Perfect negative linear relationship
 
 ::: {.callout-tip}
-## Interpreting Correlation Strength
-- |r| < 0.3: Weak correlation
-- 0.3 ≤ |r| < 0.7: Moderate correlation
-- |r| ≥ 0.7: Strong correlation
+## Interpreting Correlation Strength in Biology
+- **|r| < 0.3**: Weak correlation (may still be biologically meaningful)
+- **0.3 ≤ |r| < 0.7**: Moderate correlation (often significant in biological systems)
+- **|r| ≥ 0.7**: Strong correlation (rare in biology due to noise and complexity)
 :::
+
+#### Spearman Rank Correlation
+
+The **Spearman correlation coefficient** ($\rho$) measures monotonic relationships (not necessarily linear):
+
+$$\rho = 1 - \frac{6\sum d_i^2}{n(n^2-1)}$$
+
+Where $d_i$ is the difference between ranks of corresponding values.
+
+**When to use Spearman:**
+- Non-linear but monotonic relationships
+- Ordinal data
+- Presence of outliers
+- Non-normally distributed data
+
+### Gene Expression Correlation Analysis
+
+#### Example 1: Co-expression of Related Genes
 
 ```{r}
 #| echo: true
 #| eval: false
-# Example: Correlation between age and blood pressure
 library(ggplot2)
+library(corrplot)
+library(dplyr)
 
-# Simulate data
-set.seed(123)
-n <- 100
-age <- rnorm(n, mean = 45, sd = 15)
-bp_systolic <- 90 + 0.8 * age + rnorm(n, sd = 10)
+# Simulate gene expression data for 5 genes across 100 samples
+set.seed(456)
+n_samples <- 100
 
-# Calculate correlation
-cor_result <- cor.test(age, bp_systolic)
-print(paste("Correlation:", round(cor_result$estimate, 3)))
-print(paste("P-value:", round(cor_result$p.value, 4)))
+# Gene 1: Master regulator
+gene1 <- rnorm(n_samples, mean = 8, sd = 1.5)
 
-# Visualize
-ggplot(data.frame(age, bp_systolic), aes(x = age, y = bp_systolic)) +
-  geom_point(alpha = 0.6) +
-  geom_smooth(method = "lm", color = "red") +
-  labs(title = "Age vs Systolic Blood Pressure",
-       x = "Age (years)", y = "Systolic BP (mmHg)") +
-  theme_minimal()
+# Gene 2: Strongly co-expressed with Gene 1 (same pathway)
+gene2 <- 0.8 * gene1 + rnorm(n_samples, mean = 1, sd = 0.8)
+
+# Gene 3: Moderately co-expressed with Gene 1
+gene3 <- 0.5 * gene1 + rnorm(n_samples, mean = 2, sd = 1.2)
+
+# Gene 4: Negatively correlated with Gene 1 (antagonistic pathway)
+gene4 <- -0.6 * gene1 + rnorm(n_samples, mean = 10, sd = 1)
+
+# Gene 5: Independent gene (different pathway)
+gene5 <- rnorm(n_samples, mean = 6, sd = 1.8)
+
+# Create expression matrix
+expression_data <- data.frame(
+  Sample_ID = paste0("Sample_", 1:n_samples),
+  BRCA1 = gene1,      # DNA repair gene
+  BRCA2 = gene2,      # Co-expressed DNA repair gene
+  ATM = gene3,        # DNA damage checkpoint gene
+  MYC = gene4,        # Oncogene (often dysregulated when DNA repair is high)
+  GAPDH = gene5       # Housekeeping gene
+)
+
+# Calculate correlation matrix
+cor_matrix <- cor(expression_data[, -1])  # Exclude Sample_ID
+cor_pvalues <- cor.test(expression_data$BRCA1, expression_data$BRCA2)
+
+print("Gene Expression Correlation Matrix:")
+print(round(cor_matrix, 3))
+
+# Visualize correlation matrix
+corrplot(cor_matrix, method = "color", type = "upper",
+         addCoef.col = "black", tl.col = "black", tl.srt = 45,
+         title = "Gene Co-expression Network", mar = c(0,0,1,0))
+
+# Detailed analysis of BRCA1-BRCA2 correlation
+brca_cor <- cor.test(expression_data$BRCA1, expression_data$BRCA2,
+                     method = "pearson")
+
+cat("BRCA1-BRCA2 Correlation Analysis:\n")
+cat("Pearson r =", round(brca_cor$estimate, 3), "\n")
+cat("P-value =", format(brca_cor$p.value, scientific = TRUE), "\n")
+cat("95% CI: [", round(brca_cor$conf.int[1], 3), ", ",
+    round(brca_cor$conf.int[2], 3), "]\n")
+
+# Scatter plot with biological interpretation
+ggplot(expression_data, aes(x = BRCA1, y = BRCA2)) +
+  geom_point(alpha = 0.6, color = "darkblue") +
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  labs(
+    title = "Co-expression of DNA Repair Genes BRCA1 and BRCA2",
+    subtitle = paste("r =", round(brca_cor$estimate, 3),
+                     ", p =", format(brca_cor$p.value, digits = 3)),
+    x = "BRCA1 Expression (log2 FPKM)",
+    y = "BRCA2 Expression (log2 FPKM)"
+  ) +
+  theme_minimal() +
+  theme(plot.title = element_text(size = 12, face = "bold"))
 ```
 
-## Simple Linear Regression
+#### Example 2: Protein-mRNA Correlation Analysis
+
+```{r}
+#| echo: true
+#| eval: false
+# Simulate protein abundance vs mRNA expression data
+set.seed(789)
+n_genes <- 50
+
+# mRNA expression levels (log2 scale)
+mRNA_expression <- rnorm(n_genes, mean = 5, sd = 2)
+
+# Protein abundance (correlated with mRNA but with noise)
+# Translation efficiency varies between proteins
+translation_efficiency <- runif(n_genes, min = 0.3, max = 0.8)
+protein_abundance <- translation_efficiency * mRNA_expression +
+                    rnorm(n_genes, mean = 0, sd = 0.8)
+
+# Create dataset
+proteomics_data <- data.frame(
+  Gene = paste0("Gene_", 1:n_genes),
+  mRNA = mRNA_expression,
+  Protein = protein_abundance,
+  Translation_Efficiency = translation_efficiency
+)
+
+# Calculate correlations
+pearson_cor <- cor.test(proteomics_data$mRNA, proteomics_data$Protein)
+spearman_cor <- cor.test(proteomics_data$mRNA, proteomics_data$Protein,
+                        method = "spearman")
+
+cat("mRNA-Protein Correlation Analysis:\n")
+cat("Pearson r =", round(pearson_cor$estimate, 3),
+    "(p =", format(pearson_cor$p.value, digits = 3), ")\n")
+cat("Spearman ρ =", round(spearman_cor$estimate, 3),
+    "(p =", format(spearman_cor$p.value, digits = 3), ")\n")
+
+# Visualization
+p1 <- ggplot(proteomics_data, aes(x = mRNA, y = Protein)) +
+  geom_point(aes(color = Translation_Efficiency), size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", color = "black", linetype = "dashed") +
+  scale_color_gradient(low = "lightblue", high = "darkred",
+                      name = "Translation\nEfficiency") +
+  labs(
+    title = "mRNA Expression vs Protein Abundance",
+    subtitle = "Color indicates translation efficiency",
+    x = "mRNA Expression (log2 FPKM)",
+    y = "Protein Abundance (log2 intensity)"
+  ) +
+  theme_minimal()
+
+print(p1)
+
+# Identify outliers (genes with unusual mRNA-protein relationships)
+proteomics_data$residuals <- residuals(lm(Protein ~ mRNA, data = proteomics_data))
+proteomics_data$outlier <- abs(proteomics_data$residuals) > 2 * sd(proteomics_data$residuals)
+
+cat("Potential post-transcriptional regulation candidates:\n")
+outlier_genes <- proteomics_data[proteomics_data$outlier, ]
+print(outlier_genes[, c("Gene", "mRNA", "Protein", "Translation_Efficiency")])
+```
+
+### Tumor Biology Correlation Examples
+
+#### Example 3: Tumor Size and Metastatic Markers
+
+```{r}
+#| echo: true
+#| eval: false
+# Simulate tumor progression data
+set.seed(101)
+n_tumors <- 150
+
+# Primary tumor characteristics
+tumor_size <- rexp(n_tumors, rate = 0.5)  # Exponential distribution (realistic for tumor sizes)
+tumor_grade <- sample(1:3, n_tumors, replace = TRUE, prob = c(0.4, 0.4, 0.2))
+
+# Metastatic markers (higher in larger, higher-grade tumors)
+# VEGF: Vascular endothelial growth factor
+vegf_expression <- 2 + 0.3 * tumor_size + 0.5 * tumor_grade + rnorm(n_tumors, sd = 0.8)
+
+# MMP9: Matrix metalloproteinase (invasion marker)
+mmp9_expression <- 1.5 + 0.25 * tumor_size + 0.6 * tumor_grade + rnorm(n_tumors, sd = 0.6)
+
+# Ki67: Proliferation marker
+ki67_percentage <- 10 + 8 * tumor_size + 5 * tumor_grade + rnorm(n_tumors, sd = 8)
+ki67_percentage <- pmax(0, pmin(100, ki67_percentage))  # Bound between 0-100%
+
+# Create tumor dataset
+tumor_data <- data.frame(
+  Tumor_ID = paste0("T", sprintf("%03d", 1:n_tumors)),
+  Size_cm = tumor_size,
+  Grade = factor(tumor_grade, labels = c("Low", "Intermediate", "High")),
+  VEGF = vegf_expression,
+  MMP9 = mmp9_expression,
+  Ki67_percent = ki67_percentage
+)
+
+# Correlation analysis
+cor_vegf_size <- cor.test(tumor_data$Size_cm, tumor_data$VEGF)
+cor_mmp9_size <- cor.test(tumor_data$Size_cm, tumor_data$MMP9)
+cor_ki67_size <- cor.test(tumor_data$Size_cm, tumor_data$Ki67_percent)
+
+cat("Tumor Size Correlation Analysis:\n")
+cat("Size vs VEGF: r =", round(cor_vegf_size$estimate, 3),
+    "(p =", format(cor_vegf_size$p.value, digits = 3), ")\n")
+cat("Size vs MMP9: r =", round(cor_mmp9_size$estimate, 3),
+    "(p =", format(cor_mmp9_size$p.value, digits = 3), ")\n")
+cat("Size vs Ki67: r =", round(cor_ki67_size$estimate, 3),
+    "(p =", format(cor_ki67_size$p.value, digits = 3), ")\n")
+
+# Multi-panel visualization
+library(patchwork)
+
+p1 <- ggplot(tumor_data, aes(x = Size_cm, y = VEGF, color = Grade)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE, color = "black") +
+  scale_color_manual(values = c("green", "orange", "red")) +
+  labs(title = "VEGF Expression vs Tumor Size",
+       x = "Tumor Size (cm)", y = "VEGF Expression") +
+  theme_minimal()
+
+p2 <- ggplot(tumor_data, aes(x = Size_cm, y = MMP9, color = Grade)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE, color = "black") +
+  scale_color_manual(values = c("green", "orange", "red")) +
+  labs(title = "MMP9 Expression vs Tumor Size",
+       x = "Tumor Size (cm)", y = "MMP9 Expression") +
+  theme_minimal()
+
+p3 <- ggplot(tumor_data, aes(x = Size_cm, y = Ki67_percent, color = Grade)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE, color = "black") +
+  scale_color_manual(values = c("green", "orange", "red")) +
+  labs(title = "Ki67 Proliferation vs Tumor Size",
+       x = "Tumor Size (cm)", y = "Ki67 (%)") +
+  theme_minimal()
+
+# Combine plots
+combined_plot <- (p1 | p2) / p3
+print(combined_plot)
+
+# Correlation matrix of all markers
+marker_matrix <- tumor_data[, c("Size_cm", "VEGF", "MMP9", "Ki67_percent")]
+colnames(marker_matrix) <- c("Size", "VEGF", "MMP9", "Ki67")
+marker_cor <- cor(marker_matrix)
+
+corrplot(marker_cor, method = "color", type = "upper",
+         addCoef.col = "black", tl.col = "black",
+         title = "Tumor Marker Correlation Matrix", mar = c(0,0,1,0))
+```
+
+### Advanced Correlation Techniques
+
+#### Partial Correlation
+
+**Partial correlation** measures the relationship between two variables while controlling for one or more confounding variables.
+
+**Formula for partial correlation:**
+$$r_{xy \cdot z} = \frac{r_{xy} - r_{xz}r_{yz}}{\sqrt{(1-r_{xz}^2)(1-r_{yz}^2)}}$$
+
+```{r}
+#| echo: true
+#| eval: false
+library(ppcor)
+
+# Example: Gene expression controlling for cell cycle effects
+# Many genes appear correlated simply because they're all affected by cell cycle
+
+set.seed(112)
+n_samples <- 80
+
+# Cell cycle score (confounding variable)
+cell_cycle_score <- rnorm(n_samples, mean = 50, sd = 15)
+
+# Gene A: Affected by cell cycle + specific function
+geneA <- 0.4 * cell_cycle_score + rnorm(n_samples, mean = 5, sd = 1.5)
+
+# Gene B: Affected by cell cycle + specific function + some correlation with A
+geneB <- 0.3 * cell_cycle_score + 0.2 * geneA + rnorm(n_samples, mean = 6, sd = 1.2)
+
+# Gene C: Only affected by cell cycle (control)
+geneC <- 0.5 * cell_cycle_score + rnorm(n_samples, mean = 4, sd = 1)
+
+partial_cor_data <- data.frame(
+  Sample = 1:n_samples,
+  Cell_Cycle = cell_cycle_score,
+  GeneA = geneA,
+  GeneB = geneB,
+  GeneC = geneC
+)
+
+# Calculate regular correlations
+regular_cor_AB <- cor.test(partial_cor_data$GeneA, partial_cor_data$GeneB)
+regular_cor_AC <- cor.test(partial_cor_data$GeneA, partial_cor_data$GeneC)
+
+# Calculate partial correlations (controlling for cell cycle)
+partial_cor_AB <- pcor.test(partial_cor_data$GeneA, partial_cor_data$GeneB,
+                           partial_cor_data$Cell_Cycle)
+partial_cor_AC <- pcor.test(partial_cor_data$GeneA, partial_cor_data$GeneC,
+                           partial_cor_data$Cell_Cycle)
+
+cat("Regular vs Partial Correlation Analysis:\n")
+cat("================================\n")
+cat("Gene A vs Gene B:\n")
+cat("  Regular correlation: r =", round(regular_cor_AB$estimate, 3),
+    "(p =", format(regular_cor_AB$p.value, digits = 3), ")\n")
+cat("  Partial correlation: r =", round(partial_cor_AB$estimate, 3),
+    "(p =", format(partial_cor_AB$p.value, digits = 3), ")\n\n")
+
+cat("Gene A vs Gene C:\n")
+cat("  Regular correlation: r =", round(regular_cor_AC$estimate, 3),
+    "(p =", format(regular_cor_AC$p.value, digits = 3), ")\n")
+cat("  Partial correlation: r =", round(partial_cor_AC$estimate, 3),
+    "(p =", format(partial_cor_AC$p.value, digits = 3), ")\n")
+
+# Visualization
+library(GGally)
+ggpairs(partial_cor_data[, c("GeneA", "GeneB", "GeneC", "Cell_Cycle")],
+        title = "Pairwise Correlations: Genes and Cell Cycle",
+        upper = list(continuous = wrap("cor", size = 3)),
+        lower = list(continuous = wrap("points", alpha = 0.5)))
+```
+
+#### Network Correlation Analysis
+
+```{r}
+#| echo: true
+#| eval: false
+library(igraph)
+library(ggraph)
+
+# Simulate pathway gene expression network
+set.seed(234)
+n_genes <- 20
+
+# Create a pathway with hub genes and their targets
+pathway_genes <- paste0("Gene_", LETTERS[1:n_genes])
+
+# Simulate expression data with network structure
+expression_matrix <- matrix(rnorm(n_genes * 100), nrow = n_genes, ncol = 100)
+rownames(expression_matrix) <- pathway_genes
+
+# Add correlations based on known pathway interactions
+# Gene A is a master regulator
+expression_matrix[1, ] <- rnorm(100, mean = 8, sd = 1.5)  # Gene A
+
+# Genes B, C, D are direct targets of A
+for(i in 2:4) {
+  expression_matrix[i, ] <- 0.7 * expression_matrix[1, ] + rnorm(100, sd = 1)
+}
+
+# Genes E, F are targets of B
+for(i in 5:6) {
+  expression_matrix[i, ] <- 0.6 * expression_matrix[2, ] + rnorm(100, sd = 1.2)
+}
+
+# Calculate correlation matrix
+gene_cor_matrix <- cor(t(expression_matrix))
+
+# Create network from correlations (threshold at |r| > 0.5)
+cor_threshold <- 0.5
+adjacency_matrix <- abs(gene_cor_matrix) > cor_threshold
+diag(adjacency_matrix) <- FALSE  # Remove self-connections
+
+# Create igraph object
+gene_network <- graph_from_adjacency_matrix(adjacency_matrix, mode = "undirected")
+V(gene_network)$name <- pathway_genes
+
+# Add correlation weights as edge attributes
+edges <- get.edgelist(gene_network)
+edge_cors <- sapply(1:nrow(edges), function(i) {
+  gene1 <- edges[i, 1]
+  gene2 <- edges[i, 2]
+  gene_cor_matrix[gene1, gene2]
+})
+E(gene_network)$weight <- abs(edge_cors)
+E(gene_network)$correlation <- edge_cors
+
+# Calculate network properties
+degree_centrality <- degree(gene_network)
+betweenness_centrality <- betweenness(gene_network)
+closeness_centrality <- closeness(gene_network)
+
+network_properties <- data.frame(
+  Gene = names(degree_centrality),
+  Degree = degree_centrality,
+  Betweenness = betweenness_centrality,
+  Closeness = closeness_centrality
+)
+
+cat("Top hub genes (highest degree centrality):\n")
+print(head(network_properties[order(-network_properties$Degree), ], 5))
+
+# Visualize network
+set.seed(345)
+ggraph(gene_network, layout = 'stress') +
+  geom_edge_link(aes(width = weight, alpha = weight), color = "gray50") +
+  geom_node_point(aes(size = degree_centrality), color = "steelblue", alpha = 0.8) +
+  geom_node_text(aes(label = name), size = 3, repel = TRUE) +
+  scale_edge_width(range = c(0.5, 2), name = "Correlation") +
+  scale_edge_alpha(range = c(0.3, 0.8)) +
+  scale_size(range = c(3, 8), name = "Degree") +
+  labs(title = "Gene Co-expression Network",
+       subtitle = "Node size = degree centrality, Edge width = correlation strength") +
+  theme_graph()
+```
+
+::: {.callout-note}
+## Key Points for Biological Correlation Analysis
+
+1. **Effect sizes matter more than p-values** in large datasets
+2. **Partial correlation** helps identify direct vs indirect relationships
+3. **Multiple testing correction** is crucial for genome-wide analyses
+4. **Network analysis** reveals pathway-level organization
+5. **Biological interpretation** should guide statistical significance thresholds
+6. **Confounding variables** (batch effects, cell cycle, etc.) must be considered
+:::
+
+### Association Analysis Beyond Correlation
+
+#### Chi-square Test for Categorical Associations
+
+For categorical variables (e.g., mutation status, tumor type, treatment response):
+
+$$\chi^2 = \sum \frac{(O_i - E_i)^2}{E_i}$$
+
+Where $O_i$ is observed frequency and $E_i$ is expected frequency.
+
+```{r}
+#| echo: true
+#| eval: false
+# Example: Association between gene mutation and cancer subtype
+set.seed(456)
+n_patients <- 200
+
+# Simulate cancer subtypes
+cancer_subtype <- sample(c("Luminal A", "Luminal B", "HER2+", "Triple Negative"),
+                        n_patients, prob = c(0.4, 0.2, 0.15, 0.25), replace = TRUE)
+
+# Simulate TP53 mutation status (higher in aggressive subtypes)
+mutation_probs <- ifelse(cancer_subtype %in% c("HER2+", "Triple Negative"), 0.7, 0.2)
+tp53_mutation <- rbinom(n_patients, 1, mutation_probs)
+
+# Create contingency table
+contingency_table <- table(cancer_subtype, tp53_mutation)
+colnames(contingency_table) <- c("TP53 Wild-type", "TP53 Mutated")
+
+print("Contingency Table: Cancer Subtype vs TP53 Mutation")
+print(contingency_table)
+
+# Chi-square test
+chi_test <- chisq.test(contingency_table)
+print(chi_test)
+
+# Effect size (Cramér's V)
+cramers_v <- sqrt(chi_test$statistic / (n_patients * (min(nrow(contingency_table),
+                  ncol(contingency_table)) - 1)))
+cat("Cramér's V =", round(cramers_v, 3), "\n")
+
+# Visualization
+library(ggplot2)
+association_data <- data.frame(
+  Subtype = cancer_subtype,
+  TP53_Status = factor(tp53_mutation, labels = c("Wild-type", "Mutated"))
+)
+
+ggplot(association_data, aes(x = Subtype, fill = TP53_Status)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(values = c("lightblue", "darkred")) +
+  labs(title = "TP53 Mutation Frequency by Cancer Subtype",
+       y = "Proportion", x = "Cancer Subtype", fill = "TP53 Status") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Linear Regression in Biological Research
 
 ### The Linear Model
 
-Simple linear regression models the relationship between a predictor variable (X) and an outcome variable (Y):
+Linear regression models the relationship between predictor variables and an outcome, fundamental for understanding biological dose-response relationships, gene regulation, and biomarker associations.
+
+#### Simple Linear Regression
 
 $$Y_i = \beta_0 + \beta_1 X_i + \epsilon_i$$
 
 Where:
-- $\beta_0$: Intercept (value of Y when X = 0)
+- $\beta_0$: Intercept (baseline level when X = 0)
 - $\beta_1$: Slope (change in Y per unit change in X)
-- $\epsilon_i$: Random error term
+- $\epsilon_i$: Random error term (biological variation)
 
-### Example: Predicting Blood Pressure from Age
+### Gene Expression Dose-Response Example
+
+#### Example 1: Drug Concentration vs Gene Expression
 
 ```{r}
 #| echo: true
 #| eval: false
-# Fit linear regression model
-model <- lm(bp_systolic ~ age)
-summary(model)
+# Simulate drug treatment experiment
+library(ggplot2)
+library(broom)
 
-# The model: bp_systolic = β₀ + β₁ × age
-# Interpretation: For each additional year of age,
-# systolic BP increases by β₁ mmHg on average
+set.seed(567)
+n_treatments <- 60
+
+# Drug concentrations (μM)
+drug_concentration <- rep(c(0, 0.1, 0.5, 1, 5, 10), each = 10)
+
+# Target gene expression response (log2 fold change)
+# Includes biological variation and experimental noise
+baseline_expression <- 0
+max_response <- 3.5
+ic50 <- 2  # Half-maximal concentration
+
+# Hill equation for dose-response (common in pharmacology)
+theoretical_response <- baseline_expression +
+  (max_response * drug_concentration) / (ic50 + drug_concentration)
+
+# Add biological variation
+observed_expression <- theoretical_response + rnorm(n_treatments, sd = 0.4)
+
+# Create dataset
+drug_response_data <- data.frame(
+  Treatment_ID = 1:n_treatments,
+  Concentration_uM = drug_concentration,
+  Gene_Expression_FC = observed_expression,
+  log_Concentration = log10(drug_concentration + 0.01)  # Add small constant for log
+)
+
+# Fit linear regression
+linear_model <- lm(Gene_Expression_FC ~ Concentration_uM, data = drug_response_data)
+log_model <- lm(Gene_Expression_FC ~ log_Concentration, data = drug_response_data)
+
+# Model summaries
+summary(linear_model)
+summary(log_model)
+
+# Extract key statistics
+linear_stats <- glance(linear_model)
+log_stats <- glance(log_model)
+
+cat("Model Comparison:\n")
+cat("Linear model R² =", round(linear_stats$r.squared, 3), "\n")
+cat("Log model R² =", round(log_stats$r.squared, 3), "\n")
+
+# Visualization
+p1 <- ggplot(drug_response_data, aes(x = Concentration_uM, y = Gene_Expression_FC)) +
+  geom_point(alpha = 0.7, size = 3, color = "steelblue") +
+  geom_smooth(method = "lm", color = "red", linetype = "dashed") +
+  labs(title = "Linear Model: Gene Expression vs Drug Concentration",
+       x = "Drug Concentration (μM)", y = "Gene Expression (log2 FC)") +
+  theme_minimal()
+
+p2 <- ggplot(drug_response_data, aes(x = log_Concentration, y = Gene_Expression_FC)) +
+  geom_point(alpha = 0.7, size = 3, color = "darkgreen") +
+  geom_smooth(method = "lm", color = "red", linetype = "dashed") +
+  labs(title = "Log Model: Gene Expression vs log(Concentration)",
+       x = "log10(Concentration + 0.01)", y = "Gene Expression (log2 FC)") +
+  theme_minimal()
+
+library(patchwork)
+print(p1 / p2)
+
+# Residual analysis
+residual_data <- data.frame(
+  Fitted = fitted(linear_model),
+  Residuals = residuals(linear_model),
+  Concentration = drug_response_data$Concentration_uM
+)
+
+ggplot(residual_data, aes(x = Fitted, y = Residuals)) +
+  geom_point(alpha = 0.7) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  geom_smooth(se = FALSE, color = "blue") +
+  labs(title = "Residual Plot: Linear Model",
+       x = "Fitted Values", y = "Residuals") +
+  theme_minimal()
 ```
 
-## Logistic Regression
+#### Example 2: Tumor Size Prediction from Biomarkers
+
+```{r}
+#| echo: true
+#| eval: false
+# Simulate tumor biomarker data
+set.seed(678)
+n_tumors <- 100
+
+# Tumor characteristics
+tumor_age_weeks <- runif(n_tumors, min = 2, max = 20)  # Tumor age
+vascularization_score <- rnorm(n_tumors, mean = 5, sd = 1.5)  # 1-10 scale
+
+# Tumor volume (cm³) - depends on age and vascularization
+# Exponential growth modified by vascularization
+base_growth_rate <- 0.15
+volume <- exp(base_growth_rate * tumor_age_weeks +
+              0.1 * vascularization_score +
+              rnorm(n_tumors, sd = 0.3))
+
+# Log-transform for linear modeling
+log_volume <- log(volume)
+
+tumor_growth_data <- data.frame(
+  Tumor_ID = paste0("Tumor_", 1:n_tumors),
+  Age_weeks = tumor_age_weeks,
+  Vascularization = vascularization_score,
+  Volume_cm3 = volume,
+  log_Volume = log_volume
+)
+
+# Multiple regression model
+growth_model <- lm(log_Volume ~ Age_weeks + Vascularization, data = tumor_growth_data)
+summary(growth_model)
+
+# Extract coefficients with confidence intervals
+coef_summary <- tidy(growth_model, conf.int = TRUE)
+print(coef_summary)
+
+# Biological interpretation
+cat("Biological Interpretation:\n")
+cat("Growth rate: Volume increases by", round((exp(coef_summary$estimate[2]) - 1) * 100, 1),
+    "% per week\n")
+cat("Vascularization effect: Each unit increase in vascularization score\n")
+cat("  increases volume by", round((exp(coef_summary$estimate[3]) - 1) * 100, 1), "%\n")
+
+# Model diagnostics
+par(mfrow = c(2, 2))
+plot(growth_model)
+par(mfrow = c(1, 1))
+
+# Prediction example
+new_tumor <- data.frame(
+  Age_weeks = c(8, 12, 16),
+  Vascularization = c(4, 6, 8)
+)
+
+predictions <- predict(growth_model, new_tumor, interval = "prediction")
+pred_volume <- exp(predictions)  # Back-transform from log scale
+
+prediction_results <- data.frame(
+  Age_weeks = new_tumor$Age_weeks,
+  Vascularization = new_tumor$Vascularization,
+  Predicted_Volume = pred_volume[, "fit"],
+  Lower_CI = pred_volume[, "lwr"],
+  Upper_CI = pred_volume[, "upr"]
+)
+
+print("Tumor Volume Predictions:")
+print(round(prediction_results, 2))
+```
+
+### Multiple Linear Regression
+
+#### Example 3: Gene Expression Prediction from Multiple Factors
+
+```{r}
+#| echo: true
+#| eval: false
+# Simulate comprehensive gene regulation study
+set.seed(789)
+n_samples <- 120
+
+# Regulatory factors
+transcription_factor_A <- rnorm(n_samples, mean = 6, sd = 1.2)  # TF-A expression
+chromatin_accessibility <- runif(n_samples, min = 0.2, max = 1.0)  # ATAC-seq score
+dna_methylation <- rbeta(n_samples, 2, 5)  # Beta distribution for methylation
+histone_h3k4me3 <- rgamma(n_samples, shape = 3, scale = 1.5)  # Activating histone mark
+
+# Target gene expression (multiple regulatory inputs)
+target_gene_expression <-
+  2.0 +                                    # Baseline
+  0.8 * transcription_factor_A +           # TF binding effect
+  3.0 * chromatin_accessibility +          # Chromatin accessibility
+  -2.5 * dna_methylation +                 # Methylation repression
+  0.4 * histone_h3k4me3 +                  # Histone activation
+  0.3 * transcription_factor_A * chromatin_accessibility +  # Interaction
+  rnorm(n_samples, sd = 0.8)              # Biological noise
+
+gene_regulation_data <- data.frame(
+  Sample_ID = paste0("Sample_", 1:n_samples),
+  TF_A_expression = transcription_factor_A,
+  Chromatin_access = chromatin_accessibility,
+  DNA_methylation = dna_methylation,
+  H3K4me3_signal = histone_h3k4me3,
+  Target_gene = target_gene_expression
+)
+
+# Fit multiple regression models
+# Model 1: Main effects only
+model_main <- lm(Target_gene ~ TF_A_expression + Chromatin_access +
+                 DNA_methylation + H3K4me3_signal,
+                 data = gene_regulation_data)
+
+# Model 2: Include interaction
+model_interaction <- lm(Target_gene ~ TF_A_expression + Chromatin_access +
+                       DNA_methylation + H3K4me3_signal +
+                       TF_A_expression:Chromatin_access,
+                       data = gene_regulation_data)
+
+# Compare models
+anova(model_main, model_interaction)
+summary(model_interaction)
+
+# Calculate standardized coefficients (beta coefficients)
+library(car)
+standardized_coefs <- data.frame(
+  Variable = names(coef(model_interaction))[-1],  # Exclude intercept
+  Standardized_Beta = scale(model.matrix(model_interaction)[, -1]) %*%
+                     coef(model_interaction)[-1] / sd(gene_regulation_data$Target_gene)
+)
+
+cat("Standardized coefficients (relative importance):\n")
+print(standardized_coefs[order(-abs(standardized_coefs$Standardized_Beta)), ])
+
+# Model performance metrics
+model_performance <- data.frame(
+  Model = c("Main Effects", "With Interaction"),
+  R_squared = c(summary(model_main)$r.squared, summary(model_interaction)$r.squared),
+  Adj_R_squared = c(summary(model_main)$adj.r.squared, summary(model_interaction)$adj.r.squared),
+  AIC = c(AIC(model_main), AIC(model_interaction)),
+  BIC = c(BIC(model_main), BIC(model_interaction))
+)
+
+print("Model Comparison:")
+print(round(model_performance, 3))
+
+# Visualization of key relationships
+p1 <- ggplot(gene_regulation_data, aes(x = TF_A_expression, y = Target_gene,
+                                      color = Chromatin_access)) +
+  geom_point(alpha = 0.7) +
+  scale_color_gradient(low = "red", high = "blue", name = "Chromatin\nAccess") +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  labs(title = "TF-A vs Target Gene (colored by chromatin accessibility)",
+       x = "TF-A Expression", y = "Target Gene Expression") +
+  theme_minimal()
+
+p2 <- ggplot(gene_regulation_data, aes(x = DNA_methylation, y = Target_gene)) +
+  geom_point(alpha = 0.7, color = "darkred") +
+  geom_smooth(method = "lm", color = "black") +
+  labs(title = "DNA Methylation vs Target Gene",
+       x = "DNA Methylation Level", y = "Target Gene Expression") +
+  theme_minimal()
+
+print(p1 / p2)
+
+# Interaction plot
+library(interactions)
+interact_plot(model_interaction, pred = TF_A_expression, modx = Chromatin_access,
+             plot.points = TRUE, point.alpha = 0.5,
+             main.title = "TF-A × Chromatin Accessibility Interaction")
+```
+
+### Regression Assumptions and Diagnostics
+
+#### Checking Model Assumptions in Biological Data
+
+```{r}
+#| echo: true
+#| eval: false
+library(performance)
+library(see)
+
+# Comprehensive model diagnostics
+check_model(model_interaction)
+
+# Individual assumption checks
+cat("Linearity Check:\n")
+check_linearity(model_interaction)
+
+cat("\nHomoscedasticity Check:\n")
+check_heteroscedasticity(model_interaction)
+
+cat("\nNormality of Residuals:\n")
+check_normality(model_interaction)
+
+cat("\nCollinearity Check:\n")
+check_collinearity(model_interaction)
+
+# Outlier detection
+outliers <- check_outliers(model_interaction)
+print(outliers)
+
+# Cook's distance for influential points
+cooks_d <- cooks.distance(model_interaction)
+influential_samples <- which(cooks_d > 4/n_samples)
+
+if(length(influential_samples) > 0) {
+  cat("Influential samples (high Cook's distance):\n")
+  print(gene_regulation_data[influential_samples, c("Sample_ID", "Target_gene")])
+}
+```
+
+### Advanced Regression Techniques
+
+#### Robust Regression for Outlier-Resistant Analysis
+
+```{r}
+#| echo: true
+#| eval: false
+library(MASS)
+
+# Fit robust regression (less sensitive to outliers)
+robust_model <- rlm(Target_gene ~ TF_A_expression + Chromatin_access +
+                   DNA_methylation + H3K4me3_signal,
+                   data = gene_regulation_data)
+
+# Compare standard vs robust regression
+comparison_coefs <- data.frame(
+  Variable = names(coef(model_main)),
+  Standard_LM = coef(model_main),
+  Robust_LM = coef(robust_model),
+  Difference = coef(model_main) - coef(robust_model)
+)
+
+print("Standard vs Robust Regression Coefficients:")
+print(round(comparison_coefs, 3))
+
+# Identify samples with different weights in robust regression
+sample_weights <- robust_model$w
+low_weight_samples <- which(sample_weights < 0.8)
+
+cat("Samples with reduced weight in robust regression (potential outliers):\n")
+if(length(low_weight_samples) > 0) {
+  print(gene_regulation_data[low_weight_samples,
+                            c("Sample_ID", "Target_gene", "TF_A_expression")])
+}
+```
+
+## Logistic Regression for Classification
 
 ### When to Use Logistic Regression
 
-When your outcome variable is binary (diseased/healthy, survived/died, positive/negative test), logistic regression is the appropriate method.
+Logistic regression is essential for binary classification problems in biology:
+- Disease diagnosis (positive/negative)
+- Treatment response (responder/non-responder)
+- Gene function prediction (essential/non-essential)
+- Tumor classification (malignant/benign)
+- Survival outcomes (survived/died)
 
 ### The Logistic Model
 
@@ -105,30 +881,470 @@ The probability is then:
 
 $$p = \frac{e^{\beta_0 + \beta_1 X_1 + ... + \beta_k X_k}}{1 + e^{\beta_0 + \beta_1 X_1 + ... + \beta_k X_k}}$$
 
-### Example: Predicting Heart Disease Risk
+### Tumor Classification Examples
+
+#### Example 1: Malignant vs Benign Tumor Classification
 
 ```{r}
 #| echo: true
 #| eval: false
-# Simulate heart disease data
-set.seed(456)
-n <- 500
-age <- rnorm(n, 55, 12)
-cholesterol <- rnorm(n, 200, 40)
-smoking <- rbinom(n, 1, 0.3)
+# Simulate tumor classification data
+library(ggplot2)
+library(pROC)
+library(caret)
 
-# Create log-odds for heart disease
-log_odds <- -5 + 0.05*age + 0.01*cholesterol + 1.2*smoking
-prob_disease <- exp(log_odds)/(1 + exp(log_odds))
-heart_disease <- rbinom(n, 1, prob_disease)
+set.seed(890)
+n_tumors <- 300
 
-# Fit logistic regression
-logit_model <- glm(heart_disease ~ age + cholesterol + smoking,
-                   family = binomial)
-summary(logit_model)
+# Tumor characteristics
+tumor_size <- rexp(n_tumors, rate = 1.5)  # Exponential distribution
+cell_density <- rnorm(n_tumors, mean = 1000, sd = 300)  # cells per mm²
+vascularity_score <- rgamma(n_tumors, shape = 2, scale = 3)  # 0-15 scale
+ki67_index <- rbeta(n_tumors, 2, 8) * 100  # 0-100% proliferation
+nuclear_atypia <- sample(1:4, n_tumors, replace = TRUE, prob = c(0.4, 0.3, 0.2, 0.1))
 
-# Interpretation: exp(coefficient) gives the odds ratio
-exp(coef(logit_model))
+# Create malignancy probability based on biological factors
+logit_malignant <- -3 +
+  0.8 * tumor_size +                    # Larger tumors more likely malignant
+  0.002 * cell_density +                # Higher density increases risk
+  0.15 * vascularity_score +            # High vascularity suspicious
+  0.04 * ki67_index +                   # High proliferation index
+  0.6 * nuclear_atypia                  # Nuclear atypia strongly predictive
+
+prob_malignant <- plogis(logit_malignant)  # Convert to probability
+malignant <- rbinom(n_tumors, 1, prob_malignant)
+
+# Create dataset
+tumor_classification_data <- data.frame(
+  Tumor_ID = paste0("T", sprintf("%03d", 1:n_tumors)),
+  Size_cm = tumor_size,
+  Cell_Density = cell_density,
+  Vascularity = vascularity_score,
+  Ki67_Index = ki67_index,
+  Nuclear_Atypia = factor(nuclear_atypia, labels = c("None", "Mild", "Moderate", "Severe")),
+  Malignant = factor(malignant, labels = c("Benign", "Malignant"))
+)
+
+# Fit logistic regression model
+malignancy_model <- glm(Malignant ~ Size_cm + Cell_Density + Vascularity +
+                       Ki67_Index + Nuclear_Atypia,
+                       family = binomial, data = tumor_classification_data)
+
+summary(malignancy_model)
+
+# Calculate odds ratios with confidence intervals
+odds_ratios <- exp(cbind(coef(malignancy_model), confint(malignancy_model)))
+colnames(odds_ratios) <- c("Odds_Ratio", "CI_Lower", "CI_Upper")
+
+cat("Odds Ratios and 95% Confidence Intervals:\n")
+print(round(odds_ratios, 3))
+
+# Model predictions
+tumor_classification_data$predicted_prob <- predict(malignancy_model, type = "response")
+tumor_classification_data$predicted_class <- ifelse(tumor_classification_data$predicted_prob > 0.5,
+                                                   "Malignant", "Benign")
+
+# Model performance evaluation
+conf_matrix <- confusionMatrix(
+  factor(tumor_classification_data$predicted_class, levels = c("Benign", "Malignant")),
+  tumor_classification_data$Malignant
+)
+
+print(conf_matrix)
+
+# ROC curve analysis
+roc_curve <- roc(malignant, tumor_classification_data$predicted_prob)
+auc_value <- auc(roc_curve)
+
+cat("AUC =", round(auc_value, 3), "\n")
+
+# Plot ROC curve
+ggroc(roc_curve, color = "blue", size = 1) +
+  geom_abline(intercept = 1, slope = 1, linetype = "dashed", color = "red") +
+  labs(title = paste("ROC Curve: Tumor Malignancy Classification (AUC =", round(auc_value, 3), ")"),
+       x = "1 - Specificity (False Positive Rate)",
+       y = "Sensitivity (True Positive Rate)") +
+  theme_minimal()
+
+# Feature importance visualization
+coef_data <- data.frame(
+  Feature = names(coef(malignancy_model))[-1],  # Exclude intercept
+  Coefficient = coef(malignancy_model)[-1],
+  Odds_Ratio = exp(coef(malignancy_model)[-1])
+)
+
+ggplot(coef_data, aes(x = reorder(Feature, Coefficient), y = Coefficient)) +
+  geom_col(fill = "steelblue", alpha = 0.7) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  coord_flip() +
+  labs(title = "Logistic Regression Coefficients",
+       subtitle = "Positive coefficients increase malignancy probability",
+       x = "Features", y = "Coefficient") +
+  theme_minimal()
+```
+
+#### Example 2: Gene Expression-Based Cancer Subtype Classification
+
+```{r}
+#| echo: true
+#| eval: false
+# Simulate gene expression-based cancer classification
+set.seed(991)
+n_patients <- 250
+
+# Simulate expression of key cancer genes
+# ER (Estrogen Receptor) - high in hormone-positive cancers
+er_expression <- c(rnorm(125, mean = 8, sd = 1.2),    # High ER group
+                   rnorm(125, mean = 3, sd = 1.0))    # Low ER group
+
+# HER2 - amplified in ~20% of breast cancers
+her2_amplified <- sample(c(0, 1), n_patients, replace = TRUE, prob = c(0.8, 0.2))
+her2_expression <- ifelse(her2_amplified, rnorm(sum(her2_amplified), 9, 1),
+                         rnorm(n_patients - sum(her2_amplified), 4, 1))
+
+# TP53 mutation signature (composite score)
+tp53_signature <- rnorm(n_patients, mean = 5, sd = 1.5)
+
+# Proliferation signature (cell cycle genes)
+prolif_signature <- rgamma(n_patients, shape = 3, scale = 2)
+
+# Immune signature
+immune_signature <- rbeta(n_patients, 2, 2) * 10
+
+# Define cancer subtypes based on expression patterns
+# Luminal A: ER+, HER2-, low proliferation
+# Luminal B: ER+, HER2+/-, high proliferation
+# HER2+: ER-, HER2+
+# Triple Negative: ER-, HER2-, often high TP53 signature
+
+subtype_prob_lumA <- plogis(-2 + 0.8 * er_expression - 2 * her2_amplified - 0.3 * prolif_signature)
+subtype_prob_lumB <- plogis(-3 + 0.6 * er_expression + 0.5 * prolif_signature)
+subtype_prob_her2 <- plogis(-4 + 3 * her2_amplified - 0.5 * er_expression)
+
+# Assign subtypes (simplified logic)
+cancer_subtype <- character(n_patients)
+for(i in 1:n_patients) {
+  probs <- c(subtype_prob_lumA[i], subtype_prob_lumB[i], subtype_prob_her2[i])
+  if(er_expression[i] > 6 & her2_amplified[i] == 0 & prolif_signature[i] < 4) {
+    cancer_subtype[i] <- "Luminal_A"
+  } else if(er_expression[i] > 6 & prolif_signature[i] >= 4) {
+    cancer_subtype[i] <- "Luminal_B"
+  } else if(her2_amplified[i] == 1) {
+    cancer_subtype[i] <- "HER2_Positive"
+  } else {
+    cancer_subtype[i] <- "Triple_Negative"
+  }
+}
+
+# Create gene expression dataset
+gene_expression_data <- data.frame(
+  Patient_ID = paste0("P", sprintf("%03d", 1:n_patients)),
+  ER_Expression = er_expression,
+  HER2_Expression = her2_expression,
+  HER2_Amplified = factor(her2_amplified),
+  TP53_Signature = tp53_signature,
+  Proliferation_Signature = prolif_signature,
+  Immune_Signature = immune_signature,
+  Cancer_Subtype = factor(cancer_subtype)
+)
+
+# Split data for training and testing
+set.seed(123)
+train_indices <- createDataPartition(gene_expression_data$Cancer_Subtype, p = 0.7, list = FALSE)
+train_data <- gene_expression_data[train_indices, ]
+test_data <- gene_expression_data[-train_indices, ]
+
+# Train multinomial logistic regression for multi-class classification
+library(nnet)
+multinomial_model <- multinom(Cancer_Subtype ~ ER_Expression + HER2_Expression +
+                             TP53_Signature + Proliferation_Signature + Immune_Signature,
+                             data = train_data, trace = FALSE)
+
+summary(multinomial_model)
+
+# Make predictions
+train_predictions <- predict(multinomial_model, train_data)
+test_predictions <- predict(multinomial_model, test_data)
+
+# Training performance
+train_confusion <- confusionMatrix(train_predictions, train_data$Cancer_Subtype)
+print("Training Set Performance:")
+print(train_confusion)
+
+# Test performance
+test_confusion <- confusionMatrix(test_predictions, test_data$Cancer_Subtype)
+print("Test Set Performance:")
+print(test_confusion)
+
+# Prediction probabilities for each class
+test_probs <- predict(multinomial_model, test_data, type = "probs")
+test_data_with_probs <- cbind(test_data, test_probs)
+
+# Visualize prediction confidence
+library(reshape2)
+prob_data <- melt(test_data_with_probs[, c("Patient_ID", "Cancer_Subtype",
+                                          "Luminal_A", "Luminal_B", "HER2_Positive", "Triple_Negative")],
+                 id.vars = c("Patient_ID", "Cancer_Subtype"),
+                 variable.name = "Predicted_Subtype", value.name = "Probability")
+
+ggplot(prob_data, aes(x = Cancer_Subtype, y = Probability, fill = Predicted_Subtype)) +
+  geom_boxplot(alpha = 0.7) +
+  facet_wrap(~ Predicted_Subtype, nrow = 2) +
+  labs(title = "Prediction Probabilities by True Cancer Subtype",
+       x = "True Subtype", y = "Predicted Probability") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+### Advanced Classification Techniques
+
+#### Example 3: Random Forest for Gene Expression Classification
+
+```{r}
+#| echo: true
+#| eval: false
+library(randomForest)
+library(ROCR)
+
+# Train Random Forest model for comparison
+rf_model <- randomForest(Cancer_Subtype ~ ER_Expression + HER2_Expression +
+                        TP53_Signature + Proliferation_Signature + Immune_Signature,
+                        data = train_data, ntree = 500, importance = TRUE)
+
+print(rf_model)
+
+# Variable importance
+importance_scores <- importance(rf_model)
+importance_df <- data.frame(
+  Gene = rownames(importance_scores),
+  Mean_Decrease_Accuracy = importance_scores[, "MeanDecreaseAccuracy"],
+  Mean_Decrease_Gini = importance_scores[, "MeanDecreaseGini"]
+)
+
+ggplot(importance_df, aes(x = reorder(Gene, Mean_Decrease_Accuracy),
+                         y = Mean_Decrease_Accuracy)) +
+  geom_col(fill = "darkgreen", alpha = 0.7) +
+  coord_flip() +
+  labs(title = "Gene Importance in Cancer Subtype Classification",
+       x = "Genes", y = "Mean Decrease in Accuracy") +
+  theme_minimal()
+
+# Random Forest predictions
+rf_test_predictions <- predict(rf_model, test_data)
+rf_test_confusion <- confusionMatrix(rf_test_predictions, test_data$Cancer_Subtype)
+
+print("Random Forest Test Performance:")
+print(rf_test_confusion)
+
+# Compare model performances
+model_comparison <- data.frame(
+  Model = c("Multinomial Logistic", "Random Forest"),
+  Accuracy = c(test_confusion$overall["Accuracy"],
+               rf_test_confusion$overall["Accuracy"]),
+  Kappa = c(test_confusion$overall["Kappa"],
+            rf_test_confusion$overall["Kappa"])
+)
+
+print("Model Comparison:")
+print(round(model_comparison, 3))
+```
+
+### Biomarker Discovery and Validation
+
+#### Example 4: Protein Biomarker Panel for Early Cancer Detection
+
+```{r}
+#| echo: true
+#| eval: false
+# Simulate protein biomarker discovery study
+set.seed(1001)
+n_controls <- 150
+n_cases <- 100
+
+# Simulate protein abundance levels (log-transformed)
+# 10 proteins measured, 3 are true biomarkers
+
+# Control samples
+control_proteins <- matrix(rnorm(n_controls * 10, mean = 5, sd = 1),
+                          nrow = n_controls, ncol = 10)
+
+# Case samples - biomarkers 1, 3, 7 are elevated
+case_proteins <- matrix(rnorm(n_cases * 10, mean = 5, sd = 1),
+                       nrow = n_cases, ncol = 10)
+
+# Add signal to true biomarkers
+case_proteins[, 1] <- rnorm(n_cases, mean = 6.5, sd = 1.2)  # Protein 1: strong signal
+case_proteins[, 3] <- rnorm(n_cases, mean = 6.0, sd = 1.1)  # Protein 3: moderate signal
+case_proteins[, 7] <- rnorm(n_cases, mean = 5.8, sd = 1.0)  # Protein 7: weak signal
+
+# Combine data
+all_proteins <- rbind(control_proteins, case_proteins)
+cancer_status <- c(rep(0, n_controls), rep(1, n_cases))
+
+protein_names <- paste0("Protein_", LETTERS[1:10])
+colnames(all_proteins) <- protein_names
+
+biomarker_data <- data.frame(
+  Sample_ID = paste0("S", sprintf("%03d", 1:(n_controls + n_cases))),
+  Cancer = factor(cancer_status, labels = c("Control", "Cancer")),
+  all_proteins
+)
+
+# Split into discovery and validation sets
+discovery_indices <- sample(1:nrow(biomarker_data), size = 0.6 * nrow(biomarker_data))
+discovery_set <- biomarker_data[discovery_indices, ]
+validation_set <- biomarker_data[-discovery_indices, ]
+
+# Univariate analysis to identify candidate biomarkers
+univariate_results <- data.frame(
+  Protein = protein_names,
+  AUC = numeric(10),
+  P_value = numeric(10)
+)
+
+for(i in 1:10) {
+  protein_col <- paste0("Protein_", LETTERS[i])
+
+  # Logistic regression
+  model <- glm(Cancer ~ get(protein_col), data = discovery_set, family = binomial)
+  p_val <- summary(model)$coefficients[2, 4]
+
+  # ROC analysis
+  roc_obj <- roc(discovery_set$Cancer, discovery_set[[protein_col]])
+  auc_val <- as.numeric(auc(roc_obj))
+
+  univariate_results[i, "AUC"] <- auc_val
+  univariate_results[i, "P_value"] <- p_val
+}
+
+# Adjust p-values for multiple testing
+univariate_results$Adj_P_value <- p.adjust(univariate_results$P_value, method = "BH")
+
+cat("Univariate Biomarker Analysis (Discovery Set):\n")
+print(univariate_results[order(-univariate_results$AUC), ])
+
+# Select top biomarkers for panel (AUC > 0.7 and adj p < 0.05)
+selected_biomarkers <- univariate_results[
+  univariate_results$AUC > 0.7 & univariate_results$Adj_P_value < 0.05, "Protein"
+]
+
+cat("Selected biomarkers for panel:", paste(selected_biomarkers, collapse = ", "), "\n")
+
+# Build multivariate model with selected biomarkers
+panel_formula <- as.formula(paste("Cancer ~", paste(selected_biomarkers, collapse = " + ")))
+panel_model <- glm(panel_formula, data = discovery_set, family = binomial)
+
+summary(panel_model)
+
+# Validate panel performance
+# Discovery set performance
+discovery_probs <- predict(panel_model, discovery_set, type = "response")
+discovery_roc <- roc(discovery_set$Cancer, discovery_probs)
+
+# Validation set performance
+validation_probs <- predict(panel_model, validation_set, type = "response")
+validation_roc <- roc(validation_set$Cancer, validation_probs)
+
+cat("Biomarker Panel Performance:\n")
+cat("Discovery AUC:", round(auc(discovery_roc), 3), "\n")
+cat("Validation AUC:", round(auc(validation_roc), 3), "\n")
+
+# Plot ROC curves
+library(patchwork)
+p1 <- ggroc(discovery_roc, color = "blue") +
+  geom_abline(intercept = 1, slope = 1, linetype = "dashed") +
+  labs(title = paste("Discovery Set (AUC =", round(auc(discovery_roc), 3), ")")) +
+  theme_minimal()
+
+p2 <- ggroc(validation_roc, color = "red") +
+  geom_abline(intercept = 1, slope = 1, linetype = "dashed") +
+  labs(title = paste("Validation Set (AUC =", round(auc(validation_roc), 3), ")")) +
+  theme_minimal()
+
+print(p1 | p2)
+
+# Biomarker panel score distribution
+validation_set$Panel_Score <- validation_probs
+
+ggplot(validation_set, aes(x = Cancer, y = Panel_Score, fill = Cancer)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.2, alpha = 0.5) +
+  scale_fill_manual(values = c("lightblue", "lightcoral")) +
+  labs(title = "Biomarker Panel Score Distribution",
+       x = "Cancer Status", y = "Panel Score (Probability)") +
+  theme_minimal()
+
+# Optimal cutoff selection
+optimal_cutoff <- coords(validation_roc, "best", ret = "threshold")
+sensitivity_at_cutoff <- coords(validation_roc, optimal_cutoff, ret = "sensitivity")
+specificity_at_cutoff <- coords(validation_roc, optimal_cutoff, ret = "specificity")
+
+cat("Optimal cutoff:", round(optimal_cutoff, 3), "\n")
+cat("Sensitivity:", round(sensitivity_at_cutoff, 3), "\n")
+cat("Specificity:", round(specificity_at_cutoff, 3), "\n")
+```
+
+::: {.callout-note}
+## Key Principles for Biological Classification Models
+
+1. **Feature selection** is crucial - not all measured variables are informative
+2. **Cross-validation** prevents overfitting, especially with high-dimensional data
+3. **Independent validation** is essential for clinical biomarker development
+4. **Biological interpretation** should guide model selection and feature engineering
+5. **Multiple testing correction** is critical when screening many potential biomarkers
+6. **Clinical context** determines optimal sensitivity/specificity trade-offs
+:::
+
+### Model Selection and Validation Strategies
+
+#### Cross-Validation for Robust Performance Estimation
+
+```{r}
+#| echo: true
+#| eval: false
+library(caret)
+
+# 10-fold cross-validation for biomarker panel
+set.seed(1111)
+
+# Define training control
+train_control <- trainControl(
+  method = "cv",
+  number = 10,
+  summaryFunction = twoClassSummary,
+  classProbs = TRUE,
+  savePredictions = TRUE
+)
+
+# Train model with cross-validation
+cv_model <- train(
+  panel_formula,
+  data = discovery_set,
+  method = "glm",
+  family = "binomial",
+  trControl = train_control,
+  metric = "ROC"
+)
+
+print(cv_model)
+
+# Cross-validation performance
+cv_auc <- cv_model$results$ROC
+cv_sensitivity <- cv_model$results$Sens
+cv_specificity <- cv_model$results$Spec
+
+cat("Cross-Validation Results:\n")
+cat("Mean AUC:", round(cv_auc, 3), "\n")
+cat("Mean Sensitivity:", round(cv_sensitivity, 3), "\n")
+cat("Mean Specificity:", round(cv_specificity, 3), "\n")
+
+# Plot cross-validation predictions
+cv_predictions <- cv_model$pred
+ggplot(cv_predictions, aes(x = obs, y = Cancer, fill = obs)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(title = "Cross-Validation Predictions",
+       x = "Observed Class", y = "Predicted Probability") +
+  theme_minimal()
 ```
 
 ## Model Evaluation for Classification
