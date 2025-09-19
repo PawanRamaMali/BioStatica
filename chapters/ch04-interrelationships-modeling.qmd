@@ -506,6 +506,834 @@ ggplot(association_data, aes(x = Subtype, fill = TP53_Status)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+## Chi-squared Goodness of Fit Test in Biology
+
+### Understanding Goodness of Fit
+
+The **chi-squared goodness of fit test** determines whether observed data follows a specific expected distribution or theoretical model. In biology, this test is essential for:
+
+- Testing Hardy-Weinberg equilibrium in population genetics
+- Validating Mendelian inheritance patterns
+- Assessing whether gene expression follows specific distributions
+- Testing model assumptions in biological data
+- Validating theoretical predictions against experimental observations
+
+### Mathematical Foundation
+
+The chi-squared goodness of fit statistic is:
+
+$$\chi^2 = \sum_{i=1}^{k} \frac{(O_i - E_i)^2}{E_i}$$
+
+Where:
+- $O_i$ = Observed frequency in category $i$
+- $E_i$ = Expected frequency in category $i$ under the null hypothesis
+- $k$ = Number of categories
+- Degrees of freedom = $k - 1 - p$ (where $p$ is the number of estimated parameters)
+
+**Assumptions:**
+1. Data are frequencies or counts (not proportions)
+2. Categories are mutually exclusive and exhaustive
+3. Expected frequency in each category ≥ 5
+4. Observations are independent
+
+### Hardy-Weinberg Equilibrium Testing
+
+#### Example 1: Single Gene Analysis
+
+The Hardy-Weinberg principle states that allele frequencies remain constant in a population under specific conditions. For a gene with two alleles (A and a) with frequencies $p$ and $q$:
+
+**Expected genotype frequencies:**
+- AA: $p^2$
+- Aa: $2pq$
+- aa: $q^2$
+
+```{r}
+#| echo: true
+#| eval: false
+# Example: Testing Hardy-Weinberg equilibrium for a disease susceptibility gene
+library(ggplot2)
+library(dplyr)
+
+# Simulate population genetics data
+set.seed(1234)
+n_individuals <- 1000
+
+# True allele frequencies
+p_A <- 0.3  # Frequency of A allele (protective)
+q_a <- 0.7  # Frequency of a allele (risk)
+
+# Simulate genotypes under Hardy-Weinberg equilibrium
+# Then add slight deviation to make it realistic
+hw_probs <- c(p_A^2, 2*p_A*q_a, q_a^2)  # AA, Aa, aa
+names(hw_probs) <- c("AA", "Aa", "aa")
+
+# Observed genotypes (with slight deviation from HWE)
+observed_counts <- c(
+  AA = 85,   # Expected: p² × 1000 = 90
+  Aa = 435,  # Expected: 2pq × 1000 = 420
+  aa = 480   # Expected: q² × 1000 = 490
+)
+
+# Calculate expected counts under Hardy-Weinberg
+total_individuals <- sum(observed_counts)
+expected_counts <- hw_probs * total_individuals
+
+# Estimate allele frequencies from observed data
+total_alleles <- 2 * total_individuals
+freq_A_observed <- (2 * observed_counts["AA"] + observed_counts["Aa"]) / total_alleles
+freq_a_observed <- 1 - freq_A_observed
+
+cat("Population Genetics Analysis:\n")
+cat("============================\n")
+cat("Sample size:", total_individuals, "individuals\n")
+cat("Observed allele frequencies:\n")
+cat("  A allele:", round(freq_A_observed, 3), "\n")
+cat("  a allele:", round(freq_a_observed, 3), "\n\n")
+
+# Expected counts under HWE using observed allele frequencies
+expected_HWE <- c(
+  AA = freq_A_observed^2 * total_individuals,
+  Aa = 2 * freq_A_observed * freq_a_observed * total_individuals,
+  aa = freq_a_observed^2 * total_individuals
+)
+
+# Chi-squared goodness of fit test
+hwe_test <- chisq.test(observed_counts, p = expected_HWE/sum(expected_HWE))
+
+cat("Hardy-Weinberg Equilibrium Test:\n")
+cat("Observed vs Expected genotype counts:\n")
+comparison_table <- data.frame(
+  Genotype = names(observed_counts),
+  Observed = observed_counts,
+  Expected_HWE = round(expected_HWE, 1),
+  Difference = observed_counts - expected_HWE
+)
+print(comparison_table)
+
+cat("\nChi-squared test results:\n")
+cat("Chi-squared =", round(hwe_test$statistic, 3), "\n")
+cat("df =", hwe_test$parameter, "\n")
+cat("p-value =", format(hwe_test$p.value, scientific = TRUE), "\n")
+
+if(hwe_test$p.value < 0.05) {
+  cat("Conclusion: Population deviates significantly from Hardy-Weinberg equilibrium\n")
+} else {
+  cat("Conclusion: Population is in Hardy-Weinberg equilibrium\n")
+}
+
+# Visualization
+hw_data <- data.frame(
+  Genotype = factor(rep(names(observed_counts), 2), levels = c("AA", "Aa", "aa")),
+  Count = c(observed_counts, expected_HWE),
+  Type = rep(c("Observed", "Expected (HWE)"), each = 3)
+)
+
+ggplot(hw_data, aes(x = Genotype, y = Count, fill = Type)) +
+  geom_col(position = "dodge", alpha = 0.7) +
+  scale_fill_manual(values = c("steelblue", "orange")) +
+  labs(title = "Hardy-Weinberg Equilibrium Test",
+       subtitle = paste("χ² =", round(hwe_test$statistic, 2),
+                        ", p =", format(hwe_test$p.value, digits = 3)),
+       x = "Genotype", y = "Count") +
+  theme_minimal() +
+  geom_text(aes(label = round(Count, 0)), position = position_dodge(width = 0.9),
+            vjust = -0.3, size = 3)
+```
+
+#### Example 2: Multiple Alleles System
+
+```{r}
+#| echo: true
+#| eval: false
+# Example: ABO blood group system (multiple alleles)
+# Alleles: A, B, O with frequencies p, q, r
+# Genotypes: AA, AO (Type A), BB, BO (Type B), AB (Type AB), OO (Type O)
+
+set.seed(5678)
+
+# Population data for ABO blood groups
+observed_phenotypes <- c(
+  TypeA = 420,   # AA + AO genotypes
+  TypeB = 280,   # BB + BO genotypes
+  TypeAB = 110,  # AB genotype
+  TypeO = 190    # OO genotype
+)
+
+total_n <- sum(observed_phenotypes)
+
+# Estimate allele frequencies using maximum likelihood
+# For ABO system: p + q + r = 1, where p=freq(A), q=freq(B), r=freq(O)
+# Type O frequency = r², so r = sqrt(freq_O)
+r_freq <- sqrt(observed_phenotypes["TypeO"] / total_n)
+
+# Type A + Type O = (p + r)², so p + r = sqrt(freq_A + freq_O)
+freq_A_O <- (observed_phenotypes["TypeA"] + observed_phenotypes["TypeO"]) / total_n
+p_plus_r <- sqrt(freq_A_O)
+p_freq <- p_plus_r - r_freq
+
+# Type B + Type O = (q + r)², so q + r = sqrt(freq_B + freq_O)
+freq_B_O <- (observed_phenotypes["TypeB"] + observed_phenotypes["TypeO"]) / total_n
+q_plus_r <- sqrt(freq_B_O)
+q_freq <- q_plus_r - r_freq
+
+cat("ABO Blood Group Analysis:\n")
+cat("=========================\n")
+cat("Estimated allele frequencies:\n")
+cat("A allele (p):", round(p_freq, 3), "\n")
+cat("B allele (q):", round(q_freq, 3), "\n")
+cat("O allele (r):", round(r_freq, 3), "\n")
+cat("Sum:", round(p_freq + q_freq + r_freq, 3), "\n\n")
+
+# Expected phenotype frequencies under HWE
+expected_phenotypes <- c(
+  TypeA = (p_freq^2 + 2*p_freq*r_freq) * total_n,    # AA + AO
+  TypeB = (q_freq^2 + 2*q_freq*r_freq) * total_n,    # BB + BO
+  TypeAB = (2*p_freq*q_freq) * total_n,               # AB
+  TypeO = (r_freq^2) * total_n                        # OO
+)
+
+# Chi-squared goodness of fit test
+abo_test <- chisq.test(observed_phenotypes, p = expected_phenotypes/sum(expected_phenotypes))
+
+cat("Observed vs Expected phenotype counts:\n")
+abo_comparison <- data.frame(
+  Blood_Type = names(observed_phenotypes),
+  Observed = observed_phenotypes,
+  Expected = round(expected_phenotypes, 1),
+  Residual = round((observed_phenotypes - expected_phenotypes), 1)
+)
+print(abo_comparison)
+
+cat("\nChi-squared goodness of fit test:\n")
+cat("Chi-squared =", round(abo_test$statistic, 3), "\n")
+cat("df =", abo_test$parameter, "\n")
+cat("p-value =", format(abo_test$p.value, digits = 4), "\n")
+
+# Visualization
+abo_data <- data.frame(
+  Blood_Type = factor(rep(names(observed_phenotypes), 2)),
+  Count = c(observed_phenotypes, expected_phenotypes),
+  Type = rep(c("Observed", "Expected"), each = 4)
+)
+
+ggplot(abo_data, aes(x = Blood_Type, y = Count, fill = Type)) +
+  geom_col(position = "dodge", alpha = 0.7) +
+  scale_fill_manual(values = c("darkred", "lightcoral")) +
+  labs(title = "ABO Blood Group Distribution",
+       subtitle = "Testing Hardy-Weinberg Equilibrium",
+       x = "Blood Type", y = "Count") +
+  theme_minimal()
+```
+
+### Mendelian Inheritance Pattern Testing
+
+#### Example 3: Testing Classical Mendelian Ratios
+
+```{r}
+#| echo: true
+#| eval: false
+# Example: F2 generation cross testing 9:3:3:1 ratio
+# Dihybrid cross: AaBb × AaBb
+# Expected ratio: 9 A_B_ : 3 A_bb : 3 aaB_ : 1 aabb
+
+set.seed(9999)
+
+# Simulated F2 generation data
+observed_F2 <- c(
+  Purple_Round = 315,    # A_B_ (dominant for both traits)
+  Purple_Wrinkled = 108, # A_bb (dominant for trait A, recessive for B)
+  Yellow_Round = 101,    # aaB_ (recessive for A, dominant for B)
+  Yellow_Wrinkled = 32   # aabb (recessive for both traits)
+)
+
+total_offspring <- sum(observed_F2)
+
+# Expected Mendelian ratio: 9:3:3:1
+mendelian_ratio <- c(9, 3, 3, 1)
+expected_F2 <- (mendelian_ratio / sum(mendelian_ratio)) * total_offspring
+
+cat("Dihybrid Cross Analysis (F2 Generation):\n")
+cat("=======================================\n")
+cat("Total offspring:", total_offspring, "\n\n")
+
+# Chi-squared test for Mendelian inheritance
+mendelian_test <- chisq.test(observed_F2, p = expected_F2/sum(expected_F2))
+
+cat("Testing 9:3:3:1 Mendelian ratio:\n")
+mendel_comparison <- data.frame(
+  Phenotype = names(observed_F2),
+  Observed = observed_F2,
+  Expected_931 = round(expected_F2, 1),
+  Ratio_Observed = round(observed_F2 / min(observed_F2), 2),
+  Ratio_Expected = mendelian_ratio
+)
+print(mendel_comparison)
+
+cat("\nChi-squared goodness of fit test:\n")
+cat("Chi-squared =", round(mendelian_test$statistic, 3), "\n")
+cat("df =", mendelian_test$parameter, "\n")
+cat("p-value =", format(mendelian_test$p.value, digits = 4), "\n")
+
+if(mendelian_test$p.value > 0.05) {
+  cat("Conclusion: Data consistent with 9:3:3:1 Mendelian ratio\n")
+} else {
+  cat("Conclusion: Data deviates significantly from expected Mendelian ratio\n")
+}
+
+# Calculate individual chi-squared contributions
+chi_contributions <- (observed_F2 - expected_F2)^2 / expected_F2
+cat("\nContribution to chi-squared by phenotype:\n")
+for(i in 1:length(chi_contributions)) {
+  cat(names(chi_contributions)[i], ":", round(chi_contributions[i], 3), "\n")
+}
+
+# Visualization
+mendel_data <- data.frame(
+  Phenotype = factor(rep(names(observed_F2), 2)),
+  Count = c(observed_F2, expected_F2),
+  Type = rep(c("Observed", "Expected (9:3:3:1)"), each = 4)
+)
+
+ggplot(mendel_data, aes(x = Phenotype, y = Count, fill = Type)) +
+  geom_col(position = "dodge", alpha = 0.7) +
+  scale_fill_manual(values = c("darkgreen", "lightgreen")) +
+  labs(title = "Dihybrid Cross: Testing Mendelian Inheritance",
+       subtitle = paste("χ² =", round(mendelian_test$statistic, 2),
+                        ", p =", format(mendelian_test$p.value, digits = 3)),
+       x = "Phenotype", y = "Count") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+### Distribution Fitting in Biology
+
+#### Example 4: Testing Gene Expression Distribution
+
+```{r}
+#| echo: true
+#| eval: false
+# Example: Testing if gene expression follows a normal distribution
+library(fitdistrplus)
+
+set.seed(2468)
+
+# Simulate gene expression data (log-transformed FPKM values)
+# True distribution is slightly skewed (log-normal)
+n_genes <- 500
+true_expression <- rlnorm(n_genes, meanlog = 2, sdlog = 0.8)
+log_expression <- log2(true_expression)
+
+# Test normality using chi-squared goodness of fit
+# First, create bins for the continuous data
+n_bins <- 8
+expression_breaks <- quantile(log_expression, probs = seq(0, 1, length.out = n_bins + 1))
+observed_counts <- table(cut(log_expression, breaks = expression_breaks, include.lowest = TRUE))
+
+# Estimate normal distribution parameters
+mean_expr <- mean(log_expression)
+sd_expr <- sd(log_expression)
+
+# Calculate expected frequencies under normal distribution
+bin_probs <- numeric(n_bins)
+for(i in 1:n_bins) {
+  lower <- expression_breaks[i]
+  upper <- expression_breaks[i + 1]
+  bin_probs[i] <- pnorm(upper, mean_expr, sd_expr) - pnorm(lower, mean_expr, sd_expr)
+}
+
+expected_counts <- bin_probs * n_genes
+
+cat("Gene Expression Distribution Analysis:\n")
+cat("====================================\n")
+cat("Sample size:", n_genes, "genes\n")
+cat("Mean expression:", round(mean_expr, 2), "log2(FPKM)\n")
+cat("SD expression:", round(sd_expr, 2), "log2(FPKM)\n\n")
+
+# Chi-squared goodness of fit test for normality
+# df = number of bins - 1 - number of estimated parameters (2 for normal: mean, sd)
+normality_test <- chisq.test(as.numeric(observed_counts), p = bin_probs)
+
+cat("Testing normality of gene expression:\n")
+norm_comparison <- data.frame(
+  Bin = 1:n_bins,
+  Range = paste0("(", round(expression_breaks[1:n_bins], 1), ", ",
+                round(expression_breaks[2:(n_bins+1)], 1), "]"),
+  Observed = as.numeric(observed_counts),
+  Expected = round(expected_counts, 1)
+)
+print(norm_comparison)
+
+cat("\nChi-squared goodness of fit test:\n")
+cat("Chi-squared =", round(normality_test$statistic, 3), "\n")
+cat("df =", normality_test$parameter, "\n")
+cat("p-value =", format(normality_test$p.value, digits = 4), "\n")
+
+# Alternative: Shapiro-Wilk test for comparison (for smaller samples)
+if(n_genes <= 5000) {
+  shapiro_test <- shapiro.test(log_expression)
+  cat("\nShapiro-Wilk test (for comparison):\n")
+  cat("W =", round(shapiro_test$statistic, 4), "\n")
+  cat("p-value =", format(shapiro_test$p.value, digits = 4), "\n")
+}
+
+# Visualization: Q-Q plot and histogram
+library(patchwork)
+
+# Q-Q plot
+qq_data <- data.frame(
+  Theoretical = qnorm(ppoints(n_genes)),
+  Sample = sort(scale(log_expression)[, 1])
+)
+
+p1 <- ggplot(qq_data, aes(x = Theoretical, y = Sample)) +
+  geom_point(alpha = 0.6) +
+  geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
+  labs(title = "Q-Q Plot: Testing Normality",
+       x = "Theoretical Quantiles", y = "Sample Quantiles") +
+  theme_minimal()
+
+# Histogram with normal overlay
+p2 <- ggplot(data.frame(expression = log_expression), aes(x = expression)) +
+  geom_histogram(aes(y = ..density..), bins = 20, alpha = 0.7, fill = "skyblue") +
+  stat_function(fun = dnorm, args = list(mean = mean_expr, sd = sd_expr),
+                color = "red", size = 1, linetype = "dashed") +
+  labs(title = "Gene Expression Distribution",
+       subtitle = "Blue: Observed, Red: Normal distribution",
+       x = "log2(FPKM)", y = "Density") +
+  theme_minimal()
+
+print(p1 | p2)
+
+# Test for other distributions
+cat("\nTesting alternative distributions:\n")
+
+# Log-normal test (on original scale)
+original_data <- 2^log_expression
+lnorm_fit <- fitdist(original_data, "lnorm")
+lnorm_gof <- gofstat(lnorm_fit)
+cat("Log-normal distribution:\n")
+cat("  Anderson-Darling A² =", round(lnorm_gof$ad, 3), "\n")
+cat("  Kolmogorov-Smirnov D =", round(lnorm_gof$ks, 3), "\n")
+
+# Gamma distribution test
+gamma_fit <- fitdist(original_data, "gamma")
+gamma_gof <- gofstat(gamma_fit)
+cat("Gamma distribution:\n")
+cat("  Anderson-Darling A² =", round(gamma_gof$ad, 3), "\n")
+cat("  Kolmogorov-Smirnov D =", round(gamma_gof$ks, 3), "\n")
+```
+
+#### Example 5: Mutation Rate Distribution
+
+```{r}
+#| echo: true
+#| eval: false
+# Example: Testing if mutations follow a Poisson distribution
+set.seed(3579)
+
+# Simulate mutation count data across genomic regions
+n_regions <- 200
+mean_mutations <- 2.5
+
+# Generate data with slight overdispersion (negative binomial)
+# But test against Poisson assumption
+observed_mutations <- rnbinom(n_regions, size = 10, mu = mean_mutations)
+
+# Create frequency table
+mutation_counts <- table(observed_mutations)
+max_mutations <- max(observed_mutations)
+
+# Expected frequencies under Poisson distribution
+lambda_est <- mean(observed_mutations)
+expected_poisson <- dpois(0:max_mutations, lambda_est) * n_regions
+
+# Match observed and expected for chi-squared test
+observed_freq <- numeric(max_mutations + 1)
+names(observed_freq) <- 0:max_mutations
+
+for(i in names(mutation_counts)) {
+  observed_freq[i] <- mutation_counts[i]
+}
+
+# Combine rare categories (expected < 5) for valid chi-squared test
+combine_threshold <- 5
+last_valid_category <- max_mutations
+
+for(i in max_mutations:0) {
+  if(expected_poisson[i + 1] < combine_threshold) {
+    last_valid_category <- i - 1
+  } else {
+    break
+  }
+}
+
+if(last_valid_category < max_mutations) {
+  # Combine categories with expected < 5
+  observed_combined <- observed_freq[1:(last_valid_category + 1)]
+  observed_combined[length(observed_combined)] <- sum(observed_freq[(last_valid_category + 1):length(observed_freq)])
+
+  expected_combined <- expected_poisson[1:(last_valid_category + 1)]
+  expected_combined[length(expected_combined)] <- sum(expected_poisson[(last_valid_category + 1):length(expected_poisson)])
+
+  category_names <- c(0:last_valid_category, paste0(last_valid_category + 1, "+"))
+} else {
+  observed_combined <- observed_freq
+  expected_combined <- expected_poisson
+  category_names <- 0:max_mutations
+}
+
+cat("Mutation Distribution Analysis:\n")
+cat("==============================\n")
+cat("Sample size:", n_regions, "genomic regions\n")
+cat("Mean mutations per region:", round(lambda_est, 2), "\n")
+cat("Variance:", round(var(observed_mutations), 2), "\n")
+cat("Variance-to-mean ratio:", round(var(observed_mutations)/mean(observed_mutations), 2), "\n")
+cat("(Poisson: ratio = 1, Overdispersed: ratio > 1)\n\n")
+
+# Chi-squared goodness of fit test
+poisson_test <- chisq.test(observed_combined, p = expected_combined/sum(expected_combined))
+
+cat("Testing Poisson distribution:\n")
+poisson_comparison <- data.frame(
+  Mutations = category_names,
+  Observed = observed_combined,
+  Expected_Poisson = round(expected_combined, 1),
+  Deviation = round(observed_combined - expected_combined, 1)
+)
+print(poisson_comparison)
+
+cat("\nChi-squared goodness of fit test:\n")
+cat("Chi-squared =", round(poisson_test$statistic, 3), "\n")
+cat("df =", poisson_test$parameter, "\n")
+cat("p-value =", format(poisson_test$p.value, digits = 4), "\n")
+
+if(poisson_test$p.value > 0.05) {
+  cat("Conclusion: Mutation counts consistent with Poisson distribution\n")
+} else {
+  cat("Conclusion: Mutation counts deviate from Poisson distribution\n")
+  cat("Consider: Negative binomial (overdispersion) or zero-inflated models\n")
+}
+
+# Visualization
+mutation_data <- data.frame(
+  Mutations = factor(rep(category_names, 2)),
+  Count = c(observed_combined, expected_combined),
+  Type = rep(c("Observed", "Expected (Poisson)"), each = length(category_names))
+)
+
+ggplot(mutation_data, aes(x = Mutations, y = Count, fill = Type)) +
+  geom_col(position = "dodge", alpha = 0.7) +
+  scale_fill_manual(values = c("purple", "gold")) +
+  labs(title = "Mutation Count Distribution",
+       subtitle = paste("Testing Poisson model (λ =", round(lambda_est, 2), ")"),
+       x = "Number of Mutations", y = "Frequency") +
+  theme_minimal()
+
+# Additional overdispersion test
+cat("\nOverdispersion test:\n")
+if(var(observed_mutations) > mean(observed_mutations) * 1.2) {
+  cat("Evidence of overdispersion - consider negative binomial model\n")
+
+  # Fit negative binomial for comparison
+  library(MASS)
+  nb_params <- fitdistr(observed_mutations, "negative binomial")
+  cat("Negative binomial parameters:\n")
+  cat("  size =", round(nb_params$estimate["size"], 2), "\n")
+  cat("  mu =", round(nb_params$estimate["mu"], 2), "\n")
+} else {
+  cat("No strong evidence of overdispersion\n")
+}
+```
+
+### Model Adequacy Testing
+
+#### Example 6: Testing Regression Model Assumptions
+
+```{r}
+#| echo: true
+#| eval: false
+# Example: Testing normality of residuals in biological regression
+set.seed(4680)
+
+# Simulate dose-response data with non-normal errors
+n_doses <- 60
+drug_dose <- rep(c(0, 1, 2, 5, 10, 20), each = 10)
+
+# True response with slight heteroscedasticity
+true_response <- 10 + 3 * log(drug_dose + 1) + rnorm(n_doses, sd = 0.5 + 0.1 * drug_dose)
+
+dose_response_data <- data.frame(
+  Dose = drug_dose,
+  Response = true_response
+)
+
+# Fit linear regression model
+response_model <- lm(Response ~ log(Dose + 1), data = dose_response_data)
+summary(response_model)
+
+# Extract residuals
+residuals_data <- data.frame(
+  Fitted = fitted(response_model),
+  Residuals = residuals(response_model),
+  Standardized_Residuals = rstandard(response_model)
+)
+
+# Test normality of residuals using chi-squared
+n_bins_resid <- 6
+residual_breaks <- quantile(residuals_data$Standardized_Residuals,
+                           probs = seq(0, 1, length.out = n_bins_resid + 1))
+observed_resid_counts <- table(cut(residuals_data$Standardized_Residuals,
+                                  breaks = residual_breaks, include.lowest = TRUE))
+
+# Expected frequencies under standard normal
+resid_bin_probs <- numeric(n_bins_resid)
+for(i in 1:n_bins_resid) {
+  lower <- residual_breaks[i]
+  upper <- residual_breaks[i + 1]
+  resid_bin_probs[i] <- pnorm(upper) - pnorm(lower)
+}
+
+expected_resid_counts <- resid_bin_probs * n_doses
+
+# Chi-squared test for residual normality
+residual_normality_test <- chisq.test(as.numeric(observed_resid_counts),
+                                     p = resid_bin_probs)
+
+cat("Regression Model Diagnostics:\n")
+cat("============================\n")
+cat("Testing normality of standardized residuals:\n")
+
+resid_comparison <- data.frame(
+  Bin = 1:n_bins_resid,
+  Observed = as.numeric(observed_resid_counts),
+  Expected = round(expected_resid_counts, 1)
+)
+print(resid_comparison)
+
+cat("\nChi-squared test for residual normality:\n")
+cat("Chi-squared =", round(residual_normality_test$statistic, 3), "\n")
+cat("df =", residual_normality_test$parameter, "\n")
+cat("p-value =", format(residual_normality_test$p.value, digits = 4), "\n")
+
+# Diagnostic plots
+library(patchwork)
+
+p1 <- ggplot(residuals_data, aes(x = Fitted, y = Residuals)) +
+  geom_point(alpha = 0.7) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  geom_smooth(se = FALSE, color = "blue") +
+  labs(title = "Residuals vs Fitted Values",
+       x = "Fitted Values", y = "Residuals") +
+  theme_minimal()
+
+p2 <- ggplot(residuals_data, aes(sample = Standardized_Residuals)) +
+  geom_qq() +
+  geom_qq_line(color = "red", linetype = "dashed") +
+  labs(title = "Q-Q Plot of Standardized Residuals",
+       x = "Theoretical Quantiles", y = "Sample Quantiles") +
+  theme_minimal()
+
+print(p1 | p2)
+
+# Additional tests
+cat("\nAdditional normality tests:\n")
+if(n_doses <= 5000) {
+  shapiro_resid <- shapiro.test(residuals_data$Standardized_Residuals)
+  cat("Shapiro-Wilk test: W =", round(shapiro_resid$statistic, 4),
+      ", p =", format(shapiro_resid$p.value, digits = 4), "\n")
+}
+
+# Test for heteroscedasticity
+library(car)
+bp_test <- ncvTest(response_model)
+cat("Breusch-Pagan test for heteroscedasticity:\n")
+cat("Chi-squared =", round(bp_test$ChiSquare, 3),
+    ", p =", format(bp_test$p, digits = 4), "\n")
+
+# Recommendations based on test results
+cat("\nModel adequacy assessment:\n")
+if(residual_normality_test$p.value < 0.05) {
+  cat("- Residuals deviate from normality - consider transformations\n")
+} else {
+  cat("- Residuals approximately normal\n")
+}
+
+if(bp_test$p < 0.05) {
+  cat("- Evidence of heteroscedasticity - consider weighted regression\n")
+} else {
+  cat("- Homoscedasticity assumption satisfied\n")
+}
+```
+
+::: {.callout-warning}
+## Important Considerations for Chi-squared Goodness of Fit Tests
+
+1. **Sample size requirements**: Expected frequency ≥ 5 in each category
+2. **Parameter estimation**: Degrees of freedom = categories - 1 - estimated parameters
+3. **Binning continuous data**: Choice of bins can affect results
+4. **Multiple testing**: Correct for multiple comparisons when testing many distributions
+5. **Biological interpretation**: Statistical significance doesn't always imply biological significance
+6. **Alternative tests**: Consider Kolmogorov-Smirnov, Anderson-Darling for continuous data
+:::
+
+::: {.callout-note}
+## Key Applications in Biology
+
+1. **Population genetics**: Hardy-Weinberg equilibrium, linkage disequilibrium
+2. **Inheritance patterns**: Mendelian ratios, segregation distortion
+3. **Distribution modeling**: Gene expression, mutation rates, species abundance
+4. **Model validation**: Checking assumptions in regression, ANOVA
+5. **Quality control**: Experimental design validation, batch effect detection
+6. **Evolutionary biology**: Neutral theory testing, selection detection
+:::
+
+### Python Implementation
+
+```{python}
+#| echo: true
+#| eval: false
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+from scipy.stats import chi2
+
+# Hardy-Weinberg equilibrium test
+def hardy_weinberg_test(genotype_counts, alpha=0.05):
+    """
+    Test Hardy-Weinberg equilibrium for a single gene with two alleles
+
+    Parameters:
+    genotype_counts: dict with keys 'AA', 'Aa', 'aa' and their counts
+    alpha: significance level
+
+    Returns:
+    dict with test results
+    """
+    # Calculate total individuals and allele frequencies
+    total = sum(genotype_counts.values())
+
+    # Estimate allele frequencies
+    freq_A = (2 * genotype_counts['AA'] + genotype_counts['Aa']) / (2 * total)
+    freq_a = 1 - freq_A
+
+    # Expected genotype frequencies under HWE
+    expected_counts = {
+        'AA': freq_A**2 * total,
+        'Aa': 2 * freq_A * freq_a * total,
+        'aa': freq_a**2 * total
+    }
+
+    # Chi-squared test
+    observed = list(genotype_counts.values())
+    expected = list(expected_counts.values())
+
+    chi2_stat = sum((o - e)**2 / e for o, e in zip(observed, expected))
+    df = len(observed) - 1 - 1  # -1 for estimated parameter (allele freq)
+    p_value = 1 - chi2.cdf(chi2_stat, df)
+
+    return {
+        'chi2_statistic': chi2_stat,
+        'degrees_of_freedom': df,
+        'p_value': p_value,
+        'freq_A': freq_A,
+        'freq_a': freq_a,
+        'expected_counts': expected_counts,
+        'significant': p_value < alpha
+    }
+
+# Example usage
+genotype_data = {'AA': 85, 'Aa': 435, 'aa': 480}
+hwe_result = hardy_weinberg_test(genotype_data)
+
+print("Hardy-Weinberg Equilibrium Test Results:")
+print(f"Chi-squared: {hwe_result['chi2_statistic']:.3f}")
+print(f"p-value: {hwe_result['p_value']:.6f}")
+print(f"A allele frequency: {hwe_result['freq_A']:.3f}")
+print(f"a allele frequency: {hwe_result['freq_a']:.3f}")
+
+# Mendelian ratio test
+def mendelian_ratio_test(observed_counts, expected_ratio, alpha=0.05):
+    """
+    Test observed counts against expected Mendelian ratio
+
+    Parameters:
+    observed_counts: list of observed counts
+    expected_ratio: list of expected ratios (e.g., [9, 3, 3, 1])
+    alpha: significance level
+
+    Returns:
+    dict with test results
+    """
+    total_observed = sum(observed_counts)
+
+    # Calculate expected counts
+    total_ratio = sum(expected_ratio)
+    expected_counts = [(r / total_ratio) * total_observed for r in expected_ratio]
+
+    # Chi-squared test
+    chi2_stat = sum((o - e)**2 / e for o, e in zip(observed_counts, expected_counts))
+    df = len(observed_counts) - 1
+    p_value = 1 - chi2.cdf(chi2_stat, df)
+
+    return {
+        'chi2_statistic': chi2_stat,
+        'degrees_of_freedom': df,
+        'p_value': p_value,
+        'expected_counts': expected_counts,
+        'observed_ratio': [o / min(observed_counts) for o in observed_counts],
+        'significant': p_value < alpha
+    }
+
+# Example: Test 9:3:3:1 ratio
+f2_data = [315, 108, 101, 32]
+mendelian_result = mendelian_ratio_test(f2_data, [9, 3, 3, 1])
+
+print("\nMendelian Ratio Test (9:3:3:1):")
+print(f"Chi-squared: {mendelian_result['chi2_statistic']:.3f}")
+print(f"p-value: {mendelian_result['p_value']:.6f}")
+print(f"Observed ratio: {[round(r, 1) for r in mendelian_result['observed_ratio']]}")
+
+# Visualization
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+# HWE plot
+genotypes = list(genotype_data.keys())
+observed_hwe = list(genotype_data.values())
+expected_hwe = list(hwe_result['expected_counts'].values())
+
+x = np.arange(len(genotypes))
+width = 0.35
+
+ax1.bar(x - width/2, observed_hwe, width, label='Observed', alpha=0.7)
+ax1.bar(x + width/2, expected_hwe, width, label='Expected (HWE)', alpha=0.7)
+ax1.set_xlabel('Genotype')
+ax1.set_ylabel('Count')
+ax1.set_title('Hardy-Weinberg Equilibrium Test')
+ax1.set_xticks(x)
+ax1.set_xticklabels(genotypes)
+ax1.legend()
+
+# Mendelian ratio plot
+phenotypes = ['Purple Round', 'Purple Wrinkled', 'Yellow Round', 'Yellow Wrinkled']
+observed_mendel = f2_data
+expected_mendel = mendelian_result['expected_counts']
+
+x = np.arange(len(phenotypes))
+ax2.bar(x - width/2, observed_mendel, width, label='Observed', alpha=0.7)
+ax2.bar(x + width/2, expected_mendel, width, label='Expected (9:3:3:1)', alpha=0.7)
+ax2.set_xlabel('Phenotype')
+ax2.set_ylabel('Count')
+ax2.set_title('Mendelian Inheritance Test')
+ax2.set_xticks(x)
+ax2.set_xticklabels(phenotypes, rotation=45)
+ax2.legend()
+
+plt.tight_layout()
+plt.show()
+```
+
 ## Linear Regression in Biological Research
 
 ### The Linear Model
